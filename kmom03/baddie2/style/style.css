@@ -1,0 +1,32 @@
+.content {
+	/* If #content position is absolute, the #baddie position will be given in reference to it's parent, which is #content
+	 * Makes it easier to do collision calculations */
+	position: absolute;
+	width: 400px;
+	height: 300px;
+	border: solid 1px #000;
+}
+
+.baddie{
+	/* Baddie's postition must be absolute, otherwise we can't move him by changing top and left */
+	position: absolute;
+	height: 50px;
+	width: 50px;
+
+	/* Change this to your own baddie! */
+	background: url("../img/viking.png");
+	background-size: 50px;
+	transition: all 0.35s ease;
+}
+
+.baddie-left {
+	transform: rotateY(180deg);
+}
+
+.baddie-jumping {
+	transform: scale(1.5) translateY(-40px);
+}
+
+.baddie-left.baddie-jumping {
+    transform: scale(1.5) translateY(-40px) rotateY(180deg);
+}
