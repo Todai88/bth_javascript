@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Lab 3 - javascript1</title>
+<style>
+body {
+    margin: 8px auto;
+    max-width: 700px;
+}
+
+div.answer {
+  font-family: "Courier New", monospace;
+  white-space: pre;
+  margin-bottom: 1em;
+}
+
+.fail {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+</style>
+</head>
+<body>
+
+<pre>
+2381f3f7aa0352ca06e23cb904ee0b04
+javascript1
+lab3
+jobk16
+2016-11-01 20:49:42
+v2.2.21 (2016-10-07)
+</pre>
+
+<p><i>Generated 2016-11-01 21:49:42 by <a href="https://github.com/mosbth/lab">dbwebb lab-utility</a> v2.2.21 (2016-10-07).</i></p>
+<hr>
+
+<h1>Lab 3 - javascript1</h1>
+<p>Practise arrays. You might find useful help here:<br />
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array</p>
+
+
+<h2>1. Arrays</h2>
+<p>To copy an array use array.slice() to make a real copy, not a shallow one.</p>
+
+
+<h3>Exercise 1.1</h3>
+<p>Create a variable &#8216;array1&#8217; holding an array with the numbers 41,76,-16,0,-462,699,4,1300.</p>
+
+<p>Answer with the array.</p>
+
+
+
+
+
+
+<h3>Exercise 1.2</h3>
+<p>Use the variable &#8216;array1&#8217;. How many items does the array have?</p>
+
+<p>Answer with the result.</p>
+
+
+
+
+
+
+<h3>Exercise 1.3</h3>
+<p>Create a variable &#8216;array2&#8217; holding an array with the words: milk,juice,lemonade,soda,water.</p>
+
+<p>Answer with the array.</p>
+
+
+
+
+
+
+<h3>Exercise 1.4</h3>
+<p>Return the element on position: 1 in &#8216;array2&#8217;.</p>
+
+<p>Answer with the result.</p>
+
+
+
+
+
+
+<h3>Exercise 1.5</h3>
+<p>Return element 1 in &#8216;array2&#8217;. Answer with the result.</p>
+
+
+
+
+
+
+<h3>Exercise 1.6</h3>
+<p>Use the variable &#8216;array2&#8217;. Concatenate the first item and the last item as a string. Separate the string with &#8216;-&#8216;.</p>
+
+<p>Answer with the result.</p>
+
+
+
+
+
+
+<h3>Exercise 1.7</h3>
+<p>Merge the two arrays &#8216;array1&#8217; and &#8216;array2&#8217; into a third variable &#8216;array3&#8217;.</p>
+
+<p>Answer with &#8216;array3&#8217;.</p>
+
+
+
+
+
+
+<h3>Exercise 1.8</h3>
+<p>Reverse the order of the elements in array &#8216;array3&#8217;.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 1.9</h3>
+<p>Create a variable &#8216;array21&#8217; as a clone of &#8216;array2&#8217;. Sort &#8216;array21&#8217;. Answer with the resulting array.<br />
+(Hint: http://stackoverflow.com/questions/3978492/javascript-fastest-way-to-duplicate-an-array-slice-vs-for-loop)</p>
+
+
+
+
+
+
+<h3>Exercise 1.10</h3>
+<p>Create a variable &#8216;array11&#8217; as a copy of &#8216;array1&#8217;. Sort &#8216;array11&#8217; according to its values. The smallest value comes first and the largest value comes last.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 1.11</h3>
+<p>Create a variable &#8216;array22&#8217; which holds the same content as &#8216;array2&#8217; - but all strings are uppercase. Use the built-in Array-function &#8216;map()&#8217; to solve it.</p>
+
+<p>Answer with the array.</p>
+
+
+
+
+
+
+<h3>Exercise 1.12</h3>
+<p>Create a new array &#8216;messageOfToday&#8217;. It should contain all items from &#8216;array2&#8217; where each item is concatenated with the string &#8217; is good for you!&#8217;. Use the built-in array-function &#8216;forEach()&#8217; to solve it. Each sentence shold start with a capital letter.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 1.13</h3>
+<p>Create a new array &#8216;array12&#8217;. It should contain all positive numbers from the &#8216;array1&#8217;. Use the built-in array-function &#8216;filter()&#8217; to solve it.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 1.14</h3>
+<p>Create a variable &#8216;iLike&#8217;. It should contain the string &#8216;I like &#8217; and then all items from &#8216;array2&#8217; separated with &#8216;, &#8216;. End the string with a &#8216;!&#8217;. Use the built-in array-function &#8216;join()&#8217; to solve it.</p>
+
+<p>Answer with the string.</p>
+
+
+
+
+
+
+<h3>Exercise 1.15</h3>
+<p>Create a function &#8216;arraySum&#8217; that takes one array as argument and returns the sum of all elements in that array.</p>
+
+<p>Try out the function using &#8216;array1&#8217; and answer with the result.</p>
+
+
+
+
+
+
+<h3>Exercise 1.16</h3>
+<p>Create a function &#8216;arrayAverage&#8217; that takes one array as argument and returns the average of all elements in that array.</p>
+
+<p>Try out the function using &#8216;array1&#8217; and answer with the rounded integer result.</p>
+
+
+
+
+
+
+
+<h2>2. Modify arrays</h2>
+<p>Learn how to modify arrays.</p>
+
+
+<h3>Exercise 2.1</h3>
+<p>Create a new array &#8216;myArray&#8217; and make it a copy of &#8216;array1&#8217;. Get the last element from &#8216;myArray&#8217; using the built-in array-function &#8216;pop()&#8217;.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 2.2</h3>
+<p>Add the boolean value &#8216;true&#8217; to the array &#8216;myArray&#8217; using built-in array-function &#8216;push()&#8217;.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 2.3</h3>
+<p>Use the built-in array-function &#8216;shift()&#8217; to remove the first item from the array &#8216;myArray&#8217;.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 2.4</h3>
+<p>Add the float number &#8216;3.14&#8217; to the beginning of &#8216;myArray&#8217; using built-in array-function &#8216;unshift()&#8217;.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 2.5</h3>
+<p>Change &#8216;myArray&#8217; element 3 and 4 to the boolean value &#8216;false&#8217; using built-in array-function &#8216;splice()&#8217;.</p>
+
+<p>Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 2.6</h3>
+<p>Extract the last two elements as a slice from &#8216;myArray&#8217; using built-in array-function &#8216;slice()&#8217;.</p>
+
+<p>Answer with the slice array.</p>
+
+
+
+
+
+
+<h3>Exercise 2.7</h3>
+<p>Remove item 4 and 5 in &#8216;myArray&#8217;. Answer with the resulting array.</p>
+
+
+
+
+
+
+<h3>Exercise 2.8</h3>
+<p>Insert the string &#8216;MEGA&#8217; after item 3 in &#8216;myArray&#8217;. Answer with the resulting array.</p>
+
+
+
+
+
+
+
+<hr>
+<code>2381f3f7aa0352ca06e23cb904ee0b04</code>
+
+</body>
+</html>

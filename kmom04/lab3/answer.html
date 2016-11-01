@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Lab 3 - javascript1</title>
+<style>
+body {
+    margin: 8px auto;
+    max-width: 700px;
+}
+
+div.answer {
+  font-family: "Courier New", monospace;
+  white-space: pre;
+  margin-bottom: 1em;
+}
+
+.fail {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+</style>
+</head>
+<body>
+
+<pre>
+2381f3f7aa0352ca06e23cb904ee0b04
+javascript1
+lab3
+jobk16
+2016-11-01 20:49:42
+v2.2.21 (2016-10-07)
+</pre>
+
+<p><i>Generated 2016-11-01 21:49:42 by <a href="https://github.com/mosbth/lab">dbwebb lab-utility</a> v2.2.21 (2016-10-07).</i></p>
+<hr>
+
+<h1>Lab 3 - javascript1</h1>
+<p>Solve the exercises in the file <code>answer.js</code> and reload this file to see the outcome. Check the console for errors.</p>
+
+<div id="answer1.1" class="answer"></div>
+<div id="answer1.2" class="answer"></div>
+<div id="answer1.3" class="answer"></div>
+<div id="answer1.4" class="answer"></div>
+<div id="answer1.5" class="answer"></div>
+<div id="answer1.6" class="answer"></div>
+<div id="answer1.7" class="answer"></div>
+<div id="answer1.8" class="answer"></div>
+<div id="answer1.9" class="answer"></div>
+<div id="answer1.10" class="answer"></div>
+<div id="answer1.11" class="answer"></div>
+<div id="answer1.12" class="answer"></div>
+<div id="answer1.13" class="answer"></div>
+<div id="answer1.14" class="answer"></div>
+<div id="answer1.15" class="answer"></div>
+<div id="answer1.16" class="answer"></div>
+<div id="answer2.1" class="answer"></div>
+<div id="answer2.2" class="answer"></div>
+<div id="answer2.3" class="answer"></div>
+<div id="answer2.4" class="answer"></div>
+<div id="answer2.5" class="answer"></div>
+<div id="answer2.6" class="answer"></div>
+<div id="answer2.7" class="answer"></div>
+<div id="answer2.8" class="answer"></div>
+
+<p id="summary"></p>
+
+<hr>
+<code>2381f3f7aa0352ca06e23cb904ee0b04</code>
+
+<script type="text/javascript">
+
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l = this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;
+        }
+        else if (this[i] !== array[i]) {
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;
+        }
+    }
+    return true;
+};
+
+window.dbwebb = {
+
+    "answers": {
+
+        		"1.1": [
+    41,
+    76,
+    -16,
+    0,
+    -462,
+    699,
+    4,
+    1300
+],
+		"1.2": 8,
+		"1.3": [
+    "milk",
+    "juice",
+    "lemonade",
+    "soda",
+    "water"
+],
+		"1.4": "juice",
+		"1.5": "milk",
+		"1.6": "milk-water",
+		"1.7": [
+    41,
+    76,
+    -16,
+    0,
+    -462,
+    699,
+    4,
+    1300,
+    "milk",
+    "juice",
+    "lemonade",
+    "soda",
+    "water"
+],
+		"1.8": [
+    "water",
+    "soda",
+    "lemonade",
+    "juice",
+    "milk",
+    1300,
+    4,
+    699,
+    -462,
+    0,
+    -16,
+    76,
+    41
+],
+		"1.9": [
+    "juice",
+    "lemonade",
+    "milk",
+    "soda",
+    "water"
+],
+		"1.10": [
+    -462,
+    -16,
+    0,
+    4,
+    41,
+    76,
+    699,
+    1300
+],
+		"1.11": [
+    "MILK",
+    "JUICE",
+    "LEMONADE",
+    "SODA",
+    "WATER"
+],
+		"1.12": [
+    "Milk is good for you!",
+    "Juice is good for you!",
+    "Lemonade is good for you!",
+    "Soda is good for you!",
+    "Water is good for you!"
+],
+		"1.13": [
+    41,
+    76,
+    699,
+    4,
+    1300
+],
+		"1.14": "I like milk, juice, lemonade, soda, water!",
+		"1.15": 1642,
+		"1.16": 205,
+		"2.1": [
+    41,
+    76,
+    -16,
+    0,
+    -462,
+    699,
+    4
+],
+		"2.2": [
+    41,
+    76,
+    -16,
+    0,
+    -462,
+    699,
+    4,
+    true
+],
+		"2.3": [
+    76,
+    -16,
+    0,
+    -462,
+    699,
+    4,
+    true
+],
+		"2.4": [
+    3.14,
+    76,
+    -16,
+    0,
+    -462,
+    699,
+    4,
+    true
+],
+		"2.5": [
+    3.14,
+    76,
+    false,
+    false,
+    -462,
+    699,
+    4,
+    true
+],
+		"2.6": [
+    4,
+    true
+],
+		"2.7": [
+    3.14,
+    76,
+    false,
+    699,
+    4,
+    true
+],
+		"2.8": [
+    3.14,
+    76,
+    false,
+    "MEGA",
+    699,
+    4,
+    true
+],
+
+    },
+    "correct": 0,
+    "failed": 0,
+    "notDone": 0,
+    "arrayCheck": function (answer1, answer2) {
+        if (answer1 instanceof Array && answer2 instanceof Array) {
+            return answer1.equals(answer2);
+        }
+        return false;
+    },
+    "assert": function(question, answer, hint) {
+        var element = document.getElementById("answer" + question),
+            status,
+            noanswer = "Replace this text with the variable holding the answer.";
+
+        hint = hint || false;
+
+        if (answer === noanswer) {
+            status = question + " NOT YET DONE.";
+            window.dbwebb.notDone += 1;
+        } else if (answer === this.answers[question]
+                   || this.arrayCheck(answer, this.answers[question])) {
+            status = question + " CORRECT. Well done!\n" + JSON.stringify(answer) + " (" + typeof answer + ")";
+            window.dbwebb.correct += 1;
+        } else {
+            status = question + " FAIL.\nYou said:\n" + JSON.stringify(answer) + " (" + typeof answer + ")";
+            if (hint) {
+                status += "\nHint:\n" + JSON.stringify(this.answers[question]) + " (" + typeof this.answers[question] + ")";
+            }
+            window.dbwebb.failed += 1;
+        }
+
+        console.log(status);
+        element.innerHTML = status;
+    },
+    "exitWithSummary": function() {
+        var element = document.getElementById("summary"),
+            status;
+
+        status  = "Done with status ";
+        status += Object.keys(window.dbwebb.answers).length;
+        status += "/";
+        status += window.dbwebb.correct;
+        status += "/";
+        status += window.dbwebb.failed;
+        status += "/";
+        status += window.dbwebb.notDone;
+        status += " (Total/Correct/Failed/Not done).";
+
+        console.log(status);
+        element.innerHTML = status;
+    }
+};
+
+</script>
+<script src="answer.js" type="text/javascript"></script>
+
+</body>
+</html>

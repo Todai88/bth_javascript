@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Lab 4 - javascript1</title>
+<style>
+body {
+    margin: 8px auto;
+    max-width: 700px;
+}
+
+div.answer {
+  font-family: "Courier New", monospace;
+  white-space: pre;
+  margin-bottom: 1em;
+}
+
+.fail {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+</style>
+</head>
+<body>
+
+<pre>
+7a11ac5b7d8538ff1943b618d5cd5a63
+javascript1
+lab4
+jobk16
+2016-11-01 20:49:54
+v2.2.21 (2016-10-07)
+</pre>
+
+<p><i>Generated 2016-11-01 21:49:54 by <a href="https://github.com/mosbth/lab">dbwebb lab-utility</a> v2.2.21 (2016-10-07).</i></p>
+<hr>
+
+<h1>Lab 4 - javascript1</h1>
+<p>Practice basics on objects.</p>
+
+
+<h2>1. Create object</h2>
+<p>Start by creating an empty object called &#8216;person&#8217; by using the object literal.</p>
+
+
+<h3>Exercise 1.1</h3>
+<p>Give your person-object the property &#8216;firstName&#8217; with a value of &#8216;Henri&#8217;. Add a method called &#8216;print1()&#8217; that returns a presentation of the object, like this: &#8216;My name is Henri.&#8217; Use &#8216;this.firstName&#8217; to construct the string.</p>
+
+<p>Answer with the result from calling &#8216;person.print1()&#8217;.</p>
+
+
+
+
+
+
+<h3>Exercise 1.2</h3>
+<p>Add properties &#8216;lastName&#8217; and &#8216;nationality&#8217; to your person-object. Their values should be &#8216;Becquerel&#8217; and &#8216;France&#8217;.</p>
+
+<p>Create the method &#8216;person.print2()&#8217; which should say: &#8216;My name is Henri Becquerel from France.&#8217;.</p>
+
+
+
+
+
+
+<h3>Exercise 1.3</h3>
+<p>Add the property &#8216;born&#8217; with the value of a Date object: &#8216;1852-12-15&#8217;. Create a method &#8216;print3()&#8217; that says exactly the same as &#8216;print2()&#8217; followed by &#8216;I was born 1852.&#8217;.</p>
+
+
+
+
+
+
+<h3>Exercise 1.4</h3>
+<p>Create a second person, called &#8216;person2&#8217; by using built-in function &#8216;Object.create()&#8217;. The person2 should have the following properties: &#8216;Albert, Einstein, Germany, 1879-03-14&#8217;.</p>
+
+<p>Print out details on the second person using &#8216;person2.print3()&#8217;.</p>
+
+
+
+
+
+
+
+<h2>2. More on objects</h2>
+<p>Even more on objects!</p>
+
+
+<h3>Exercise 2.1</h3>
+<p>Create a object called &#8216;shape&#8217; with the properties: &#8216;x&#8217;, &#8216;y&#8217;, &#8216;height&#8217;, &#8216;width&#8217; and &#8216;print&#8217;. Create a new object from &#8216;shape&#8217; called &#8216;shape1&#8217; and initiate the properties with: x:29, y:56, height:17, width: 19.</p>
+
+<p>Use the &#8216;print&#8217; method to print out the assigned values as: &#8216;x:?, y:?, height:?, width:?&#8217;</p>
+
+
+
+
+
+
+<h3>Exercise 2.2</h3>
+<p>Create a method &#8216;shape.init(x, y, height, width)&#8217; that helps you to initiate a object. Try it out by re-initing &#8216;shape1&#8217; using the method.</p>
+
+<p>Answer with &#8216;shape1.print()&#8217;.</p>
+
+
+
+
+
+
+<h3>Exercise 2.3</h3>
+<p>Create another object from &#8216;shape&#8217; called &#8216;shape2&#8217; and initiate the properties with: x:64, y:27, height:12, width: 12.</p>
+
+<p>Use the &#8216;print&#8217; method to print out the assigned values.</p>
+
+
+
+
+
+
+<h3>Exercise 2.4</h3>
+<p>Create a method in &#8216;shape&#8217; that calculates and returns the area of the shape. Try it out by calling it for &#8216;shape1&#8217; and &#8216;shape2&#8217;.</p>
+
+<p>Answer with both values, separated by &#8216;, &#8217; (notice the space after the comma).</p>
+
+
+
+
+
+
+<h3>Exercise 2.5</h3>
+<p>Create a method &#8216;shape.overlapPoint(posX, posY)&#8217; that checks if a position x, y is within the current shape. Or, the shape overlaps that position. The shapes position x and y is top left of the shape. Return true or false. Test by checking if x:47, y:72 is within &#8216;shape1&#8217; and if x:63, y:26 is within &#8216;shape2&#8217;.</p>
+
+<p>Return the result separated by &#8216;, &#8217; (notice the space after the comma).</p>
+
+
+
+
+
+
+<h3>Exercise 2.6</h3>
+<p>Create a method &#8216;shape.overlapShape()&#8217; that takes a shape as argument and checks if the shapes overlaps (colliding bodies). Return true or false. Create a new &#8216;shape3&#8217; and initiate the properties with: x:39, y:65, height:17, width: 19.</p>
+
+<p>Return the result from checking &#8216;shape1.overlapShape(shape3)&#8217;.</p>
+
+
+
+
+
+
+<h3>Exercise 2.7</h3>
+<p>Create a method &#8216;shape.move(moveX, moveY)&#8217; which moves the shape from its current position by adding &#8216;x += moveX&#8217; and &#8216;y += moveY&#8217;. Try it out by moving &#8216;shape3&#8217; using &#8216;moveX: 19, moveY: 17&#8217;.</p>
+
+<p>Re-check if the bodies &#8216;shape1&#8217; and &#8216;shape3&#8217; collides.</p>
+
+
+
+
+
+
+
+<hr>
+<code>7a11ac5b7d8538ff1943b618d5cd5a63</code>
+
+</body>
+</html>
