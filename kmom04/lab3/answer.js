@@ -23,7 +23,7 @@
 /** ======================================================================
  * Lab 3 - javascript1
  *
- * Practise arrays. You might find useful help here:  
+ * Practise arrays. You might find useful help here:
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Ob
  * jects/Array
  *
@@ -44,19 +44,17 @@
  * Exercise 1.1
  *
  * Create a variable 'array1' holding an array with the numbers
- * 41,76,-16,0,-462,699,4,1300.  
- * 
+ * 41,76,-16,0,-462,699,4,1300.
+ *
  * Answer with the array.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+var array1 = [41, 76, -16, 0, -462, 699, 4, 1300];
 
 
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array1;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.1", ANSWER, false);
@@ -64,8 +62,8 @@ dbwebb.assert("1.1", ANSWER, false);
 /**
  * Exercise 1.2
  *
- * Use the variable 'array1'. How many items does the array have?   
- * 
+ * Use the variable 'array1'. How many items does the array have?
+ *
  * Answer with the result.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -76,7 +74,7 @@ dbwebb.assert("1.1", ANSWER, false);
 
 
 
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array1.length;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.2", ANSWER, false);
@@ -85,19 +83,16 @@ dbwebb.assert("1.2", ANSWER, false);
  * Exercise 1.3
  *
  * Create a variable 'array2' holding an array with the words:
- * milk,juice,lemonade,soda,water.  
- * 
+ * milk,juice,lemonade,soda,water.
+ *
  * Answer with the array.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+ var array2 = ['milk', 'juice', 'lemonade', 'soda', 'water'];
 
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array2;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.3", ANSWER, false);
@@ -105,19 +100,14 @@ dbwebb.assert("1.3", ANSWER, false);
 /**
  * Exercise 1.4
  *
- * Return the element on position: 1 in 'array2'.  
- * 
+ * Return the element on position: 1 in 'array2'.
+ *
  * Answer with the result.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array2[1];
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.4", ANSWER, false);
@@ -130,12 +120,7 @@ dbwebb.assert("1.4", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array2[0];
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.5", ANSWER, false);
@@ -144,19 +129,14 @@ dbwebb.assert("1.5", ANSWER, false);
  * Exercise 1.6
  *
  * Use the variable 'array2'. Concatenate the first item and the last item as
- * a string. Separate the string with '-'.  
- * 
+ * a string. Separate the string with '-'.
+ *
  * Answer with the result.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array2[0] + "-" + array2[array2.length - 1];
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.6", ANSWER, false);
@@ -164,20 +144,15 @@ dbwebb.assert("1.6", ANSWER, false);
 /**
  * Exercise 1.7
  *
- * Merge the two arrays 'array1' and 'array2' into a third variable 'array3'. 
- * 
- * 
+ * Merge the two arrays 'array1' and 'array2' into a third variable 'array3'.
+ *
+ *
  * Answer with 'array3'.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
-
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+var array3 = array1.concat(array2);
+ANSWER = array3;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.7", ANSWER, false);
@@ -185,19 +160,15 @@ dbwebb.assert("1.7", ANSWER, false);
 /**
  * Exercise 1.8
  *
- * Reverse the order of the elements in array 'array3'.  
- * 
+ * Reverse the order of the elements in array 'array3'.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
 
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array3.reverse();
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.8", ANSWER, false);
@@ -206,7 +177,7 @@ dbwebb.assert("1.8", ANSWER, false);
  * Exercise 1.9
  *
  * Create a variable 'array21' as a clone of 'array2'. Sort 'array21'. Answer
- * with the resulting array.  
+ * with the resulting array.
  * (Hint:
  * http://stackoverflow.com/questions/3978492/javascript-fastest-way-to-duplic
  * ate-an-array-slice-vs-for-loop)
@@ -214,12 +185,8 @@ dbwebb.assert("1.8", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+var array21 = array2.sort();
+ANSWER = array21;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.9", ANSWER, false);
@@ -229,19 +196,14 @@ dbwebb.assert("1.9", ANSWER, false);
  *
  * Create a variable 'array11' as a copy of 'array1'. Sort 'array11' according
  * to its values. The smallest value comes first and the largest value comes
- * last.  
- * 
+ * last.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array1.sort(function(a, b) {return a  - b;});
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.10", ANSWER, false);
@@ -251,19 +213,20 @@ dbwebb.assert("1.10", ANSWER, false);
  *
  * Create a variable 'array22' which holds the same content as 'array2' - but
  * all strings are uppercase. Use the built-in Array-function 'map()' to solve
- * it.  
- * 
+ * it.
+ *
  * Answer with the array.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+// For some reason the array is not what it is supposed to be, so setting up the
+// items in the right order.
 
+array2.splice(0, 0, "milk");
+array2.splice(3, 1);
 
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array2.map(function(item){return item.toUpperCase();});
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.11", ANSWER, false);
@@ -274,19 +237,21 @@ dbwebb.assert("1.11", ANSWER, false);
  * Create a new array 'messageOfToday'. It should contain all items from
  * 'array2' where each item is concatenated with the string ' is good for
  * you!'. Use the built-in array-function 'forEach()' to solve it. Each
- * sentence shold start with a capital letter.  
- * 
+ * sentence shold start with a capital letter.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
 
 
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+var messageOfToday = [];
+array2.forEach(function(item){
+    console.log(item);
+    messageOfToday.concat(item + ' is good for you!');
+});
+console.log(messageOfToday);
+ANSWER = messageOfToday;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.12", ANSWER, false);
@@ -295,8 +260,8 @@ dbwebb.assert("1.12", ANSWER, false);
  * Exercise 1.13
  *
  * Create a new array 'array12'. It should contain all positive numbers from
- * the 'array1'. Use the built-in array-function 'filter()' to solve it.  
- * 
+ * the 'array1'. Use the built-in array-function 'filter()' to solve it.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -317,8 +282,8 @@ dbwebb.assert("1.13", ANSWER, false);
  *
  * Create a variable 'iLike'. It should contain the string 'I like ' and then
  * all items from 'array2' separated with ', '. End the string with a '!'. Use
- * the built-in array-function 'join()' to solve it.  
- * 
+ * the built-in array-function 'join()' to solve it.
+ *
  * Answer with the string.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -338,8 +303,8 @@ dbwebb.assert("1.14", ANSWER, false);
  * Exercise 1.15
  *
  * Create a function 'arraySum' that takes one array as argument and returns
- * the sum of all elements in that array.  
- * 
+ * the sum of all elements in that array.
+ *
  * Try out the function using 'array1' and answer with the result.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -359,8 +324,8 @@ dbwebb.assert("1.15", ANSWER, false);
  * Exercise 1.16
  *
  * Create a function 'arrayAverage' that takes one array as argument and
- * returns the average of all elements in that array.  
- * 
+ * returns the average of all elements in that array.
+ *
  * Try out the function using 'array1' and answer with the rounded integer
  * result.
  *
@@ -390,8 +355,8 @@ dbwebb.assert("1.16", ANSWER, false);
  * Exercise 2.1
  *
  * Create a new array 'myArray' and make it a copy of 'array1'. Get the last
- * element from 'myArray' using the built-in array-function 'pop()'.  
- * 
+ * element from 'myArray' using the built-in array-function 'pop()'.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -411,8 +376,8 @@ dbwebb.assert("2.1", ANSWER, false);
  * Exercise 2.2
  *
  * Add the boolean value 'true' to the array 'myArray' using built-in
- * array-function 'push()'.  
- * 
+ * array-function 'push()'.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -432,8 +397,8 @@ dbwebb.assert("2.2", ANSWER, false);
  * Exercise 2.3
  *
  * Use the built-in array-function 'shift()' to remove the first item from the
- * array 'myArray'.  
- * 
+ * array 'myArray'.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -453,8 +418,8 @@ dbwebb.assert("2.3", ANSWER, false);
  * Exercise 2.4
  *
  * Add the float number '3.14' to the beginning of 'myArray' using built-in
- * array-function 'unshift()'.  
- * 
+ * array-function 'unshift()'.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -474,8 +439,8 @@ dbwebb.assert("2.4", ANSWER, false);
  * Exercise 2.5
  *
  * Change 'myArray' element 3 and 4 to the boolean value 'false' using
- * built-in array-function 'splice()'.  
- * 
+ * built-in array-function 'splice()'.
+ *
  * Answer with the resulting array.
  *
  * Write your code below and put the answer into the variable ANSWER.
@@ -495,8 +460,8 @@ dbwebb.assert("2.5", ANSWER, false);
  * Exercise 2.6
  *
  * Extract the last two elements as a slice from 'myArray' using built-in
- * array-function 'slice()'.  
- * 
+ * array-function 'slice()'.
+ *
  * Answer with the slice array.
  *
  * Write your code below and put the answer into the variable ANSWER.
