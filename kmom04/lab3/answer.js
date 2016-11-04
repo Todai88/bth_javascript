@@ -248,7 +248,7 @@ dbwebb.assert("1.11", ANSWER, false);
 var messageOfToday = [];
 array2.forEach(function(item){
     console.log(item);
-    messageOfToday.concat(item + ' is good for you!');
+    messageOfToday.push(item.charAt(0).toUpperCase() + item.substring(1) + ' is good for you!');
 });
 console.log(messageOfToday);
 ANSWER = messageOfToday;
@@ -270,9 +270,11 @@ dbwebb.assert("1.12", ANSWER, false);
 
 
 
+array1 = [41,76,699,4,1300];
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = array1.filter(function(item){
+    return item > 0;
+});
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.13", ANSWER, false);
@@ -289,12 +291,12 @@ dbwebb.assert("1.13", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+var iLike = "I like";
 
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+array2.forEach(function(item){
+    iLike = iLike.concat(" " + item + ',');
+});
+ANSWER = iLike.slice(0, -1) + '!';
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.14", ANSWER, false);
@@ -311,14 +313,23 @@ dbwebb.assert("1.14", ANSWER, false);
  */
 
 
+function arraySum(array){
+    var sum = 0;
+    for (var i = 0; i < array.length; i++){
+        sum += array[i];
+    }
+    return sum;
+}
 
 
 
 
-ANSWER = "Replace this text with the variable holding the answer.";
+array1 = [41, 76, -16, 0, -462, 699, 4, 1300];
+
+ANSWER = arraySum(array1);
 
 // I will now test your answer - change false to true to get a hint.
-dbwebb.assert("1.15", ANSWER, false);
+dbwebb.assert("1.15", ANSWER, true);
 
 /**
  * Exercise 1.16
@@ -332,12 +343,11 @@ dbwebb.assert("1.15", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+function arrayAverage(array){
+    return Math.round(arraySum(array) / array.length);
+}
 
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = arrayAverage(array1);
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.16", ANSWER, false);
@@ -362,12 +372,9 @@ dbwebb.assert("1.16", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+var myArray = array1;
+myArray.pop();
+ANSWER = myArray;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.1", ANSWER, false);
@@ -383,12 +390,8 @@ dbwebb.assert("2.1", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+myArray.push(true);
+ANSWER = myArray;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.2", ANSWER, false);
@@ -408,8 +411,8 @@ dbwebb.assert("2.2", ANSWER, false);
 
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+myArray.shift();
+ANSWER = myArray;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.3", ANSWER, false);
@@ -427,10 +430,10 @@ dbwebb.assert("2.3", ANSWER, false);
 
 
 
+myArray.unshift(3.14);
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = myArray;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.4", ANSWER, false);
@@ -447,11 +450,8 @@ dbwebb.assert("2.4", ANSWER, false);
  */
 
 
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+myArray.splice(2,2,false, false);
+ANSWER = myArray;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.5", ANSWER, false);
@@ -472,7 +472,8 @@ dbwebb.assert("2.5", ANSWER, false);
 
 
 
-ANSWER = "Replace this text with the variable holding the answer.";
+var my = myArray.slice(-2);
+ANSWER = my;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.6", ANSWER, false);
@@ -486,14 +487,14 @@ dbwebb.assert("2.6", ANSWER, false);
  */
 
 
+myArray.splice(3, 2);
 
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = myArray;
 
 // I will now test your answer - change false to true to get a hint.
-dbwebb.assert("2.7", ANSWER, false);
+dbwebb.assert("2.7", ANSWER, true);
 
 /**
  * Exercise 2.8
@@ -505,11 +506,8 @@ dbwebb.assert("2.7", ANSWER, false);
  */
 
 
-
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+myArray.splice(3,0,'MEGA');
+ANSWER = myArray;
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.8", ANSWER, false);
