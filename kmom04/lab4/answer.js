@@ -109,12 +109,22 @@ dbwebb.assert("1.2", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+var Person = function(firstName, lastName, nationality, born){
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.nationality = nationality;
+    this.dob = new Date(born);
+}
+
+function print3(person){
+    return 'My name is ' + person.firstName + ' ' + person.lastName + ' from '
+            + person.nationality + '. I was born ' + person.dob.getFullYear() + '.';
+}
+
+var p3 = new Person('Henri', 'Becquerel', 'France', '1852-12-15');
 
 
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = print3(p3);
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.3", ANSWER, false);
@@ -131,12 +141,15 @@ dbwebb.assert("1.3", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+var person2 = Object.create(Person, {firstName: { value: 'Albert'},
+                                     lastName: {value: 'Einstein'},
+                                     nationality: {value: 'Germany'},
+                                     dob: {value: '1879-03-14'}});
+person2.prototype.print3 = print3;
 
 
 
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = person2.print3();
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("1.4", ANSWER, false);
