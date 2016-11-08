@@ -144,8 +144,11 @@ dbwebb.assert("1.3", ANSWER, false);
 var person2 = Object.create(Person, {firstName: { value: 'Albert'},
                                      lastName: {value: 'Einstein'},
                                      nationality: {value: 'Germany'},
-                                     dob: {value: '1879-03-14'}});
-person2.prototype.print3 = print3;
+                                     dob: {value: new Date('1879-03-14')}});
+person2.print3 = function() {
+    return 'My name is ' + this.firstName + ' ' + this.lastName + ' from '
+            + this.nationality + '. I was born ' + this.dob.getFullYear() + '.';
+}
 
 
 
@@ -175,13 +178,30 @@ dbwebb.assert("1.4", ANSWER, false);
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
+function shape(){
+    this.x = 0;
+    this.y = 0;
+    this.height = 0;
+    this.width = 0;
+}
+
+shape.print = function(){
+  return 'x:' + this.x + ', ' +
+         'y:' + this.y + ', ' +
+         'height:' + this.height + ', ' +
+         'width:' + this.width;
+}
+
+var shape1 = Object.create(shape, {x : {value : 29},
+                                  y : {value : 56},
+                                  height : {value : 17},
+                                  width : {value : 19}});
 
 
 
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = shape1.print();
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.1", ANSWER, false);
@@ -197,15 +217,22 @@ dbwebb.assert("2.1", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+shape.init = function(x, y, height, widht){
+    function shape(x, y, height, width){
+    this.x = x;
+    this.y = y;
+    this.height = height;
+    this.width = width;
+    }
+}
+
+shape1.init(29, 56, 17, 19);
 
 
-
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = shape1.print();
 
 // I will now test your answer - change false to true to get a hint.
-dbwebb.assert("2.2", ANSWER, false);
+dbwebb.assert("2.2", ANSWER, true);
 
 /**
  * Exercise 2.3
