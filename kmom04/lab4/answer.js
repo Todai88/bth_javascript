@@ -217,22 +217,20 @@ dbwebb.assert("2.1", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-shape.init = function(x, y, height, widht){
-    function shape(x, y, height, width){
-    this.x = x;
-    this.y = y;
-    this.height = height;
-    this.width = width;
-    }
-}
+ shape.init = function(x, y, height, width) {
+      return Object.create(shape, {x : {value : x},
+                                   y : {value : y},
+                                   height : {value : height},
+                                   width : {value : width}});
+ };
 
-shape1.init(29, 56, 17, 19);
+var shape2 = shape.init(29, 56, 17, 19);
+console.log(shape2);
 
-
-ANSWER = shape1.print();
+ANSWER = shape2.print();
 
 // I will now test your answer - change false to true to get a hint.
-dbwebb.assert("2.2", ANSWER, true);
+dbwebb.assert("2.2", ANSWER, false);
 
 /**
  * Exercise 2.3
@@ -247,10 +245,10 @@ dbwebb.assert("2.2", ANSWER, true);
 
 
 
+shape2 = shape.init(64, 27, 12, 12);
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = shape2.print();
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.3", ANSWER, false);
@@ -267,12 +265,15 @@ dbwebb.assert("2.3", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+shape.calculate = function(){
+    console.log(this.height + ', ' + this.width);
+    return this.height * this.width;
+}
 
 
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = shape1.calculate() + ', ' + shape2.calculate();
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.4", ANSWER, false);
@@ -291,15 +292,22 @@ dbwebb.assert("2.4", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+shape.overlapPoint = function(x,y){
+    if (x >= this.x && x <= this.x + this.width){
+        return true;
+    }
+    else if (y >= this.y && y <= this.y + this.height){
+        return true;
+    } else return false;
+    }
 
 
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = shape1.overlapPoint(47, 72) + ', ' + shape2.overlapPoint(63, 26);
 
 // I will now test your answer - change false to true to get a hint.
-dbwebb.assert("2.5", ANSWER, false);
+dbwebb.assert("2.5", ANSWER, true);
 
 /**
  * Exercise 2.6
@@ -314,12 +322,26 @@ dbwebb.assert("2.5", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+shape.overlapShape = function(shape){
+    console.log('Init shape.');
+    console.log('x-start: ' + this.x + ' x-end: ' + (this.x + this.width));
+    console.log('y-start: ' + this.y + ' y-end: ' + (this.y + this.height));
+    console.log('Other shape');
+    console.log('x-start: ' + shape.x + ' x-end: ' + (shape.x + shape.width));
+    console.log('y-start: ' + shape.y + ' y-end: ' + (shape.y + shape.height));
+    if(shape.x <= this.x || shape.x + shape.width >= this.x + this.width){
+        return true;
+    } else if (shape.y <= this.y || shape.y + shape.height >= this.y + this.height){
+        return true;
+    } else return false;
+}
+
+var shape3 = shape.init(39, 65, 17, 19);
 
 
 
 
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = shape1.overlapShape(shape3);
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.6", ANSWER, false);
