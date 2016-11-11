@@ -26,7 +26,7 @@ Good luck!
 	var gameArea;
 
 	// Get HTML elements that are to be used
-	baddie = document.getElementById("baddie");
+	//baddie = document.getElementById("baddie");
 	content = document.getElementById("content");
 
 	// Size of each tile
@@ -38,8 +38,8 @@ Good luck!
 	content.style.width = content.style.height = gridSize*tileSize + "px";
 
 	// Gets starting position of baddie
-	left = baddie.offsetLeft;
-	top = baddie.offsetTop;
+	//left = baddie.offsetLeft;
+	//top = baddie.offsetTop;
 
 	// Starting position of baddie in the grid
 	posLeft = 0;
@@ -58,7 +58,16 @@ Good luck!
 	// Place out walls, a door and at least 1 box
 	// NOTE: The array size is gridSize*gridSize (gridSize 10 gives an array of 100)
 	gameArea = [
-	11,11,11,11,11,11,11,11,11,11,
+	[11,11,11,11,11,11,11,11,11,11],
+	[11,9,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,11,11,11,11,11,11,11,11,11]
 	/*Fill out the rest of the array*/
 	];
 
@@ -76,9 +85,40 @@ Good luck!
 		// Write a for-loop that iterates over the gameArea-array
 		// Fill out the missing for-loop conditions
 		// HINT: Make sure that the loop goes through the gameArea array, the full lenght of it
-		for (i; i > 0; i) {
+		var newRow = false;
+		content.appendChild(document.createElement('table'));
+		for (var row = 0; row < 10; row++) {
+			// Each column in row
+			if (newRow) {
+				content.appendChild(document.createElement('tr'));
+			}
+			for(var col = 0; col < 10; col++){
+				if (gameArea[row][col] == 9){
+					tile = document.createElement('td');
+					//tile.id = 'open';
+					tile.id = 'baddie';
+					content.appendChild(tile);
+					console.log("IM HERE");
+					baddie = document.getElementById('baddie');
+				} else if (gameArea[row][col] == 10){
+					tile = document.createElement('td');
+					tile.id = 'open';
+					content.appendChild(tile);
+				}
+				else if (gameArea[row][col] == 11){
+					console.log("found one");
+					tile = document.createElement('td');
+					tile.id = 'wall';
+					content.appendChild(tile);
+				} else if (gameArea[row][col] == 12) {
+
+				} else {
+
+				}
+			}
+			newRow = true;
 			// Create the tile
-			tile = document.createElement("div");
+			//tile = document.createElement("div");
 
 			// ------------------------------
 			// ASSIGNMENT
@@ -87,11 +127,10 @@ Good luck!
 			var tileFromArray = null;
 
 			// Add class name to tile
-			tile.className = "tile t" + tileFromArray;
+			//tile.className = "tile t" + tileFromArray;
 			// Add ID to tile
-			tile.id = "n" + i;
+			//tile.id = "n" + i;
 			// Append tile to the content
-			content.appendChild(tile);
 		}
 	};
 

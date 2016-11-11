@@ -1,17 +1,26 @@
-.content {
+#content {
 	height: 320px;
 	width: 320px;
 	position: absolute;
 }
 
-
-.baddie {
-	position: absolute;
-	z-index:10;
-	width:32px;
-	height:32px;
-	background-image:url(../img/Kyubi.png);
-	background-repeat:no-repeat;
+#wall{
+	height: 32px;
+	width: 32px;
+	background-image: url(../img/tiles/dngn_metal_wall.png);
+}
+#open{
+	z-index:1;
+	height: 31px;
+	width: 31px;
+	background-image: url(../img/tiles/grass0.png);
+	border: 1px solid white;
+}
+#baddie {
+	z-index:2;
+	width: 25px;
+	height: 25px;
+	background-image: url(../img/Kyubi.png);
 }
 
 .baddie-left {
