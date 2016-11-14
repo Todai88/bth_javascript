@@ -19,7 +19,7 @@ Good luck!
 (function(){
 	'use strict';
 	// HTML elements
-	var baddie, content;
+	var baddie, content, baddie_pos, open_flag;
 	// Numbers
 	var tileSize, gridSize, left, top, posLeft, posTop;
 	// Arrays
@@ -58,15 +58,15 @@ Good luck!
 	// Place out walls, a door and at least 1 box
 	// NOTE: The array size is gridSize*gridSize (gridSize 10 gives an array of 100)
 	gameArea = [
-	[11,11,11,11,11,11,11,11,11,11],
-	[11,9,10,10,10,10,10,10,10,11],
+	[11,11,11,11,11,11,11,11,13,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,15,10,10,10,10,10,11],
 	[11,10,10,10,10,10,10,10,10,11],
 	[11,10,10,10,10,10,10,10,10,11],
 	[11,10,10,10,10,10,10,10,10,11],
 	[11,10,10,10,10,10,10,10,10,11],
-	[11,10,10,10,10,10,10,10,10,11],
-	[11,10,10,10,10,10,10,10,10,11],
-	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,12,10,10,11],
+	[11,10,10,12,9,10,10,10,10,11],
 	[11,11,11,11,11,11,11,11,11,11]
 	/*Fill out the rest of the array*/
 	];
@@ -95,10 +95,10 @@ Good luck!
 			for(var col = 0; col < 10; col++){
 				if (gameArea[row][col] == 9){
 					tile = document.createElement('td');
-					//tile.id = 'open';
+					baddie_pos = [row, col];
 					tile.id = 'baddie';
 					content.appendChild(tile);
-					console.log("IM HERE");
+					console.log("IM HERE: " + baddie);
 					baddie = document.getElementById('baddie');
 				} else if (gameArea[row][col] == 10){
 					tile = document.createElement('td');
@@ -111,9 +111,23 @@ Good luck!
 					tile.id = 'wall';
 					content.appendChild(tile);
 				} else if (gameArea[row][col] == 12) {
-
-				} else {
-
+					tile = document.createElement('td');
+					tile.id = 'crate';
+					content.appendChild(tile);
+				} else if (gameArea[row][col] == 13) {
+					tile = document.createElement('td');
+					tile.id = 'door_closed';
+					content.appendChild(tile);
+				}
+				else if (gameArea[row][col] == 14) {
+					tile = document.createElement('td');
+					tile.id = 'door_open';
+					content.appendChild(tile);
+				}
+				else if (gameArea[row][col] == 15) {
+					tile = document.createElement('td');
+					tile.id = 'pad';
+					content.appendChild(tile);
 				}
 			}
 			newRow = true;
@@ -144,17 +158,40 @@ Good luck!
 		// Gets what key was pressed as number
 		key = event.keyCode || event.which;
 		console.log(key + " was pressed");
-
+		var baddie_x = baddie_pos[1];
+		var baddie_y = baddie_pos[0];
 		// Switch case to decide where baddie is to go
 		// ------------------------------
 		// ASSIGNMENT
 		// Copy-paste the switch case you wrote from baddie2 that handles the key variable
+
 		switch (key) {
+			case 37:
+				if(validMove(gameArea[baddie_y][baddie_x - 1])){
+					move(baddie_x - 1, baddie_y, 4);
+				}
+				break;
 
+			case 38:
+				if(validMove(gameArea[baddie_y - 1][baddie_x])){
+					move(baddie_x, baddie_y - 1, 1);
+				}
+				break;
 
+			case 39:
+				if(validMove(gameArea[baddie_y][baddie_x + 1])){
+					move(baddie_x + 1, baddie_y, 2);
+				}
+				break;
+			case 40:
+				if(validMove(gameArea[baddie_y + 1][baddie_x])){
+					move(baddie_x, baddie_y + 1, 3);
+				}
+				break;
 			default:
 				// Button was pressed but no action is to be performed
 				console.log("Nothing happened with the gameboard");
+				console.log(baddie_x + ', ' + baddie_y);
 				// return this function so that the default button action is performed instead
 				return true;
 		}
@@ -162,6 +199,94 @@ Good luck!
 		event.preventDefault();
 	});
 
+	var validMove = function(move){
+		if(move !== 11){
+			return true;
+		} else{
+			alert("Invalid move!");
+			return false;
+		}
+
+	};
+
+	var move = function(x, y, dir){
+		if (dir === 1){ //going up
+			if(isBox(gameArea[y][x])){
+				if(validMove(gameArea[y - 1][x])){
+				moveBox(x, y - 1);
+				gameArea[y][x] = 9;
+				gameArea[y + 1][x] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+				}
+			} else{
+				gameArea[y][x] = 9;
+				gameArea[y + 1][x] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+			}
+		} else if (dir === 2){ //going right
+			if(isBox(gameArea[y][x])){
+				if(validMove(gameArea[y][x + 1])){
+				moveBox(x + 1, y);
+				gameArea[y][x] = 9;
+				gameArea[y][x - 1] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+				}
+			} else{
+				gameArea[y][x] = 9;
+				gameArea[y][x - 1] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+			}
+		} else if (dir === 3){ //going down
+			if(isBox(gameArea[y][x])){
+				if(validMove(gameArea[y + 1][x])){
+				moveBox(x, y + 1);
+				gameArea[y][x] = 9;
+				gameArea[y - 1][x] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+				}
+			} else{
+				gameArea[y][x] = 9;
+				gameArea[y - 1][x] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+			}
+		} else { //going left
+			if(isBox(gameArea[y][x])){
+				if(validMove(gameArea[y][x -1])){
+				moveBox(x - 1, y);
+				gameArea[y][x] = 9;
+				gameArea[y][x + 1] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+				}
+			} else{
+				gameArea[y][x] = 9;
+				gameArea[y][x + 1] = 10;
+				content.innerHTML = '';
+				drawGamePlan(gameArea);
+			}
+		}
+	};
+
+	var isBox = function(move){
+		if(move === 12){
+			return true;
+		} else return false;
+	};
+
+	var moveBox= function(x, y){
+		if(validMove(gameArea[y][x])){
+			gameArea[y][x] = 12;
+		}
+		if(gameArea[y][x] === 15){
+			open_flag = true;
+		}
+	};
 	/* ---------------------------------------------------------
 	 * FUNCTIONS
 	 */
@@ -181,7 +306,7 @@ Good luck!
 	 * @return {bool} 			- if baddie was movable true is returned, otherwise false is returned
 	 */
 // UNCOMMENT THIS FUNCTION TO BE ABLE TO CONTINUE
-/*	var isBaddieMovable = function(moveLeft, moveTop){
+  var isBaddieMovable = function(moveLeft, moveTop){
 		var tile, tilePos, newLeft, newTop, movable;
 		// This time we want the grid position values, not the pixel position values
 		newLeft = posLeft + moveLeft;
@@ -243,7 +368,7 @@ Good luck!
 				movable = false;
 		}
 		return movable;
-	};*/
+	};
 
 
 	/**

@@ -23,6 +23,38 @@
 	background-image: url(../img/Kyubi.png);
 }
 
+#crate {
+	z-index:1;
+	height: 31px;
+	width: 31px;
+	background-image: url(../img/tiles/crate.png);
+	border: 1px solid white;
+}
+
+#pad {
+	z-index:1;
+	height: 31px;
+	width: 31px;
+	background-image: url(../img/tiles/pad.png);
+	border: 1px solid white;
+}
+
+#door_closed {
+	z-index:1;
+	height: 31px;
+	width: 31px;
+	background-image: url(../img/tiles/door_closed.png);
+	border: 1px solid white;
+}
+
+#door_open {
+	z-index:1;
+	height: 31px;
+	width: 31px;
+	background-image: url(../img/tiles/door_open.png);
+	border: 1px solid white;
+}
+
 .baddie-left {
 	-o-transform: rotateY(180deg);
 	-ms-transform: rotateY(180deg);
