@@ -21,9 +21,9 @@ Good luck!
 	// HTML elements
 	var baddie, content, baddie_pos, open_flag;
 	// Numbers
-	var tileSize, gridSize, left, top, posLeft, posTop;
+	var tileSize, gridSize, posLeft, posTop;
 	// Arrays
-	var gameArea;
+	var initial_area, gameArea;
 
 	// Get HTML elements that are to be used
 	//baddie = document.getElementById("baddie");
@@ -66,17 +66,29 @@ Good luck!
 	[11,10,10,10,10,10,10,10,10,11],
 	[11,10,10,10,10,10,10,10,10,11],
 	[11,10,10,10,10,10,12,10,10,11],
-	[11,10,10,12,9,10,10,10,10,11],
+	[11,10,10,10,9,10,10,10,10,11],
 	[11,11,11,11,11,11,11,11,11,11]
 	/*Fill out the rest of the array*/
 	];
 
+	initial_area =  [
+	[11,11,11,11,11,11,11,11,13,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,15,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,10,10,10,11],
+	[11,10,10,10,10,10,12,10,10,11],
+	[11,10,10,10,9,10,10,10,10,11],
+	[11,11,11,11,11,11,11,11,11,11]
+	];
 	/**
 	 * Initiates the game area by adding each tile as a div with class and id to content area
 	 * @param  {[type]} gameArea [description]
 	 */
 	var drawGamePlan = function(gameArea) {
-		var i, tile;
+		var tile;
 		console.log("Drawing gameplan:");
 		console.log(gameArea);
 
@@ -87,26 +99,39 @@ Good luck!
 		// HINT: Make sure that the loop goes through the gameArea array, the full lenght of it
 		var newRow = false;
 		content.appendChild(document.createElement('table'));
+		if(open_flag){
+			gameArea[0][8] = 14;
+		} else if (gameArea[2][3] == 9 || gameArea[2][3] == 12){
+			gameArea[0][8] = 14;
+		} else {
+			gameArea[0][8] = 13;
+			gameArea[2][3] = 15;
+		}
 		for (var row = 0; row < 10; row++) {
 			// Each column in row
 			if (newRow) {
 				content.appendChild(document.createElement('tr'));
 			}
 			for(var col = 0; col < 10; col++){
-				if (gameArea[row][col] == 9){
+				if (gameArea[row][col] == 8){
+					tile = document.createElement('td');
+					baddie_pos = [row, col];
+					tile.id = 'baddie_left';
+					content.appendChild(tile);
+					baddie = document.getElementById('baddie');
+				} else if (gameArea[row][col] == 9){
 					tile = document.createElement('td');
 					baddie_pos = [row, col];
 					tile.id = 'baddie';
 					content.appendChild(tile);
-					console.log("IM HERE: " + baddie);
 					baddie = document.getElementById('baddie');
-				} else if (gameArea[row][col] == 10){
+				}
+				else if (gameArea[row][col] == 10){
 					tile = document.createElement('td');
 					tile.id = 'open';
 					content.appendChild(tile);
 				}
 				else if (gameArea[row][col] == 11){
-					console.log("found one");
 					tile = document.createElement('td');
 					tile.id = 'wall';
 					content.appendChild(tile);
@@ -138,7 +163,6 @@ Good luck!
 			// ASSIGNMENT
 			// Write out the current tile from gameArea
 			// HINT: Change null so that it fetches the value of the tile
-			var tileFromArray = null;
 
 			// Add class name to tile
 			//tile.className = "tile t" + tileFromArray;
@@ -190,7 +214,6 @@ Good luck!
 				break;
 			default:
 				// Button was pressed but no action is to be performed
-				console.log("Nothing happened with the gameboard");
 				console.log(baddie_x + ', ' + baddie_y);
 				// return this function so that the default button action is performed instead
 				return true;
@@ -200,10 +223,16 @@ Good luck!
 	});
 
 	var validMove = function(move){
-		if(move !== 11){
+		if(move !== 11 && move !== 13){
+			if(isWin(move)){
+				window.alert("You won!");
+				gameArea = initial_area;
+				drawGamePlan(gameArea);
+			}
+			isPad(move);
 			return true;
 		} else{
-			alert("Invalid move!");
+			window.alert("Invalid move!");
 			return false;
 		}
 
@@ -259,17 +288,28 @@ Good luck!
 			if(isBox(gameArea[y][x])){
 				if(validMove(gameArea[y][x -1])){
 				moveBox(x - 1, y);
-				gameArea[y][x] = 9;
+				gameArea[y][x] = 8;
 				gameArea[y][x + 1] = 10;
 				content.innerHTML = '';
 				drawGamePlan(gameArea);
 				}
 			} else{
-				gameArea[y][x] = 9;
+				gameArea[y][x] = 8;
 				gameArea[y][x + 1] = 10;
 				content.innerHTML = '';
 				drawGamePlan(gameArea);
 			}
+		}
+	};
+
+	var isPad = function(move){
+		if(move === 15){
+			open_flag = true;
+			console.log("Opened the door!");
+			return true;
+		} else {
+			open_flag = false;
+			return false;
 		}
 	};
 
@@ -283,9 +323,12 @@ Good luck!
 		if(validMove(gameArea[y][x])){
 			gameArea[y][x] = 12;
 		}
-		if(gameArea[y][x] === 15){
-			open_flag = true;
-		}
+	};
+
+	var isWin = function(move){
+		if(move === 14){
+			return true;
+		} else return false;
 	};
 	/* ---------------------------------------------------------
 	 * FUNCTIONS
@@ -296,15 +339,14 @@ Good luck!
 	 */
 	var init = function() {
 		drawGamePlan(gameArea);
-		moveBaddie(1, 1);
 	};
-
+/*
 	/**
 	 * This function checks that the move was possible and returns either the new position or false
 	 * @param  {int} moveLeft	- direction to move horizontally, range: -1 -> 1
 	 * @param  {int} moveTop	- direction to move vertically, range: -1 -> 1
 	 * @return {bool} 			- if baddie was movable true is returned, otherwise false is returned
-	 */
+
 // UNCOMMENT THIS FUNCTION TO BE ABLE TO CONTINUE
   var isBaddieMovable = function(moveLeft, moveTop){
 		var tile, tilePos, newLeft, newTop, movable;
@@ -370,12 +412,11 @@ Good luck!
 		return movable;
 	};
 
-
+/*
 	/**
 	 * Changes position variables for baddie and style to draw the change out on the screen
 	 * @param  {[type]} x	- direction to move horizontally
 	 * @param  {[type]} y	- direction to move vertically
-	 */
 	var moveBaddie = function(x, y) {
 		// Update baddies position variables
 		posLeft += x;

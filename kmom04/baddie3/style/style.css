@@ -23,6 +23,13 @@
 	background-image: url(../img/Kyubi.png);
 }
 
+#baddie_left {
+	z-index:2;
+	width: 25px;
+	height: 25px;
+	background-image: url(../img/Kyubi_left.png);
+}
+
 #crate {
 	z-index:1;
 	height: 31px;
