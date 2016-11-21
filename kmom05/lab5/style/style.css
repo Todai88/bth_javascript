@@ -1,0 +1,46 @@
+h1 {
+	text-align: center;
+}
+
+h3 {
+	color: green;
+}
+
+#content {
+	border: 1px solid black;
+	background-color: #eee;
+	padding: 2em;
+	margin: 0 auto;
+	height: 500px;
+	width: 800px;
+	border-radius: 30px;
+}
+
+.top-buffer {
+	margin-top: 50px;
+}
+
+html, body {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.box {
+    position: absolute;
+}
+
+.center {
+	top: 0; left: 0; bottom: 0; right: 0;
+	margin: auto;
+}
+
+.green {
+    background-color: green;
+}
+
+.size200 {
+    height: 200px;
+    width: 200px;
+}
