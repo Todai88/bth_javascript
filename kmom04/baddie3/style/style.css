@@ -62,6 +62,13 @@
 	border: 1px solid white;
 }
 
+#water {
+	z-index:1;
+	height: 31px;
+	width: 31px;
+	background-image: url(../img/tiles/water.png);
+	border: 1px solid white;
+}
 .baddie-left {
 	-o-transform: rotateY(180deg);
 	-ms-transform: rotateY(180deg);

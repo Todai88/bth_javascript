@@ -55,9 +55,9 @@
 var Person = function(firstName){
     this.firstName = firstName;
     console.log('Created a person!');
-}
+};
 
-function print1(person){
+function print1(){
     return 'My name is ' + p1.firstName + '.';
 }
 
@@ -79,12 +79,12 @@ dbwebb.assert("1.1", ANSWER, false);
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
- var Person = function(firstName, lastName, nationality){
+ Person = function(firstName, lastName, nationality){
      this.firstName = firstName;
      this.lastName = lastName;
      this.nationality = nationality;
      console.log('Created a person!');
- }
+ };
 
 function print2(Person){
     return 'My name is ' + Person.firstName + ' ' + Person.lastName +
@@ -109,12 +109,12 @@ dbwebb.assert("1.2", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
-var Person = function(firstName, lastName, nationality, born){
+Person = function(firstName, lastName, nationality, born){
     this.firstName = firstName;
     this.lastName = lastName;
     this.nationality = nationality;
     this.dob = new Date(born);
-}
+};
 
 function print3(person){
     return 'My name is ' + person.firstName + ' ' + person.lastName + ' from '
@@ -148,7 +148,7 @@ var person2 = Object.create(Person, {firstName: { value: 'Albert'},
 person2.print3 = function() {
     return 'My name is ' + this.firstName + ' ' + this.lastName + ' from '
             + this.nationality + '. I was born ' + this.dob.getFullYear() + '.';
-}
+};
 
 
 
@@ -178,19 +178,19 @@ dbwebb.assert("1.4", ANSWER, false);
  *
  * Write your code below and put the answer into the variable ANSWER.
  */
-function shape(){
+var shape = function(){
     this.x = 0;
     this.y = 0;
     this.height = 0;
     this.width = 0;
-}
+};
 
 shape.print = function(){
   return 'x:' + this.x + ', ' +
          'y:' + this.y + ', ' +
          'height:' + this.height + ', ' +
          'width:' + this.width;
-}
+};
 
 var shape1 = Object.create(shape, {x : {value : 29},
                                   y : {value : 56},
@@ -218,8 +218,10 @@ dbwebb.assert("2.1", ANSWER, false);
  */
 
  shape.init = function(x, y, height, width) {
-      return Object.create(shape, {x : {value : x},
-                                   y : {value : y},
+      return Object.create(shape, {x : {value : x,
+                                        writable: true},
+                                   y : {value : y,
+                                       writable: true},
                                    height : {value : height},
                                    width : {value : width}});
  };
@@ -268,7 +270,7 @@ dbwebb.assert("2.3", ANSWER, false);
 shape.calculate = function(){
     console.log(this.height + ', ' + this.width);
     return this.height * this.width;
-}
+};
 
 
 
@@ -299,7 +301,7 @@ shape.overlapPoint = function(x,y){
     else if (y >= this.y && y <= this.y + this.height){
         return true;
     } else return false;
-    }
+};
 
 
 
@@ -323,18 +325,31 @@ dbwebb.assert("2.5", ANSWER, true);
  */
 
 shape.overlapShape = function(shape){
-    console.log('Init shape.');
-    console.log('x-start: ' + this.x + ' x-end: ' + (this.x + this.width));
-    console.log('y-start: ' + this.y + ' y-end: ' + (this.y + this.height));
-    console.log('Other shape');
-    console.log('x-start: ' + shape.x + ' x-end: ' + (shape.x + shape.width));
-    console.log('y-start: ' + shape.y + ' y-end: ' + (shape.y + shape.height));
-    if(shape.x <= this.x || shape.x + shape.width >= this.x + this.width){
-        return true;
-    } else if (shape.y <= this.y || shape.y + shape.height >= this.y + this.height){
-        return true;
-    } else return false;
-}
+    var aLeftOfB = shape.x + shape.width < this.x;
+    var aRightOfB = shape.x > this.x + this.width;
+    var aAboveB = shape.y > this.y + this.height;
+    var aBelowB = shape.y + shape.height < this.y;
+
+    return !( aLeftOfB || aRightOfB || aAboveB || aBelowB );
+
+    // if (((shape.x + shape.width) < (this.x + this.width)
+    // && (shape.x) > (this.x)
+    // && (shape.y) > (this.y)
+    // && (shape.y + shape.height) < (this.y + this.height))
+    // ||
+    // ((shape.x + shape.width) > (this.x + this.width)
+    // && (shape.x) < (this.x)
+    // && (shape.y) < (this.y)
+    // && (shape.y + shape.height) > (this.y + this.height))){
+    //     return true;
+    // } else return false;
+
+    // if(shape.x <= this.x || shape.x + shape.width >= this.x + this.width){
+    //     return true;
+    // } else if (shape.y <= this.y || shape.y + shape.height >= this.y + this.height){
+    //     return true;
+    // } else return false;
+};
 
 var shape3 = shape.init(39, 65, 17, 19);
 
@@ -358,12 +373,18 @@ dbwebb.assert("2.6", ANSWER, false);
  * Write your code below and put the answer into the variable ANSWER.
  */
 
+shape.move = function(moveX, moveY){
+    console.log("Now: " + this.x + ", " + this.y);
+    this.x += moveX;
+    this.y += moveY;
+    console.log("After: " + this.x + ", " + this.y);
+};
+
+shape3.move(19, 17);
 
 
 
-
-
-ANSWER = "Replace this text with the variable holding the answer.";
+ANSWER = shape1.overlapShape(shape3);
 
 // I will now test your answer - change false to true to get a hint.
 dbwebb.assert("2.7", ANSWER, false);

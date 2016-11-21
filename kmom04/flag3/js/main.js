@@ -6,7 +6,14 @@
     //myContent.innerHTML = '<h3>This is a template!</h3>';
 
     console.log('Sandbox is ready!');
-
+    var swe = document.getElementById("Swe_click");
+    var jap = document.getElementById("Jpn_click");
+    var chi = document.getElementById("Chl_click");
+    var col = document.getElementById("Col_click");
+    swe.addEventListener('click', function(e){click_parse(e);}, false);
+    jap.addEventListener('click', function(e){click_parse(e);}, false);
+    chi.addEventListener('click', function(e){click_parse(e);}, false);
+    col.addEventListener('click', function(e){click_parse(e);}, false);
 })();
 
 function click_parse(e){
@@ -30,7 +37,6 @@ function draw(sender){
             });
         }
     };
-    var target;
     switch(sender){
         case 'Swe_click':
             var sweden = Flag.init(document.getElementById('flag_container_swe'), '<div class="flag" id="sverige"></div>');
@@ -53,8 +59,8 @@ function draw(sender){
             var colombia = Flag.init(document.getElementById('flag_container_colombia'),
                                      '<div id="colombia"><div class="flag"> <div class="flex-row-container">'+
                                      '<div class="flex-row-item" id="colombia1"> </div> <div class="flex-row-item" id="colombia2"> </div>' +
-                                     '<div class="flex-row-item" id="colombia3"> </div> </div> </div></div>')
+                                     '<div class="flex-row-item" id="colombia3"> </div> </div> </div></div>');
             colombia.draw();
             break;
      }
-} 
+}
