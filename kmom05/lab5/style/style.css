@@ -44,3 +44,11 @@ html, body {
     height: 200px;
     width: 200px;
 }
+
+.selected{
+	outline: 5px solid red;
+}
+
+.circle{
+	border-radius: 50%;
+}
