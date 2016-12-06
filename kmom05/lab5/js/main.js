@@ -3,12 +3,22 @@
 
     var box1 = document.getElementById("box1");
     var style = getComputedStyle(box1);
+    var cont = document.getElementById("content");
+    var boxCount = 1;
     console.log("******* Screen *******");
     console.log("Width: " + window.innerWidth + ", Height: " + window.innerHeight);
     console.log("**********************\n");
     console.log("*******   Box   *******");
     console.log("Width: " + box1.clientWidth + ", Height: " + box1.clientHeight);
     console.log("Top: " + style.getPropertyValue("top") + ", Left: " + style.getPropertyValue("left"));
+
+    var dbl = function(sender){
+        sender.classList.add('animateSize');
+        sender.style.width = "2px";
+        sender.style.height = "2px";
+        console.log(sender);
+        window.setTimeout(function(){cont.removeChild(sender)}, 2000);
+    };
 
     var selected = function(sender){
             sender.classList.toggle('selected');
@@ -35,21 +45,162 @@
 
         for(var i = 0; i < nl.length; i++){
             var el    = document.getElementById(nl[i].id),
-                color = style.backgroundColor;
+                color = el.style.backgroundColor;
             console.log(color);
+            console.log(el);
             switch(color){
-                case 'green':
-                    el.style.backgroundColor = 'yellow';
+                case "":
+                    case "green":
+                        el.style.backgroundColor = 'yellow';
+                        break;
+                    case "yellow":
+                        el.style.backgroundColor = 'red';
+                        break;
+                    case "red":
+                        el.style.backgroundColor = 'blue';
+                        break;
+                    case "blue":
+                        el.style.backgroundColor = 'green';
+                        break;
                     break;
-                case 'yellow':
-                    el.style.backgroundColor = 'red';
-                    break;
-
             }
         }
     }
+    var manipulate_z = function (nl, increase){
+        var z = (increase) ? 1 : -1;
+
+        for(var i = 0; i < nl.length; i++){
+            console.log("Element " + nl[i]);
+            var el = document.getElementById(nl[i].id),
+                curr_z  = style.zIndex;
+            console.log("Has z-index: " + curr_z);
+            el.style.zIndex = parseInt(curr_z) + z;
+            console.log("It now has z-index " + el.style.zIndex);
+        }
+    };
+    var remove_object = function(){
+        var list = document.querySelectorAll('.selected');
+        console.log(list);
+        for(var i = 0; i < list.length; i++){
+            cont.removeChild(list[i]);
+        }
+    }
+    var duplicate = function(){
+        var list = document.querySelectorAll('.selected');
+        console.log(list);
+        for(var i = 0; i < list.length; i++){
+            boxCount++;
+            var randTop = (((Math.random() * 10) + 1) > 5) ? Math.floor((Math.random() * 320) + 1) + "px" : Math.floor((Math.random() * -420) + 1) + "px";
+            var randLeft = (((Math.random() * 10) + 1) > 5) ? Math.floor((Math.random() * 550) + 1) + "px" : Math.floor((Math.random() * -550) + 1) + "px";
+            console.log("New top: " + randTop);
+            console.log("New left: " + randLeft);
+            var dup = list[i].cloneNode(true);
+            dup.id = "box" + boxCount;
+            dup.style.top = randTop;
+            dup.style.left = randLeft;
+            dup.style.zIndex = list[i].zIndex + 1;
+            dup.addEventListener("click", function(){
+                selected(this);
+            });
+            dup.addEventListener("dblclick", function(){
+                dbl(this);
+            });
+            cont.appendChild(dup);
+            console.log("Duplicated!");
+            console.log(dup);
+        }
+
+    };
+
+    var move = function(nl, direct){
+
+            // var list = document.querySelectorAll('.selected');
+            // console.log(list);
+            for(var i = 0; i < nl.length; i++){
+
+            var el      = document.getElementById(nl[i].id),
+                left    = (el.style.left === "") ? 0 : parseInt(el.style.left),
+                top     = (el.style.top  === "") ? 0 : parseInt(el.style.top);
+                console.log(el);
+                if (direct == 'left' || direct == 'right'){
+                    (direct == 'left') ? el.style.left = (left - 10) + "px" : el.style.left = (left + 10) + "px";
+                } else {
+                    (direct == 'up')   ? el.style.top  = (top -  10) + "px" : el.style.top  = (top  + 10) + "px";
+                }
+            }
+
+    };
+
+    var mark_all = function(){
+
+        var list = document.querySelectorAll('.box');
+        console.log(list);
+        var count = 0;
+        for(var i = 0; i < list.length; i++){
+            list[i].classList.add('selected');
+            count++;
+        }
+        console.log(count + " items were selected!");
+    }
+
+    var unmark_all = function(){
+
+        var list = document.querySelectorAll('.box');
+        console.log(list);
+
+        for(var i = 0; i < list.length; i++){
+            list[i].classList.remove('selected');
+        }
+
+    }
+    var create_random = function(){
+            boxCount++;
+            var color = Math.floor((Math.random() * 4) + 1);
+            var circle =  Math.floor((Math.random() * 2) + 1);
+            console.log(color);
+            var randTop = (((Math.random() * 10) + 1) > 5) ? Math.floor((Math.random() * 320) + 1) + "px" : Math.floor((Math.random() * -420) + 1) + "px";
+            var randLeft = (((Math.random() * 10) + 1) > 5) ? Math.floor((Math.random() * 550) + 1) + "px" : Math.floor((Math.random() * -550) + 1) + "px";
+            console.log("New top: " + randTop);
+            console.log("New left: " + randLeft);
+            var dup = box1.cloneNode(true);
+            dup.id = "box" + boxCount;
+            dup.style.top = randTop;
+            dup.style.left = randLeft;
+            dup.style.zIndex = box1.zIndex + 1;
+            if (circle == 1){
+                dup.classList.add('circle');
+            }
+            if (color == 1){
+                dup.style.backgroundColor = 'green';
+            }
+            else if (color == 2) {
+                dup.style.backgroundColor = 'yellow';
+            }
+            else if (color == 3){
+                dup.style.backgroundColor = 'red';
+            }
+            else {
+                dup.style.backgroundColor = 'blue';
+                    }
+            dup.addEventListener("click", function(){
+                selected(this);
+            });
+            dup.addEventListener("dblclick", function(){
+                dbl(this);
+            });
+            cont.appendChild(dup);
+            console.log("Duplicated!");
+            console.log(dup);
+
+
+    };
+
     box1.addEventListener("click", function(){
         selected(this);
+    });
+
+    box1.addEventListener("dblclick", function(){
+        dbl(this);
     });
 
     document.addEventListener("keydown", function(event) {
@@ -60,8 +211,37 @@
         var myNodeList = document.getElementsByClassName('selected');
 
         switch (key){
+
+            case 37:
+                move(myNodeList, "left");
+                break;
+
+            case 38:
+                move(myNodeList, "up");
+                break;
+
+            case 39:
+                move(myNodeList, "right");
+                break;
+
+            case 40:
+                move(myNodeList, "down");
+                break;
+
+            case 65:
+                manipulate_z(myNodeList, false);
+                break;
+
             case 69:
                 circulate(myNodeList);
+                break;
+
+            case 73:
+                mark_all();
+                break;
+
+            case 80:
+                create_random();
                 break;
 
             case 81:
@@ -72,8 +252,24 @@
                 change_color(myNodeList);
                 break;
 
+            case 83:
+                manipulate_z(myNodeList, true);
+                break;
+
+            case 84:
+                duplicate();
+                break;
+
+            case 85:
+                unmark_all();
+                break;
+
             case 87:
                 manipulate_size(myNodeList, false);
+                break;
+
+            case 89:
+                remove_object();
                 break;
         }
 

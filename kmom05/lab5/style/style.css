@@ -8,7 +8,7 @@ h3 {
 
 #content {
 	border: 1px solid black;
-	background-color: #eee;
+	background-color: pink;
 	padding: 2em;
 	margin: 0 auto;
 	height: 500px;
@@ -29,6 +29,7 @@ html, body {
 }
 .box {
     position: absolute;
+	z-index: 0;
 }
 
 .center {
@@ -43,6 +44,10 @@ html, body {
 .size200 {
     height: 200px;
     width: 200px;
+}
+
+.animateSize{
+	transition: width 1s, height 1s;	
 }
 
 .selected{
