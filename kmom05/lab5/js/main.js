@@ -2,7 +2,7 @@
     'use strict';
 
     var box1 = document.getElementById("box1");
-    var style = getComputedStyle(box1);
+    var style = getComputedStyle(box1); // jshint ignore:line
     var cont = document.getElementById("content");
     var boxCount = 1;
     console.log("******* Screen *******");
@@ -17,7 +17,7 @@
         sender.style.width = "2px";
         sender.style.height = "2px";
         console.log(sender);
-        window.setTimeout(function(){cont.removeChild(sender)}, 2000);
+        window.setTimeout(function(){cont.removeChild(sender);}, 2000);
     };
 
     var selected = function(sender){
@@ -27,7 +27,7 @@
             for (var i = 0; i < nl.length; i++){
                 nl[i].classList.toggle('circle');
             }
-    }
+    };
 
     var manipulate_size = function(nl, enlarge){
             var pix = (enlarge) ? 10 : -10;
@@ -62,10 +62,9 @@
                     case "blue":
                         el.style.backgroundColor = 'green';
                         break;
-                    break;
             }
         }
-    }
+    };
     var manipulate_z = function (nl, increase){
         var z = (increase) ? 1 : -1;
 
@@ -84,7 +83,7 @@
         for(var i = 0; i < list.length; i++){
             cont.removeChild(list[i]);
         }
-    }
+    };
     var duplicate = function(){
         var list = document.querySelectorAll('.selected');
         console.log(list);
@@ -123,9 +122,9 @@
                 top     = (el.style.top  === "") ? 0 : parseInt(el.style.top);
                 console.log(el);
                 if (direct == 'left' || direct == 'right'){
-                    (direct == 'left') ? el.style.left = (left - 10) + "px" : el.style.left = (left + 10) + "px";
+                    (direct == 'left') ? el.style.left = (left - 10) + "px" : el.style.left = (left + 10) + "px"; // jshint ignore:line
                 } else {
-                    (direct == 'up')   ? el.style.top  = (top -  10) + "px" : el.style.top  = (top  + 10) + "px";
+                    (direct == 'up')   ? el.style.top  = (top -  10) + "px" : el.style.top  = (top  + 10) + "px"; // jshint ignore:line
                 }
             }
 
@@ -141,7 +140,7 @@
             count++;
         }
         console.log(count + " items were selected!");
-    }
+    };
 
     var unmark_all = function(){
 
@@ -152,7 +151,7 @@
             list[i].classList.remove('selected');
         }
 
-    }
+    };
     var create_random = function(){
             boxCount++;
             var color = Math.floor((Math.random() * 4) + 1);
@@ -195,6 +194,52 @@
 
     };
 
+    var randomize = function(nl, iteration){
+        if(iteration == 4){
+            for (var j = 0; j < nl.length; j++){
+                var el      =  document.getElementById(nl[j].id); // jshint ignore:line
+                el.classList.remove('randomize');
+            }
+            return true;
+        } else {
+        var list = document.querySelectorAll('.box');
+        console.log(list);
+                for(var i = 0; i < nl.length; i++){
+                var color = Math.floor((Math.random() * 4) + 1);
+                var circle =  Math.floor((Math.random() * 2) + 1);
+                console.log(color);
+                console.log(circle);
+                var randTop = (((Math.random() * 10) + 1) > 5) ? Math.floor((Math.random() * 320) + 1) + "px" : Math.floor((Math.random() * -420) + 1) + "px";
+                var randLeft = (((Math.random() * 10) + 1) > 5) ? Math.floor((Math.random() * 550) + 1) + "px" : Math.floor((Math.random() * -550) + 1) + "px";
+                var el      =  document.getElementById(nl[i].id); // jshint ignore:line
+                el.classList.add('randomize');
+                    console.log(el);
+                    if (circle == 1){
+                        el.classList.add('circle');
+                    } else{
+                        el.classList.remove('circle');
+                    }
+                    if (color == 1){
+                        el.style.backgroundColor = 'green';
+                    }
+                    else if (color == 2) {
+                        el.style.backgroundColor = 'yellow';
+                    }
+                    else if (color == 3){
+                        el.style.backgroundColor = 'red';
+                    }
+                    else {
+                        el.style.backgroundColor = 'blue';
+                        }
+                el.style.left = randLeft;
+                el.style.top  = randTop;
+                //el.classList.remove('randomize');
+                }
+            }
+            iteration += 1;
+            window.setTimeout(function(){randomize(nl, iteration);}, 200);
+    };
+
     box1.addEventListener("click", function(){
         selected(this);
     });
@@ -230,6 +275,15 @@
 
             case 65:
                 manipulate_z(myNodeList, false);
+                break;
+
+            case 68:
+                // for(var i = 0; i < 4; i++){
+                // window.setTimeout(function(){
+                //     randomize(myNodeList);
+                // }, 200);
+                // }
+                randomize(myNodeList, 0);
                 break;
 
             case 69:

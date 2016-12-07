@@ -216,8 +216,58 @@
             <div class="panel-body">
                     <ul>
 
-                        <li><b>Hur kändes det med datastrukturerna dictionaries och tupler? Har du sett något liknande förut?</b></li>
+                        <li><b>Hur upplevde du labben, var något svårt eller utmanande?</b></li><br><br>
+                        Jag kan inte riktigt påstå att labben var särskilt utmanande eller svår. Men jag gillade den verkligen! Det var lärorikt att arbeta med DOM-element och events, speciellt då jag faktiskt<br>
+                        aldrig riktigt gjort det på egen hand.<br>
+                        En sak som var lite mer utmanande än jag själv hade tänkte det skulle vara var att komma åt grundelementet när man börjat lägga till nya element. I vissa fall så<br>
+                        visade det sig att jag antingen inte kunde ändra grundelementet eller inte kunde ändra dess barn. Dock löste det sig relativt snabbt med lite hjälp från<br>
+                        Emil i Gitter.<br>
+                        En annan sak som var lite udda var hur JS fungerar med inline-styling, något som jag själv aldrig riktigt jobbat med tidigare. Ett exempel var när jag<br>
+                        arbetade med färgerna. Eftersom vi skulle arbeta med en klass 'green' för att sätta färgen på grundelementet så verkade det inte som att element.style.backgroundColor<br>
+                        reagerade på 'klass'-färgen, då inline-stylen inte var satt. Så när jag skulle ändra färgen i min switch-sats (case "green" exempelvis), så var alltså<br>
+                        background-color (inline): "";<br><br>
 
+                        Det  var helt enkelt en rätt intressant uppgift då vi verkligen rörde vid ämnen jag aldrig riktigt jobbat med tidigare och med saker som jag annars <b>antagit</b> hade varit<br>
+                        annorlunda (som ovan nämnda exemplet med färger). Jag har ju ett par år i nacken, men det var helt klart en god labb som lärde mig en heeeel del!<br><br>
+
+                        <li><b>Beskriv vad du gjorde som sista uppgift i labben. </b></li><br><br>
+
+                        <li><b>Berätta hur du tänkte när du gjorde ditt flagg-memory. Gick det bra? </b></li><br><br>
+                        Så jag gjorde min lite annorlunda. Dels ville jag göra den lite 'finare' och interaktiv än ursprungsexemplet. Så jag tänkte att jag skulle använda mig av lite transitions<br>
+                        och transformations tillsammans med click-events. Överlag gick det bra, dock var det lite krångligt att få upp allting. Logiken är ju rätt lätt att skapa, men<br>
+                        det var lite jobbigare att skapa spelbrädet.<br><br>
+
+                        Som nämnt ovan så var det ett par saker jag ville göra bättre än exemplet.<br>
+                        Dels ville jag jobba mer med DOM-element snarare än att rita varje memory-card när de klickas, som i exemplet.<br><br>
+
+                        Så för att lösa det så skapar jag först en tom array (10 element, spelbrädet) samt en nodeList med alla .flip-containers (också 1 element). Sen mappade jag dem<br>
+                        genom att ge varje element i den tomma arrayen ett nummer mellan 1 och 5 (ett nummer för varje kort, en dublett av varje). Arrayen tillsammans med min NodeList<br>
+                        mappades sedan till en karta beroende på NodeListens plats i arrayen. Lite som en enkel variant av en linkedlist. Här är ett exempel:<br><br>
+                        <ul>
+                            <li>Min Array:</li>
+                            [1,2,3,4,5,1,2,3,4,5]
+                            <li>Min NodeList</li>
+                            [0,1,2,3,4,5,6,7,8,9]
+                        </ul><br><br>
+                        Sen har vi min case-switch som alltså går igenom min NodeList och kollar vad dess respektive plats i arrayen är för att se vilken flagga som den bör ha.<br>
+                        Så säg Array[NodeList[0].id] = 1, vilket är den svenska flaggan, eller Array[NodeList[9].id] = 5 vilket är den finska flaggan.<br><br>
+
+
+                        Sen nämnde jag även att jag ville göra det lite finare. Detta gjorde jag genom att definiera specifika transitions och transformY i min .css. Detta är rätt<br>
+                        basic css3(d) där vi arbetar med perspective och Y-axis. Det skapar en rätt läcker flip-card animation lik den jag har på min <a href="http://portfolio.kimput.com">hemsida</a>.<br>
+                        Dock är skillnaden i detta fall att jag valt att använda mig av click-events för att binda varje element till en animation när de blir klickade.<br>
+                        Igen, ingenting speciellt. Men det gör det lite mer interaktivt för spelaren vilket kanske kan uppskattas.<br><br>
+
+                        <b>Ett problem, dock</b> är att jag inte tillämpat en felsäker logik. Det innebär att om en användare börjar spamma flaggor så kommer vissa av dem kanske fastna. Något<br>
+                        som egentligen inte borde hända, men jag tror inte det förstör spelet. Det enda man ska tänka på då är att man klickar på de flaggorna som 'glitchat' för att de ska<br><br>
+                        resettas.
+                        Jag skulle dock vilja påstå att det är viktigare att spelet ser bra ut i detta fall. Spelet fungerar som det ska, all logik finns där. Men <b>OM</b> spelaren vill<br>
+                        förstöra spelet, så kan han / hon göra det. Dock känns det inte helt relevant att se till att spelaren inte <b>KAN</b> förstöra spelet, utan viktigare att spelet är kul,<br>
+                        interaktivt och spelbart så länge spelaren följer de normaliserade reglerna i memory. :)<br><br>
+
+                        <li><b>Vad anser du om Crockfords videor, har du tittat på dem?</b></li><br><br>
+                        Nej, det har jag inte. Jag hoppas jag inte får mindre poäng från ett redovisningsperspektiv för att jag inte uttrycker mig bättre ang. detta. Det är inte ett formellt<br>
+                        krav att ha sett på videorna och eftersom jag inte riktigt fastnat på något så har jag inte behövt se över kursmaterialet än...<br>
                    </ul>
             </div>
         </div>

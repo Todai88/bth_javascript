@@ -7,13 +7,16 @@ h3 {
 }
 
 #content {
+	top: 0; left: 0; bottom: 0; right: 0;
 	border: 1px solid black;
 	background-color: pink;
 	padding: 2em;
-	margin: 0 auto;
+	position: absolute;
+	margin: auto;
 	height: 500px;
 	width: 800px;
 	border-radius: 30px;
+
 }
 
 .top-buffer {
@@ -47,10 +50,14 @@ html, body {
 }
 
 .animateSize{
-	transition: width 1s, height 1s;	
+	transition: width 1s, height 1s;
 }
 
+.randomize{
+	transition: all 0.2s linear;
+}
 .selected{
+	border: 2px solid black;
 	outline: 5px solid red;
 }
 
