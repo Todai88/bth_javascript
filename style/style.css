@@ -1,3 +1,9 @@
  .top-buffer {
 	margin-top: 50px;
 }
+
+.code {
+    background-color: #C1C5C8;
+    padding-left: 5px;
+    padding-right: 5px;
+}

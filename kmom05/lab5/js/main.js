@@ -12,6 +12,15 @@
     console.log("Width: " + box1.clientWidth + ", Height: " + box1.clientHeight);
     console.log("Top: " + style.getPropertyValue("top") + ", Left: " + style.getPropertyValue("left"));
 
+    function resize(){
+        console.log("Window resized!");
+        console.log("********* WINDOW SIZE *********");
+        console.log("Width: " + window.innerWidth);
+        console.log("Height " + window.innerHeight);
+    }
+
+    window.onresize = resize;
+
     var dbl = function(sender){
         sender.classList.add('animateSize');
         sender.style.width = "2px";
@@ -194,6 +203,51 @@
 
     };
 
+    var find_size = function() {
+        //var d = document.getElementById("demo").innerHTML;
+
+
+        console.log('width: ' + window.innerWidth);
+        console.log('middle is: ' + parseInt(window.innerWidth / 2));
+        return parseInt(window.innerWidth / 2);
+
+    };
+
+    var rotate = function(el, curr_pos, left){
+        console.log(el);
+        el.classList.add('rotation');
+        //(left) ? el.style.marginLeft = "-100%" : el.style.marginLeft = "110%";
+        el.style.transform = 'rotateZ(360deg)';
+        el.style.left = (left) ? ("-" + (window.innerWidth + 400)) + "px" : window.innerWidth + "px";
+    };
+
+    var unique_animation = function(){
+
+        var list = document.querySelectorAll('.selected');
+        console.log(list);
+
+        var horizontal_middle = find_size();
+
+        for(var i = 0; i < list.length; i++){
+
+            var el      =  document.getElementById(list[i].id),
+                offset  = Math.floor(el.getBoundingClientRect().left),
+                width   = (el.style.width === "") ? 200 : el.style.width,
+                mid_pos = Math.floor(width / 2) + offset;
+            console.log(offset);
+            console.log(mid_pos);
+            if (mid_pos < horizontal_middle){
+                console.log("Left of mid");
+                rotate(el, mid_pos, true);
+            } else {
+                console.log("Right of mid");
+                rotate(el, mid_pos, false);
+            }
+
+            window.setTimeout(function(){cont.removeChild(el);}, 1500);
+        }
+    };
+
     var randomize = function(nl, iteration){
         if(iteration == 4){
             for (var j = 0; j < nl.length; j++){
@@ -278,11 +332,6 @@
                 break;
 
             case 68:
-                // for(var i = 0; i < 4; i++){
-                // window.setTimeout(function(){
-                //     randomize(myNodeList);
-                // }, 200);
-                // }
                 randomize(myNodeList, 0);
                 break;
 
@@ -324,6 +373,10 @@
 
             case 89:
                 remove_object();
+                break;
+
+            case 190:
+                unique_animation();
                 break;
         }
 

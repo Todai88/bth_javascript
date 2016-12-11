@@ -232,6 +232,29 @@
 
                         <li><b>Beskriv vad du gjorde som sista uppgift i labben. </b></li><br><br>
 
+                        Som sista uppgift valde jag att göra något någorlunda utmanande samt jobba lite med saker som var i linje med vad vi gjort under uppgiften.<br>
+                        Först och främst så ville jag arbeta med en lite svårare transition (transform i detta fall); så jag tänkte att jag skulle köra på en rotate, då det kändes rätt relevant.<br>
+                        Sen visste jag att jag ville arbeta med window-size eller dylikt. Detta användes i mitt fall för att räkna ut var de valda elementen var representerade i relation<br>
+                        till mitten av skärmen.<br><br>
+
+                        Nedan följer en enkel beskrivning av vad som gjorts:<br><br>
+
+                        <ol>
+                            <li> Användaren trycker på '.' för att trigga eventet </li>
+                            <li> De markerade objektens position räknas ut genom att använda <span class="code">el.getBoundingClientRect().left</span> för att se vad objektets "riktiga" <span class="code">offset</span> är.
+                                 Sedan används en rätt enkel formula <span code="code"> Math.floor(width / 2) + offset </span> för att hitta elementets mittpunkt i relation till <b>hela</b> skärmens mittpunkt. </li>
+                            <li> Den ovan nämnda formulan används sedan för att se utifall objektets <span class="code">offset</span> är mer eller mindre än skärmens mittpunkt. Ett booleanskt värde sätts sedan. </li>
+                            <li> Om den booleanska flaggan är mindre än mittpunkten så sätts objektets transition så att objektet skickas åt vänster, annars åt höger. </li>
+                            <li> Därefter så sätts en <span class="code">window.setTimeout()</span> för att efter en genomförd transition ta bort objektet </li>
+                        </ol>
+                        <br>
+                        Så en snabb genomgång; objektet beräknar sin position i relation till skärmens mittpunkt. Om den är till vänster av mittpunkten så skickas objektet åt vänster (ut ur skärmen) och <br>
+                        snurrar runt ett varv innan elementet tas bort genom en <span class="code">removeChild()</span> som i tidigare uppgift. Om objektet är till höger om mittpunkten så skickas den till höger <br>
+                        och snurrar roterar ett varv. <br>
+                        <br>
+                        Ganska simpelt om man bryter ner uppgiften i mindre delar, men allt som allt så skulle jag vilja påstå att det är en relativt utmanande uppgift i jämförelse med de tidigare uppgifterna.
+                        <br><br>
+
                         <li><b>Berätta hur du tänkte när du gjorde ditt flagg-memory. Gick det bra? </b></li><br><br>
                         Så jag gjorde min lite annorlunda. Dels ville jag göra den lite 'finare' och interaktiv än ursprungsexemplet. Så jag tänkte att jag skulle använda mig av lite transitions<br>
                         och transformations tillsammans med click-events. Överlag gick det bra, dock var det lite krångligt att få upp allting. Logiken är ju rätt lätt att skapa, men<br>
