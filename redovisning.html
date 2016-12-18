@@ -206,7 +206,7 @@
         				</div>
         			</div>
 
-                    <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#redovisnings-grupp" href="#Kmom05">Kmom05</a>
@@ -295,6 +295,63 @@
             </div>
         </div>
     </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#redovisnings-grupp" href="#Kmom06">Kmom06</a>
+            </h4>
+        </div>
+        <div id="Kmom06" class="panel-collapse collapse">
+            <div class="panel-body">
+                    <ul>
+
+                        <li><b>Har du några erfarenheter av design mönster sedan tidigare?</b></li><br><br>
+                        Jo, men det har jag. Inte alltför mycket rent formell erfarenhet, men nog har jag jobbat med designmönster tidigare.<br>
+                        Det sättet jag löste projektet i Python är ett rätt bra sätt att visa att jag har gjort det. Sen har jag försökt lösa samtliga javascripts moment så<br>
+                        dynamiskt som möjligt, detta genom att arbeta med starkt typade mönster (objekt) som gör det lättare att ta bort och lägga till bitar till uppgifterna.<br><br>
+
+                        Det gör det överlag rätt mycket bekvämare när man har ordentligt "strong typed" objekt så att det blir lättare att spinna vidare. Problemet med<br>
+                        starkt typade objekt och designmönster är dock att det behövs lägga ner så mycket tid att designa dem innan man kan börja implementera kod.<br><br>
+
+                        Det märkte jag rätt tydligt i Python-kursen, då jag la till och tog bort delar i mina olika objekt under utvecklingstiden, vilket i slutändan gjorde<br>
+                        det väldigt svårt för mig att fortsätta ner den linjen och vilket till slut fick mig att skrota det mesta till fördel att ha en ny, mer dynamisk lösning.<br><br>
+
+
+                        <li><b>Var det svårt att greppa hur function scope och closure fungerar eller känns det naturligt?</b></li><br><br>
+
+                        Det känns överlag rätt naturligt. Jag har ju jobbat med de här sakerna tidigare, så scopes känns väldigt naturligt.<br>
+                        Jag hade det lite svårt att förstå hur jag skulle anropa saker i den bifogade hangman-filen (hangman.js), men efter att ha klurat runt hur det skulle lösas en bra stund<br>
+                        så insåg jag att jag hade missat en bracket (")") i slutet av min onload. Känns ju lagom smart, men man lär sig så länge man lever...<br><br>
+
+                        I slutändan började jag förstå hur man skulle arbeta med closure osv, dock. Det var lite småsvårt till att börja med, mest för att jag inte hade full koll på hur man jobbar med<br>
+                        consolen tillsammans med JS, alltså med input från consolen. Det var riktigt kul när man förstod det, dock! <br>
+                        Min kodstruktur är rätt intressant, dock. Hangman fungerar som en class skulle gjort i java, dvs att man arbetar med den genom att köra Hangman.hangman.show() för att nå <br>
+                        hangmans publika funktioner (show, hide). <br>
+                        Som svar på extrauppgiften (kunna spela spelet från konsolen) så har ni tillgång till <span class="code"> Hangman.guess(letter) </span>. Denna fungerar mycket som wordlist och<br>
+                        peek, med skillnad att den kräver två variabler (gissningen och en referens till att gissningen skickats från konsolen). <br><br>
+
+                        En annan sak som gjorde det lite svårt var att jag var tvungen att hantera consol-gissningarna lite annorlunda då jag var tvungen att hitta DOM-objekten manuellt för att <br>
+                        markera att de har blivit gissade och för att säkerställa att tidigare gissningar ses över inanan den nya används. Dvs. om du skriver 'a' och 'a' redan har gissats, så <br>
+                        behöver det registreras på något sätt. I de none-console gissningarna så har jag en event-listener som ser över "click" och på så vis sätter 'focus' på den knappen <br>
+                        som klickats på. <br><br>
+                        
+                        <li><b>Kan du jämföra “module pattern” med någon annat liknande datastruktur?</b></li><br><br>
+                        Det är inget specifikt just för JS, om jag ska vara helt ärlig. Det handlar ju egentligen om att man kan ha ett gäng moduler och det som finns i modulens scope inte<br>
+                        kan tillgås utanför modulen (module scope).<br>
+                        Om vi ska jämföra module pattern med något annat så är det väl rätt enkelt att likna det vid objekt eller klasser i andra språk, där en klass kan ha x specifika moduler<br>
+                        och n variabler som endast kan nås via antingen get-methods eller som är instansierade just i dess scope, om inte annat specifierat.<br><br>
+
+                        <li><b>Känns “module pattern som en bra kodstruktur”?</b></li><br><br>
+                        Jo, men det är det ju självklart. Det är som sagt en rätt basic struktur där man bryter ner en massa kod i moduler för att säkerställa att kod som INTE ska kunnas nås<br>
+                        inte kan nås (private variabler) eller för att ge kod en mer strukturerad (mer lättläst) struktur. Det gör det lättare för personer att läsa, att förstå men ökar<br>
+                        även produktionen, då man har tillgång till att göra 'mer' när ens kod är korrekt strukturerad. Ett lätt exempel är ju när man använder funktioner<br>
+                        som tillåter en utvecklare att skriva 'mindre' kod. <br>
+                   </ul>
+            </div>
+        </div>
+    </div>
+
     	</div>
     	</div>
 
