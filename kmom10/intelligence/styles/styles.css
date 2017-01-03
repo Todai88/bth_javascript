@@ -9,6 +9,7 @@
 	box-shadow: 5px 5px 5px #888888;
 }
 #rules{
+	padding-left: 15px;
 	padding-top: 5px;
 }
 .flex-parent {
