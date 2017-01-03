@@ -159,7 +159,7 @@ function game2(){
 	Setting up the game board
 	*/
 
-	var board = document.getElementById('gameboard'), fizz_string = "<p><b>Sequence:</b><hr>";
+	var board = document.getElementById('gameboard'), fizz_string = "<p style='margin-left: 2%'><b>Sequence:</b></p><p style='margin-left: 10%; font-size: 1.2em;'>";
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
 	title.innerHTML = 'FizzBuzz';
@@ -181,26 +181,31 @@ function game2(){
 	board.innerHTML = "";
 	array = fizzbuzz(array, index_one, index_two);
 	for(var i = 0; i < array.length; i++){
-		fizz_string += (i + 1) + ": " + array[i] + "<br>"; 
+		fizz_string += array[i];
+		if(i == array.length - 1){
+			fizz_string += ".";
+		} else{
+			fizz_string += ", ";
+		}
 	}
-	fizz_string += "</p><hr><b>Guesses:</b>";
+	fizz_string += "</p><hr><b><p style='margin-left: 2%;'>Guesses:</p></b><div style='margin-left: 10%; margin-top:-30px;'>";
 	var rand_number = Math.ceil(Math.random() * 4);	
 	var falses = 1;
 
 	for(var j = 0; j < 5; j++){
 		if(rand_number == j){
-			buttons += '<button id="true_answer" type="submit" style="width: 58px; margin-top: 5px; margin-left: 5px;">' + one + ', ' + two + '</button><br>';
+			buttons += '<button id="true_answer" type="submit" style="width: 58px; margin-top: 5px;">' + one + ', ' + two + '</button><br>';
 		} else{
 			var num1 = Math.floor((Math.random() * 100) + 1);
 			var num2 = Math.floor((Math.random() * 100) + 1);
-			buttons += '<button id="false_answer' + falses + '" type="submit" style="width: 58px; margin-top: 5px; margin-left: 5px;"' +
+			buttons += '<button id="false_answer' + falses + '" type="submit" style="width: 58px; margin-top: 5px;"' +
 					   'value="' + num1 + ', ' + num2 + '">' + num1 + ", " + num2 + '</button><br>'
 			falses++;
 		}
 	}
+	fizz_string += buttons + '</div>';
 
-	board.innerHTML = fizz_string;
-	board.innerHTML += buttons;
+	board.innerHTML = fizz_string; 
 	board.innerHTML += "<hr><p>Choose an answer that you believe shows the correct sequence of the 'hidden' numbers.<br>For help, see <b>'Rules'</b> to your left!</p>";
 	document.getElementById("true_answer").addEventListener('click', function(){
 																	add_pts(true, board, [one, two], this.value);}, false);
