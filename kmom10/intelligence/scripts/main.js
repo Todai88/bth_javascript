@@ -258,13 +258,47 @@ function add_pts(bool, board, correct, guess){
 }
 
 function game3(){
-
+	var cards_arr = [];
 	var board = document.getElementById('gameboard');
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
+	var flags = {
+					'1' : {'class' : 'sweden',
+						   'name'  : 'Sweden'},
+					'2' : {'class' : 'finland',
+						   'name'  : 'Finland'},
+					'3' : {'class' : 'colombia1 colombia2 colombia3',
+						   'name'  : 'Colombia'},
+					'4' : {'class' : 'japan circle',
+						   'name'  : 'Japan'},
+					'5' : {'class' : 'england',
+						   'name'  : 'England'}
+				}
 
-	board.innerHTML = "";
-	rules.innerHTML = "";
+	for(var i = 0; i < 9; i++){
+		var num = Math.ceil(Math.random() * 5);
+		console.log('This one is: ' + flags[num].name);
+		cards_arr.push(num);
+
+	}
+	console.log(cards_arr);
+
+	board.innerHTML = "<ul>";
+
+	for(i = 0; i < cards_arr.length; i++){
+
+		board.innerHTML += "<li>" + flags[cards_arr[i]].name + ", " + flags[cards_arr[i]].class + "</li>";
+
+	}
+	board.innerHTML += "</ul>";
+
+	rules.innerHTML = "<h3>Rules:</h3>" +
+					  "This game is designed to test your picture memory.<br>" +
+					  "You will be faced with nine flags. <br>Initially they are displayed face up, " +
+					  "but after five seconds they will be flipped over.<br><br>" +
+					  "After having been flipped over you will get an ordered list with nation's " +
+					  "flag.<br><br>" +
+					  "Your assignment is to match (click) each flag in the order of the list.";
 	title.innerHTML = "Memory game!";
 
 };
@@ -277,6 +311,23 @@ function game3(){
 
         var test = { };
 
+        function get_score(){
+        	return game_points;
+        }
+
+        function go_to(game){
+        	
+        	console.log("Changing game");
+
+        	if(game == 1){
+        		game1();
+        	} else if (game == 2){
+        		game2();
+        	} else if (game == 3){
+        		game3();
+        	}
+        }
+
         function get_answer(){
         	return correct_answer;
         }
@@ -284,6 +335,8 @@ function game3(){
         function reset(){
         	if(game_number == 1){
         		game1();
+        	} else if (game_number == 2){
+        		game2();
         	}
         } 
 
@@ -291,8 +344,10 @@ function game3(){
         // Return the object to make it visible.
 
        return {
+       		go_to : go_to,
             reset : reset,
-            get_answer:get_answer
+            get_answer:get_answer,
+            get_score : get_score
             // wordlist:wordlist,
             // peek:peek,
             // guess:guess
