@@ -12,6 +12,11 @@
 	padding-left: 15px;
 	padding-top: 5px;
 }
+
+.set-bold{
+	font-weight: bold;
+}
+
 .flex-parent {
   display: flex;
   flex-flow: row wrap;
@@ -58,6 +63,11 @@
 	position: relative;
 }
 
+#flags_container{
+	width: 100%;
+	height: 300px;
+}
+
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
@@ -96,6 +106,11 @@
 
 .top-buffer {
 	margin-top: 50px;
+}
+
+.flag-buffer{
+	margin-top: 25px;  
+	padding-left: 20px;
 }
 
 .middle{
@@ -161,7 +176,7 @@
 }
 .flex-row-item{
 	height: 50%;
-	widht: 100%;
+	width: 100%;
 }
 #colombia1 {
 	height: 50%;

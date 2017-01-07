@@ -1,7 +1,7 @@
 window.onload = function(){
 
 var game_names, game_points, game_number, current_points, game_object;
-
+var correct_answer;
 var start_game = function(){
 	game_names = ['questions'];
 	game_points = [0, 0, 0, 0, 0];
@@ -152,7 +152,7 @@ function create_array(){
 }
 
 function game2(){
-
+	game_number = 2;
 	console.log("Starting fizzbuzz!");
 	
 	/*
@@ -258,7 +258,9 @@ function add_pts(bool, board, correct, guess){
 }
 
 function game3(){
+	game_number = 3;
 	var cards_arr = [];
+	var current = 0;
 	var board = document.getElementById('gameboard');
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
@@ -272,26 +274,206 @@ function game3(){
 					'4' : {'class' : 'japan circle',
 						   'name'  : 'Japan'},
 					'5' : {'class' : 'england',
-						   'name'  : 'England'}
+						   'name'  : 'England'},
+					'6' : {'class' : 'Chile',
+						   'name'  : 'Chile'}
 				}
 
-	for(var i = 0; i < 9; i++){
-		var num = Math.ceil(Math.random() * 5);
-		console.log('This one is: ' + flags[num].name);
-		cards_arr.push(num);
+	var flag_divs = "<div class='container-fluid'><div class='row flag-buffer'>";
 
+	function specialflag(flag_name){
+		if(flag_name == 'Colombia'){
+
+			return '<div id="colombia"><div class="flag"> <div class="flex-row-container">'+
+		                 '<div class="flex-row-item" id="colombia1"> </div> <div class="flex-row-item" id="colombia2"> </div>' +
+		                 '<div class="flex-row-item" id="colombia3"> </div> </div> </div></div>';
+
+		} else if (flag_name == 'Japan'){
+
+			return  '<div class="flag" id="japan"> <div id="circle"> </div></div>';
+
+		} else if (flag_name == 'Chile'){
+
+			return  '<div class="flag" id="chile">' +
+	                '<div class="flex-row-container"> <div class="flex-row-item" id="top-row-item">' +
+	                '<div class="flex-col-container"> <div class="flex-col-item" id="left-col-item">' +
+	                '<div id="star-five">  </div> </div> <div class="flex-col-item" id="right-col-item">' +
+	                '</div> </div> </div> <div class="flex-row-item" id="btm-row-item"> </div> </div> </div>';
+
+		}
 	}
-	console.log(cards_arr);
 
-	board.innerHTML = "<ul>";
+	function setup_cards(){
+		for(var i = 0; i < 9; i++){	
+			var num = Math.ceil(Math.random() * 6);
+			console.log('This one is: ' + flags[num].name);
+			cards_arr.push(num); 
+		}  
+		return cards_arr;
+	} 
 
-	for(i = 0; i < cards_arr.length; i++){
+	function create_cards(){
+		for(i = 0; i < cards_arr.length; i++){
+			if (i == 3 || i == 6){
+				flag_divs += "</div><div class='row flag-buffer'>"
+			}
+			if(flags[cards_arr[i]].name == 'Colombia' || flags[cards_arr[i]].name == 'Chile' || flags[cards_arr[i]].name == 'Japan'){
+				flag_divs += "<div id='flag_" + i + "' class='flip-container col-xs-2 col-xs-offset-1'>" +
+		            		"<div class='front'>" +
+		            		"</div>" +
+		            		"<div class='back'>" +
+		            		specialflag(flags[cards_arr[i]].name) + 
+		            		"</div>" +
+		            		"</div>";
+			} else{
+				flag_divs += "<div id='flag_" + i + "' class='flip-container col-xs-2 col-xs-offset-1'>" +
+			            		"<div class='front'>" +
+			            		"</div>" +
+			            		"<div class='back'>" +
+			            		"<div id='" + flags[cards_arr[i]].class + "' class='flag'> </div>" + 
+			            		"</div>" +
+			            		"</div>";
+		            }
+		}
+		board.innerHTML =  '<h3 class="text-center"> Memorize the flags </h3><div class="container-fluid"> <div class="row">' + flag_divs + '</div></div>';
+		var myNodeList = document.getElementsByClassName('flip-container'); 
+ 
 
-		board.innerHTML += "<li>" + flags[cards_arr[i]].name + ", " + flags[cards_arr[i]].class + "</li>";
 
+        for(var iterator = 0; iterator < myNodeList.length; iterator++){
+
+        var el = document.getElementById(myNodeList["flag_" + iterator].id);
+        el.id = iterator;
+        //console.log(el); 
+        el.style.transform = 'rotateY(180deg)';
+        el.classList.add('flipper');
+    } 
+		window.setTimeout(() => {
+		for(var iterator = 0; iterator < myNodeList.length; iterator++){  
+        	var el = document.getElementById(myNodeList[iterator].id);
+	        el.id = iterator; 
+	        el.style.transform = 'rotateY(0deg)'; 
+	        console.log("I'm done!");
+		}  
+	}, 5000);
 	}
-	board.innerHTML += "</ul>";
 
+	function set_list(){
+		console.log("I'm in");  
+		var flag_list = "<br><div class='col-xs-4 col-xs-offset-4'><ol class='flagger'>";
+		var array = [];
+		console.log(cards_arr);
+		cardss_arr = shuffle(cards_arr);
+		console.log(cards_arr);
+		for(var i = 0; i < cards_arr.length; i++){
+			if(i == 0){
+				flag_list += "<li class='lead set-bold' id='item_" + i + "'>" + flags[cards_arr[i]].name + "</li>"; 
+			} else{
+				flag_list += "<li id='item_" + i + "'>" + flags[cards_arr[i]].name + "</li>"; 
+			}
+		} 
+		flag_list += "</ol></div>";
+		board.innerHTML += flag_list; 
+
+		array = shuffle(array);
+		return cardss_arr;
+	}
+
+	function set_listeners(flags, arr, list_names){
+
+		var myNodeList = document.getElementsByClassName('flip-container'); 
+		window.setTimeout(() => {
+        for(var iterator = 0; iterator < myNodeList.length; iterator++){ 
+	        var el = document.getElementById(myNodeList[iterator].id);
+	        el.id = iterator;
+	        //console.log(el);  
+	        start_tests(flags[list_names[0]].name);
+	        el.addEventListener('click', function(){
+	            animate(this);
+	        });
+	        var animate = function (sender){
+	            sender.style.transform = "rotateY(0deg)";
+	            sender.style.transform = "rotateY(180deg)";
+	            sender.classList.add('flipper');  
+	            test(arr, sender.childNodes[1].childNodes[0].id, sender, animate);
+	        };
+    }
+
+	}, 2000)};
+
+	function start_tests(flag){  
+		console.log(flag);
+		correct_answer = flag; 
+	}
+
+	function test(arr, flag, sender){ 
+
+		var curr_item = document.getElementById('item_' + current);
+		
+		if((current_points + 1) == arr.length){
+			alert("You got all the points! Well done! :)\nProceeding to next game!");
+			game_points[2] = current_points;
+			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>';
+				document.getElementById('next_game').addEventListener('click', function(){
+					game4();
+				});
+			}, 2000);
+			return;
+		}
+		if(flag.toUpperCase() == correct_answer.toUpperCase()){
+			curr_item.className = "";
+			current_points++;
+			current++;
+			curr_item = document.getElementById('item_' + current);
+			curr_item.classList.add('lead', 'set-bold');
+			correct_answer = flags[arr[current]].name; 
+		} else{
+			alert("Sorry, you got the wrong flag...\nRemoving game.");
+			var myNodeList = document.getElementsByClassName('flip-container');
+			game_points[2] = current_points;
+			for(var i = 0; i < myNodeList.length; i++){
+				var el = document.getElementById(myNodeList[i].id); 
+		        el.style.transform = "rotateY(180deg)";
+		        el.classList.add('flipper');
+			}
+			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>';
+				document.getElementById('next_game').addEventListener('click', function(){
+					game4();
+				});
+			}, 2000);
+
+		}
+	}
+
+	function shuffle(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex;
+
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+
+		  return array;
+		}
+
+	board.innerHTML = '<h3 class="text-center">Click the button to display the flags.</h3><button id="start" class="center-block">Start timer</button>';
+
+	document.getElementById('start').addEventListener('click', function(){
+		var arr = setup_cards();
+		create_cards();
+		window.setTimeout(() => {
+			var list_names = set_list(); 
+			set_listeners(flags, arr, list_names);
+		}, 5500);
+	});
 	rules.innerHTML = "<h3>Rules:</h3>" +
 					  "This game is designed to test your picture memory.<br>" +
 					  "You will be faced with nine flags. <br>Initially they are displayed face up, " +
@@ -302,6 +484,16 @@ function game3(){
 	title.innerHTML = "Memory game!";
 
 };
+
+function game4(){
+	var board = document.getElementById('gameboard');
+	var rules = document.getElementById('rules');
+	var title = document.getElementById('title');
+
+	board.innerHTML = "";
+	rules.innerHTML = "";
+	title.innerHTML = "Game4";
+}
     /**
      * Showing off how to display/hide parts of a SVG-image.
      */
@@ -332,11 +524,17 @@ function game3(){
         	return correct_answer;
         }
 
+        function get_points(){
+        	return current_points;
+        }
+
         function reset(){
         	if(game_number == 1){
         		game1();
         	} else if (game_number == 2){
         		game2();
+        	} else if (game_number == 3){
+        		game3();
         	}
         } 
 
@@ -344,10 +542,11 @@ function game3(){
         // Return the object to make it visible.
 
        return {
-       		go_to : go_to,
-            reset : reset,
+       		reset : reset,
+       		go_to : go_to, 
             get_answer:get_answer,
-            get_score : get_score
+            get_score : get_score,
+            get_points : get_points
             // wordlist:wordlist,
             // peek:peek,
             // guess:guess
