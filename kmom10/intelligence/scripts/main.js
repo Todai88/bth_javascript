@@ -1,7 +1,7 @@
 window.onload = function(){
 
 var game_names, game_points, game_number, current_points, game_object;
-var correct_answer;
+var correct_answer, timer, timer_2;
 var start_game = function(){
 	game_names = ['questions'];
 	game_points = [0, 0, 0, 0, 0];
@@ -12,28 +12,28 @@ var start_game = function(){
 
 var calculate_points = function(number){
 	var curr_points = 0;
-	if (number == 1){ 
+	if (number == 1){
 		var chx = document.getElementsByTagName('input');
 		for (var i=0; i<chx.length; i++) {
     // If you have more than one radio group, also check the name attribute
     // for the one you want as in && chx[i].name == 'choose'
     // Return true from the function on first match of a checked item
 	    if (chx[i].type == 'radio' && chx[i].checked && chx[i].name == 'question_1') {
-		     
-		     if(game_object['question_1'].correct_answer == chx[i].value){
-		     	curr_points += 3; 
+
+		     if(game_object.question_1.correct_answer == chx[i].value){
+		     	curr_points += 3;
 	    	}
-	    	  
+
 		} else if (chx[i].type == 'radio' && chx[i].checked && chx[i].name == 'question_2'){
-				
-				if(game_object['question_2'].correct_answer == chx[i].value){
-				     	curr_points += 3; 
+
+				if(game_object.question_2.correct_answer == chx[i].value){
+				     	curr_points += 3;
 			    	}
 
 		} else if (chx[i].type == 'radio' && chx[i].checked && chx[i].name == 'question_3'){
-			
-				if(game_object['question_3'].correct_answer == chx[i].value){
-				     	curr_points += 3; 
+
+				if(game_object.question_3.correct_answer == chx[i].value){
+				     	curr_points += 3;
 			    	}
 		}
 
@@ -42,7 +42,7 @@ var calculate_points = function(number){
 	current_points += curr_points;
 	game_points[0] = current_points;
 }
-}
+};
 
 
 
@@ -59,7 +59,7 @@ var game1 = function(){
 		'question_1' : {
 					'question' 		   : 'Who is the current Queen of England?',
 					'correct_answer'   : 'Queen Elizabeth II',
-					'answers'		   : 
+					'answers'		   :
 									[	 'Queen Elizabeth II',
 										 'Queen Victoria',
 										 'Queen Mary'
@@ -84,8 +84,7 @@ var game1 = function(){
 										  'David Cameron'
 										 ]
 					}
-		}; 
-	console.log(game_object['question_1'].answers);
+		};
 
     var myQuestions = document.getElementById('gameboard');
 	var letters 	= document.createElement('ul');
@@ -97,35 +96,36 @@ var game1 = function(){
 	    var list = document.createElement('li');
 	    list.id = 'question_' + i;
 	    	for(var j = 0; j <= 2; j++){
-	    		if(j == 0){
-	    			question_string += '1 &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">' 
+	    		if(j === 0){
+	    			question_string += '1 &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">'
 	    								+ game_object['question_'+i].answers[j] + '<br>';
  	    		} else if (j == 1){
- 	    			question_string += 'x &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">' 
+ 	    			question_string += 'x &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">'
 	    								+ game_object['question_'+i].answers[j] + '<br>';
  	    		} else{
- 	    			question_string += '2 &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">' 
+ 	    			question_string += '2 &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">'
 	    								+ game_object['question_'+i].answers[j] + '<br>';
  	    		}
-	    		
-	    	} 
+
+	    	}
 
 	    list.innerHTML = game_object['question_' + i].question + '<form action="">' + question_string + '</form><br><br>';
 	    list.classList.add('questions');
-	    myQuestions.appendChild(letters); 
+	    myQuestions.appendChild(letters);
     	letters.appendChild(list);
     	question_string = '';
   }
   	letters.innerHTML += '<button id="submit" type="submit" style="margin-left: 45%">Submit (next game)</button>';
-  	document.getElementById('submit').addEventListener('click', next_game, false);
-  	console.log(game_object['question_1'].correct_answer + " " + game_object['question_2'].correct_answer + " " + game_object['question_3'].correct_answer);
-  	correct_answer = [game_object['question_1'].correct_answer, game_object['question_2'].correct_answer, game_object['question_3'].correct_answer];
+  	document.getElementById('submit').addEventListener('click', function(){
+  		next_game(1);
+  	});
+  	correct_answer = [game_object.question_1.correct_answer, game_object.question_2.correct_answer, game_object.question_3.correct_answer];
 };
 
 function create_array(){
 
 	var numbers = [];
-	var counter = 0; 
+	var counter = 0;
 	var indexes = [], multi = [];
 	for(var i = 0; i < 5; i++){
 		if(i == 4 && counter < 2){
@@ -136,7 +136,7 @@ function create_array(){
 		}
 
 		var number = Math.floor((Math.random() * 100) + 1);
-		if(number % 3 == 0 || number % 5 == 0){
+		if(number % 3 === 0 || number % 5 === 0){
 			numbers.push(number);
 			indexes.push(i); //push index.
 			counter++;
@@ -144,8 +144,8 @@ function create_array(){
 		    numbers.push(number);
 		}
 
-	
-	} 
+
+	}
 
 	multi = [indexes, numbers];
 	return multi;
@@ -154,7 +154,7 @@ function create_array(){
 function game2(){
 	game_number = 2;
 	console.log("Starting fizzbuzz!");
-	
+
 	/*
 	Setting up the game board
 	*/
@@ -176,7 +176,7 @@ function game2(){
 					  'During this test you will be faced with a sequence of 4 numbers and 2 words. <br>' +
 					  "It's up to you to figure out what numbers hide behind the words using below formula. <br><br>"  +
 					  "A number divisable by 3 will show as 'Fizz' and if it's divisable by 5 it will show as 'Buzz'." +
-					  " If the number is divisable by both 3 and 5 it will show up as 'FizzBuzz'!" +  
+					  " If the number is divisable by both 3 and 5 it will show up as 'FizzBuzz'!" +
 					  '<br><br>A correct answer will grant you 3 points!';
 	board.innerHTML = "";
 	array = fizzbuzz(array, index_one, index_two);
@@ -189,7 +189,7 @@ function game2(){
 		}
 	}
 	fizz_string += "</p><hr><b><p style='margin-left: 2%;'>Guesses:</p></b><div style='margin-left: 10%; margin-top:-30px;'>";
-	var rand_number = Math.ceil(Math.random() * 4);	
+	var rand_number = Math.ceil(Math.random() * 4);
 	var falses = 1;
 
 	for(var j = 0; j < 5; j++){
@@ -199,13 +199,13 @@ function game2(){
 			var num1 = Math.floor((Math.random() * 100) + 1);
 			var num2 = Math.floor((Math.random() * 100) + 1);
 			buttons += '<button id="false_answer' + falses + '" type="submit" style="width: 58px; margin-top: 5px;"' +
-					   'value="' + num1 + ', ' + num2 + '">' + num1 + ", " + num2 + '</button><br>'
+					   'value="' + num1 + ', ' + num2 + '">' + num1 + ", " + num2 + '</button><br>';
 			falses++;
 		}
 	}
 	fizz_string += buttons + '</div>';
 
-	board.innerHTML = fizz_string; 
+	board.innerHTML = fizz_string;
 	board.innerHTML += "<hr><p>Choose an answer that you believe shows the correct sequence of the 'hidden' numbers.<br>For help, see <b>'Rules'</b> to your left!</p>";
 	document.getElementById("true_answer").addEventListener('click', function(){
 																	add_pts(true, board, [one, two], this.value);}, false);
@@ -217,28 +217,28 @@ function game2(){
 																	add_pts(false, board, [one, two], this.value);}, false);
 	document.getElementById("false_answer4").addEventListener('click', function(){
 																	add_pts(false, board, [one, two], this.value);}, false);
-};
+}
 
 function fizzbuzz(arr, num_one, num_two){
 
-	
-	if(arr[num_one] % 3 == 0 && arr[num_one] % 5 == 0){
+
+	if(arr[num_one] % 3 === 0 && arr[num_one] % 5 === 0){
 		arr[num_one] = 'FizzBuzz';
-	} else if (arr[num_one] % 3 == 0){
+	} else if (arr[num_one] % 3 === 0){
 		arr[num_one] = 'Fizz';
-	} else if (arr[num_one] % 5 == 0){
+	} else if (arr[num_one] % 5 === 0){
 		arr[num_one] = 'Buzz';
 	}
 
-	if(arr[num_two] % 3 == 0 && arr[num_two] % 5 == 0){
+	if(arr[num_two] % 3 === 0 && arr[num_two] % 5 === 0){
 		arr[num_two] = 'FizzBuzz';
-	} else if (arr[num_two] % 3 == 0){
+	} else if (arr[num_two] % 3 === 0){
 		arr[num_two] = 'Fizz';
-	} else if (arr[num_two] % 5 == 0){
+	} else if (arr[num_two] % 5 === 0){
 		arr[num_two] = 'Buzz';
 	}
 	return arr;
-};
+}
 
 function add_pts(bool, board, correct, guess){
 	console.log("I'm adding points now..." + bool);
@@ -261,6 +261,7 @@ function game3(){
 	game_number = 3;
 	var cards_arr = [];
 	var current = 0;
+	current_points = 0;
 	var board = document.getElementById('gameboard');
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
@@ -277,7 +278,7 @@ function game3(){
 						   'name'  : 'England'},
 					'6' : {'class' : 'Chile',
 						   'name'  : 'Chile'}
-				}
+				};
 
 	var flag_divs = "<div class='container-fluid'><div class='row flag-buffer'>";
 
@@ -304,25 +305,25 @@ function game3(){
 	}
 
 	function setup_cards(){
-		for(var i = 0; i < 9; i++){	
+		for(var i = 0; i < 9; i++){
 			var num = Math.ceil(Math.random() * 6);
 			console.log('This one is: ' + flags[num].name);
-			cards_arr.push(num); 
-		}  
+			cards_arr.push(num);
+		}
 		return cards_arr;
-	} 
+	}
 
 	function create_cards(){
-		for(i = 0; i < cards_arr.length; i++){
+		for(var i = 0; i < cards_arr.length; i++){
 			if (i == 3 || i == 6){
-				flag_divs += "</div><div class='row flag-buffer'>"
+				flag_divs += "</div><div class='row flag-buffer'>";
 			}
 			if(flags[cards_arr[i]].name == 'Colombia' || flags[cards_arr[i]].name == 'Chile' || flags[cards_arr[i]].name == 'Japan'){
 				flag_divs += "<div id='flag_" + i + "' class='flip-container col-xs-2 col-xs-offset-1'>" +
 		            		"<div class='front'>" +
 		            		"</div>" +
 		            		"<div class='back'>" +
-		            		specialflag(flags[cards_arr[i]].name) + 
+		            		specialflag(flags[cards_arr[i]].name) +
 		            		"</div>" +
 		            		"</div>";
 			} else{
@@ -330,50 +331,50 @@ function game3(){
 			            		"<div class='front'>" +
 			            		"</div>" +
 			            		"<div class='back'>" +
-			            		"<div id='" + flags[cards_arr[i]].class + "' class='flag'> </div>" + 
+			            		"<div id='" + flags[cards_arr[i]].class + "' class='flag'> </div>" +
 			            		"</div>" +
 			            		"</div>";
 		            }
 		}
 		board.innerHTML =  '<h3 class="text-center"> Memorize the flags </h3><div class="container-fluid"> <div class="row">' + flag_divs + '</div></div>';
-		var myNodeList = document.getElementsByClassName('flip-container'); 
- 
+		var myNodeList = document.getElementsByClassName('flip-container');
+
 
 
         for(var iterator = 0; iterator < myNodeList.length; iterator++){
 
         var el = document.getElementById(myNodeList["flag_" + iterator].id);
         el.id = iterator;
-        //console.log(el); 
+        //console.log(el);
         el.style.transform = 'rotateY(180deg)';
         el.classList.add('flipper');
-    } 
-		window.setTimeout(() => {
-		for(var iterator = 0; iterator < myNodeList.length; iterator++){  
+    }
+		window.setTimeout(() => { // jshint ignore:line
+		for(var iterator = 0; iterator < myNodeList.length; iterator++){
         	var el = document.getElementById(myNodeList[iterator].id);
-	        el.id = iterator; 
-	        el.style.transform = 'rotateY(0deg)'; 
+	        el.id = iterator;
+	        el.style.transform = 'rotateY(0deg)';
 	        console.log("I'm done!");
-		}  
+		}
 	}, 5000);
 	}
 
 	function set_list(){
-		console.log("I'm in");  
+		console.log("I'm in");
 		var flag_list = "<br><div class='col-xs-4 col-xs-offset-4'><ol class='flagger'>";
 		var array = [];
 		console.log(cards_arr);
-		cardss_arr = shuffle(cards_arr);
+		var cardss_arr = shuffle(cards_arr);
 		console.log(cards_arr);
 		for(var i = 0; i < cards_arr.length; i++){
-			if(i == 0){
-				flag_list += "<li class='lead set-bold' id='item_" + i + "'>" + flags[cards_arr[i]].name + "</li>"; 
+			if(i === 0){
+				flag_list += "<li class='lead set-bold' id='item_" + i + "'>" + flags[cards_arr[i]].name + "</li>";
 			} else{
-				flag_list += "<li id='item_" + i + "'>" + flags[cards_arr[i]].name + "</li>"; 
+				flag_list += "<li id='item_" + i + "'>" + flags[cards_arr[i]].name + "</li>";
 			}
-		} 
+		}
 		flag_list += "</ol></div>";
-		board.innerHTML += flag_list; 
+		board.innerHTML += flag_list;
 
 		array = shuffle(array);
 		return cardss_arr;
@@ -381,39 +382,40 @@ function game3(){
 
 	function set_listeners(flags, arr, list_names){
 
-		var myNodeList = document.getElementsByClassName('flip-container'); 
-		window.setTimeout(() => {
-        for(var iterator = 0; iterator < myNodeList.length; iterator++){ 
+		var myNodeList = document.getElementsByClassName('flip-container');
+		window.setTimeout(() => { // jshint ignore:line
+        for(var iterator = 0; iterator < myNodeList.length; iterator++){
 	        var el = document.getElementById(myNodeList[iterator].id);
 	        el.id = iterator;
-	        //console.log(el);  
+	        //console.log(el);
 	        start_tests(flags[list_names[0]].name);
-	        el.addEventListener('click', function(){
-	            animate(this);
+	        el.addEventListener('click', function handler(e){
+	        	e.currentTarget.removeEventListener(e.type, handler);
+	            animate(this, e);
 	        });
 	        var animate = function (sender){
 	            sender.style.transform = "rotateY(0deg)";
 	            sender.style.transform = "rotateY(180deg)";
-	            sender.classList.add('flipper');  
+	            sender.classList.add('flipper');
 	            test(arr, sender.childNodes[1].childNodes[0].id, sender, animate);
 	        };
     }
 
-	}, 2000)};
+	}, 2000);}
 
-	function start_tests(flag){  
+	function start_tests(flag){
 		console.log(flag);
-		correct_answer = flag; 
+		correct_answer = flag;
 	}
 
-	function test(arr, flag, sender){ 
+	function test(arr, flag){
 
 		var curr_item = document.getElementById('item_' + current);
-		
+
 		if((current_points + 1) == arr.length){
-			alert("You got all the points! Well done! :)\nProceeding to next game!");
+			window.alert("You got all the points! Well done! :)\nProceeding to next game!");
 			game_points[2] = current_points;
-			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>';
+			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>'; // jshint ignore:line
 				document.getElementById('next_game').addEventListener('click', function(){
 					game4();
 				});
@@ -426,17 +428,17 @@ function game3(){
 			current++;
 			curr_item = document.getElementById('item_' + current);
 			curr_item.classList.add('lead', 'set-bold');
-			correct_answer = flags[arr[current]].name; 
+			correct_answer = flags[arr[current]].name;
 		} else{
-			alert("Sorry, you got the wrong flag...\nRemoving game.");
+			window.alert("Sorry, you got the wrong flag...\nRemoving game.");
 			var myNodeList = document.getElementsByClassName('flip-container');
 			game_points[2] = current_points;
 			for(var i = 0; i < myNodeList.length; i++){
-				var el = document.getElementById(myNodeList[i].id); 
+				var el = document.getElementById(myNodeList[i].id);
 		        el.style.transform = "rotateY(180deg)";
 		        el.classList.add('flipper');
 			}
-			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>';
+			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>'; // jshint ignore:line
 				document.getElementById('next_game').addEventListener('click', function(){
 					game4();
 				});
@@ -469,8 +471,8 @@ function game3(){
 	document.getElementById('start').addEventListener('click', function(){
 		var arr = setup_cards();
 		create_cards();
-		window.setTimeout(() => {
-			var list_names = set_list(); 
+		window.setTimeout(() => { // jshint ignore:line
+			var list_names = set_list();
 			set_listeners(flags, arr, list_names);
 		}, 5500);
 	});
@@ -483,32 +485,357 @@ function game3(){
 					  "Your assignment is to match (click) each flag in the order of the list.";
 	title.innerHTML = "Memory game!";
 
-};
+}
 
 function game4(){
 	var board = document.getElementById('gameboard');
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
+	var object_array = [];
+	var current = 0;
+	game_number = 4;
+	var object = function(id, string, form, color){
+		this.id = id;
+		this.string = string;
+		this.form = form;
+		this.color = color;
+	};
 
-	board.innerHTML = "";
-	rules.innerHTML = "";
-	title.innerHTML = "Game4";
+	var form_object = {
+					'1' : {'class' : 'square',
+						   'name'  : 'square'},
+					'2' : {'class' : 'circle',
+						   'name'  : 'circle'},
+					'3' : {'class' : 'triangle',
+						   'name'  : 'triangle'},
+					'4' : {'class' : 'rectangle',
+						   'name'  : 'rectangle'}
+				};
+	var color_object = {
+					'1' : { 'class' : 'white',
+							'name'  : 'white'},
+					'2' : { 'class' : 'black',
+							'name'  : 'black'},
+					'3' : { 'class' : 'red',
+							'name'  : 'red'},
+					'4' : { 'class' : 'blue',
+							'name'  : 'blue'},
+					'5' : { 'class' : 'green',
+							'name'  : 'green'}
+				};
+	for(var i = 0; i < 10; i++){
+		var color = Math.ceil(Math.random() * 5);
+		var form = Math.ceil(Math.random()  * 4);
+		var o = Object.create(object, {id     : {value: i},
+									   string : {value: 'Click the ' + color_object[color].name + " " + form_object[form].name + "."},
+									   form   : {value: form_object[form].name},
+									   color  : {value: color_object[color].name}});
+		object_array.push(o);
+	}
+	console.log(object_array);
+	board.innerHTML = "<h3 class='text-center'>Click the button to start the test!</h3>"  +
+					  "<p class='text-center'>The timer (15s) starts when you click the button.</p><br>";
+	var start_button = document.createElement('Button');
+	var start_button_text = document.createTextNode('Start game');
+	start_button.appendChild(start_button_text);
+	start_button.classList.add('center-block');
+	start_button.addEventListener('click', function(){
+		start_4();
+	});
+
+	var board_node = document.getElementById('gameboard');
+	board_node.appendChild(start_button);
+
+	rules.innerHTML = "<h3>Rules:</h3>" +
+					  "This game is designed to test your visual intelligence.<br>" +
+					  "You will be given a list and 10 randomly generated objects<br><br>" +
+					  "It's your job to click the object that most closely matches the highlighted object in the list." +
+					  "<br><br>Items in the list might be <b>'Click the white circle'</b> or <b>'Click the black square'</b>";
+	title.innerHTML = "Visual intelligence";
+
+	function start_4(){
+
+		current_points = 0;
+
+		timer = window.setTimeout(function(){
+
+										end_test();
+
+											}, 15000);
+
+		function end_test(){
+				window.clearTimeout(timer);
+				board.innerHTML = "";
+				board.innerHTML = "<h3 class='text-center'>You have finished this test. Click the button to proceed to the next!</h3>" +
+								  "<p class='text-center'> You gained: " + current_points + " points. </p>";
+				var button_end = document.createElement("Button");
+				var button_end_text = document.createTextNode("Next game");
+				button_end.addEventListener('click', function(){
+					game5();
+				});
+				var game_board = document.getElementById('gameboard');
+				button_end.appendChild(button_end_text);
+				button_end.classList.add('center-block');
+				game_board.appendChild(button_end);
+				game_points[3] = current_points;
+		}
+
+		board.innerHTML = "<div id='top-half' class='top'></div><div id='bottom-half' class='bottom'></div>";
+		//setting up board:
+		var btm = document.getElementById('bottom-half');
+		var ordered_list = document.createElement("OL");
+		ordered_list.id = 'theList';
+		ordered_list.classList.add("top-padding");
+		for(i = 0; i < object_array.length; i++){
+			var list_item    = document.createElement("LI");
+			var text         = document.createTextNode(object_array[i].string);
+			list_item.appendChild(text);
+			ordered_list.appendChild(list_item);
+
+		}
+		ordered_list.childNodes[0].classList.add('set-bold', 'current');
+		btm.appendChild(ordered_list);
+
+		function create_top(object_array){
+			var top = document.getElementById('top-half');
+
+			for(var i = 0; i < object_array.length; i++){
+				var object = object_array[i];
+				var div_object = document.createElement('div');
+	            var randTop =  Math.floor((Math.random() * 40) + 12) + "%";
+	            var randLeft = Math.floor((Math.random() * 53) + 20) + "%";
+
+	            if(object.form == 'triangle'){
+	            	div_object.classList.add(object.form);
+	            	div_object.style.borderColor = "transparent transparent " + object.color + " transparent";
+	            	div_object.id = object.color + " " + object.form;
+	            } else {
+					div_object.classList.add(object.color, object.form);
+				}
+				div_object.style.position = "absolute";
+				div_object.style.top = randTop;
+				div_object.style.left = randLeft;
+				div_object.style.zIndex = i;
+				div_object.addEventListener('click', function(){
+					test_object(this, object);
+				});
+
+				top.appendChild(div_object);
+			}
+		}
+		function test_object(sender){
+			console.log(sender);
+			console.log(sender.classList.value);
+			console.log(object_array[current]);
+
+			if(current == 9){
+				end_test();
+				return;
+			}
+			var ol;
+			if(object_array[current].string == "Click the " + sender.classList.value + "." ||
+			   object_array[current].string == "Click the " + sender.id + "."){
+				ol = document.getElementById('theList');
+				ol.childNodes[current].classList = "";
+				current++;
+				ol.childNodes[current].classList.add('set-bold', 'current');
+				sender.classList = "";
+				current_points++;
+			} else {
+				ol = document.getElementById('theList');
+				ol.childNodes[current].classList = "";
+				ol.childNodes[current].classList.add('set-bold', 'error');
+				current++;
+				ol.childNodes[current].classList.add('set-bold', 'current');
+				sender.classList = "";
+			}
+		}
+		var button = document.createElement("Button");
+		var button_text = document.createTextNode("Reset positioning");
+		button.appendChild(button_text);
+		button.addEventListener('click', function(){
+			start_4();
+		});
+		button.classList.add('button_setting');
+		btm.appendChild(button);
+		create_top(object_array);
 }
+}
+
+function game5(){
+	var board = document.getElementById('gameboard');
+	var rules = document.getElementById('rules');
+	var title = document.getElementById('title');
+	current_points = 0;
+	board.innerHTML = "<h3 class='text-center'>Click the button to start the test</h3><p class='text-center'><b>WARNING:</b>  Each object is shown for 1 second.</p>";
+	rules.innerHTML = "<h3>Rules:</h3>" +
+					  "This test is designed to test your perception.<br><br>" +
+					  "You will be presented with an object which you need to decide to click or not. <br><br>" +
+					  "You should click an element that is: <br><br><ul>" +
+					  "<li> Any color but red </li><li>Any form but square</li><li>Both red and square</li></ul>" +
+					  "Any correct decision gives you one point.<br><br>Each object is shown for 1 second!";
+	title.innerHTML = "Perception";
+	var object_array = [];
+	game_number = 4;
+	var object = function(id, string, form, color){
+		this.id = id;
+		this.string = string;
+		this.form = form;
+		this.color = color;
+	};
+
+	var form_object = {
+					'1' : {'class' : 'square',
+						   'name'  : 'square'},
+					'2' : {'class' : 'circle',
+						   'name'  : 'circle'},
+					'3' : {'class' : 'triangle',
+						   'name'  : 'triangle'},
+					'4' : {'class' : 'rectangle',
+						   'name'  : 'rectangle'}
+				};
+	var color_object = {
+					'1' : { 'class' : 'white',
+							'name'  : 'white'},
+					'2' : { 'class' : 'black',
+							'name'  : 'black'},
+					'3' : { 'class' : 'red',
+							'name'  : 'red'},
+					'4' : { 'class' : 'blue',
+							'name'  : 'blue'},
+					'5' : { 'class' : 'green',
+							'name'  : 'green'}
+				};
+
+	for(var i = 0; i < 10; i++){
+		var color = Math.ceil(Math.random() * 5);
+		var form = Math.ceil(Math.random()  * 4);
+		var o = Object.create(object, {id     : {value: i},
+									   string : {value: 'Click the ' + color_object[color].name + " " + form_object[form].name + "."},
+									   form   : {value: form_object[form].name},
+									   color  : {value: color_object[color].name}});
+		object_array.push(o);
+	}
+
+	var start_button = document.createElement('Button');
+	var start_button_text = document.createTextNode('Start game');
+	start_button.appendChild(start_button_text);
+	start_button.classList.add('center-block');
+	start_button.addEventListener('click', function(){
+		start_5();
+	});
+
+	board.appendChild(start_button);
+
+	function start_5(){
+		var bad_object = false;
+		var clicked = false;
+		board.innerHTML = "";
+		show_object(object_array, 0);
+
+		function show_object(objects, iterator){
+
+			timer = window.setTimeout(function(){
+				if(clicked === false && bad_object === true){
+					current_points++;
+					console.log("I was an unclicked, bad object");
+				}
+				clicked = false;
+				board.innerHTML = "";
+			    timer_2 = window.setTimeout(function(){
+				var div_object = document.createElement('div');
+				div_object.classList.add('center_object');
+	            if(objects[iterator].form == 'triangle'){
+	            	div_object.classList.add(objects[iterator].form);
+	            	div_object.style.borderColor = "transparent transparent " + objects[iterator].color + " transparent";
+	            	div_object.id = objects[iterator].color + " " + objects[iterator].form;
+	            } else {
+					div_object.classList.add(objects[iterator].color, objects[iterator].form);
+				}
+				div_object.style.position = "absolute";
+				div_object.style.zIndex = i;
+				div_object.addEventListener('click', function(){
+					test_object(object_array[iterator - 1]);
+				});
+				if((objects[iterator].color == 'red' && objects[iterator].form == 'square')){
+				  	console.log("I'm a good object");
+				  	bad_object = false;
+				  } else if ((objects[iterator].form != 'square' && objects[iterator].color != 'red')){
+				  	console.log("I'm a good object");
+				  	bad_object = false;
+				  } else {
+				  	console.log("I'm not a good object");
+				  	bad_object = true;
+				  }
+				board.appendChild(div_object);
+				iterator++;
+				if(iterator == 10){
+
+					if(clicked === false && bad_object === true){
+							current_points++;
+						}
+						finalize();
+					return;
+				}
+				show_object(object_array, iterator);
+			}, 1000);
+			}, 1000);
+
+			function test_object(sender){
+				clicked = true;
+				if(sender.form == 'square' && sender.color == 'red'){
+					console.log("Correct, it's both square and red.");
+					current_points++;
+				} else if (sender.form != 'square' && sender.color != 'red'){
+					console.log("Correct, it's neither red nor square.");
+					current_points++;
+				} else{
+					console.log("Incorrect, it's either red OR square.");
+				}
+			}
+		}
+	}
+}
+	function finalize(){
+		var board = document.getElementById('gameboard');
+		var rules = document.getElementById('rules');
+		var title = document.getElementById('title');
+		var finish_button = document.createElement('Button');
+		var finish_button_text = document.createTextNode('Check score');
+		console.log(current_points);
+		game_points[4] = current_points;
+		finish_button.appendChild(finish_button_text);
+		finish_button.classList.add('center-block');
+		finish_button.addEventListener('click', function(){
+			this.classList.add('hidden');
+			var score = score_it();
+			var text = document.createTextNode("Your score is: " + score + "/38");
+			var node = document.createElement("H1");
+			node.classList.add("text-center");
+			node.appendChild(text);
+			board.appendChild(node);
+		});
+		rules.innerHTML = '';
+		title.innerHTML = 'We are done!';
+		board.innerHTML = "<h3 class='text-center'>We are now finished.</h3><br><p class='text-center'>Click the button to let me analyze your score.</p>";
+		board.appendChild(finish_button);
+		function score_it(){
+			var arr = game_points;
+			return (arr[0] + arr[1] + arr[2] + arr[3] + arr[4]);
+		}
+	}
     /**
      * Showing off how to display/hide parts of a SVG-image.
      */
     window.Test = (function() {
         'use strict';
 
-
-        var test = { };
-
         function get_score(){
         	return game_points;
         }
 
         function go_to(game){
-        	
+
         	console.log("Changing game");
 
         	if(game == 1){
@@ -517,6 +844,10 @@ function game4(){
         		game2();
         	} else if (game == 3){
         		game3();
+        	} else if (game == 4){
+        		game4();
+        	} else {
+        		game5();
         	}
         }
 
@@ -529,21 +860,32 @@ function game4(){
         }
 
         function reset(){
+			window.clearTimeout(timer);
+			window.clearTimeout(timer_2);
         	if(game_number == 1){
+				game_points[0] = 0;
         		game1();
         	} else if (game_number == 2){
+				game_points[1] = 0;
         		game2();
         	} else if (game_number == 3){
-        		game3();
+				game_points[2] = 0;
+				game3();
+        	} else if (game_number == 4){
+				game_points[3] = 0;
+				game4();
+        	} else if (game_number == 5){
+				game_points[4] = 0;
+				game5();
         	}
-        } 
+        }
 
 
         // Return the object to make it visible.
 
        return {
        		reset : reset,
-       		go_to : go_to, 
+       		go_to : go_to,
             get_answer:get_answer,
             get_score : get_score,
             get_points : get_points
@@ -551,7 +893,7 @@ function game4(){
             // peek:peek,
             // guess:guess
       }; // jshint ignore:line
-    })(); 
+    })();
 
 function get_score(){
 	var out = 0;
@@ -562,11 +904,13 @@ function get_score(){
 }
 function next_game(){
 
-	calculate_points(game_number);	
+	calculate_points(game_number);
 	console.log("Your current total score is: " + get_score());
-	console.log("General: " + game_points[0]);
-	console.log("Maths  : " + game_points[1]);
-	console.log("Memory : " + game_points[2]);
+	console.log("General     : "     + game_points[0]);
+	console.log("Maths       : "     + game_points[1]);
+	console.log("Memory      : "     + game_points[2]);
+	console.log("Visual      : "     + game_points[3]);
+	console.log("Perception  : "     + game_points[4]);
 
 	if (game_number == 1){
 		game_number++;

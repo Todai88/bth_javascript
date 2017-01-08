@@ -1,10 +1,10 @@
 #title{
 	text-align: center;
 }
-#rule_box{ 
+#rule_box{
 	width: 20%;
 	height: 450px;
-	margin-right: 10px; 
+	margin-right: 10px;
 	border: 1px solid black;
 	box-shadow: 5px 5px 5px #888888;
 }
@@ -26,7 +26,7 @@
 
 .flex-child {
 	height: 100%;
-} 
+}
 
 .questions{
 	padding-top: 15px;
@@ -43,7 +43,7 @@
 
 .flip-container {
 	perspective:100px;
-} 
+}
 
 .animation{
 	transform: rotateY(180deg);
@@ -104,15 +104,115 @@
 	border-radius: 30px;
 }
 
+.top-padding{
+	padding-top: 30px;
+}
+
+.button_setting{
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}
+
 .top-buffer {
 	margin-top: 50px;
 }
 
 .flag-buffer{
-	margin-top: 25px;  
+	margin-top: 25px;
 	padding-left: 20px;
 }
 
+#theList{
+	margin-left: -20px;
+	width: 100%;
+	list-style-type: none;
+}
+
+.current{
+	text-decoration: underline;
+	color: green;
+}
+
+.error{
+	color: red;
+}
+
+#theList li{
+	float: left;
+	width: 33%;
+	overflow-wrap: break-word;
+	padding-top: 10px;
+}
+
+.red {
+	background-color: red;
+}
+
+.blue{
+	background-color: blue;
+}
+
+.black{
+	background-color: black;
+}
+
+.white{
+	background-color: white;
+}
+
+.green{
+	background-color: green;
+}
+
+.square{
+	width: 75px;
+	height: 75px;
+	border: 1px solid black;
+	outline: 2px dashed red;
+}
+
+.center_object{
+	margin: 0 auto;
+	left: 45%;
+	top: 40%;
+}
+
+.rectangle{
+	width: 75px;
+	height: 50px;
+	border: 1px solid black;
+	outline: 2px dashed red;
+}
+
+.circle{
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	border: 1px solid black;
+	outline: 2px dashed red;
+}
+
+.triangle{
+	width: 0px;
+	height: 0px;
+	border-width: 0px 75px 75px 75px;
+	border-style: solid;
+	outline: 2px dashed red;
+}
+
+.top {
+	height: 65%;
+	width: 100%;
+	border-bottom: 1px black solid;
+}
+
+.bottom {
+	position: relative;
+	height: 35%;
+	width: 100%;
+	background-color: white;
+}
 .middle{
 	margin-top: 150px;
 }
@@ -261,5 +361,3 @@ star-shape taken from: https://css-tricks.com/examples/ShapesOfCSS/
    -o-transform:      rotate(-70deg);
    content: '';
 }
-
-
