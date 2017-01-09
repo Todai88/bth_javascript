@@ -434,15 +434,18 @@
                         <li><b>FizzBuzz</b></li><br><br>
 
                         Här börjar det bli lite mer avancerat, dock inte riktigt svårt än. <br>
-                        Jag börjar med att skapa en slumpmässig sekvens av nummer som jag sparar i en lista. Sedan iterarar jag över listan för att säkerställa att det
-                        finns åtminstone 2 objekt som kan fungera som fizz, fizzbuzz eller buzz. Utifall det finns fler än 2 så används ännu en Math.random för att hitta
-                        2 slumpmässiga av de möjliga talen. <br>
+                        Jag börjar med att skapa en slumpmässig sekvens av nummer som jag sparar i en lista. Sedan iterarar jag över den listan för att ta ut alla indicer av
+                        nummer som kan fizzbuzzifieras. Index läggs i en separat array som returneras tillsammans med nummren. <br>
                         Tanken med det var att jag ville ha det så dynamiskt som möjligt, mer för mig själv än för testet. Första testet var ju så satans statiskt, så
                         det kändes viktigt för mig att göra något lite mer dynamiskt. <br>
-                        Efter att sekvensen är skapad skapas ännu en lista, denna gång av strängar, som innehåller de möjliga gissningarna. Här är det självklart viktigt
-                        att man har med sig de två korrekta numren från den ursprungliga sekvensen. <br>
-                        Efter att listan är skapad så skapas en unordered list med list-style-type 'none' för att ta bort någon slags 'decoration' och sedan
-                        tas strängarna från listan och så skapan listelement 'li' med varsitt DOM-element (button) med textNode(strängen). Rätt simpelt, eller hur? <br>
+                        Efter att sekvensen är skapad skapas ännu en lista, denna gång av strängar och nummer. Denna listan har alltså alla möjliga svar;
+                        ett slumpmässigt nummer, nästa nummer i sekvensen + 1 och -2 (två separata nummer), 'Fizz', 'Buzz' och 'FizzBuzz'.
+                        Efter att den listan är färdigställd så kollar jag (fizzbuzzify) av nästa nummer i sekvensen. Det returnerade objektet används sedan för
+                        att ta bort det rätta svaret från de felaktiga svaren. På så vis har jag det rätta svaret för sig och en lista med felaktiga svar. <br>
+                        Efter att listan är skapad så skapas en unordered list med list-style-type 'none' för att ta bort någon slags 'decoration'.
+                        Sedan shufflas arrayen med felaktiga svar och ett slumpat nummer ges som index till det rätta svaret (för att säkerställa att)
+                        varje omgång är unik. Till slut så börjar jag skapa knappar (buttons) med antingen ett objekt från den felaktiktiga listan som både
+                        värde och text eller med det korrekta värdet. <br>
                         Självklart får även varje DOM-element sin egen eventListener som tester utifall ditt svar var korrekt.<br>
                         Därefter får du se vilket svar var korrekt och kan navigera till nästa spel.<br>
                         <br>

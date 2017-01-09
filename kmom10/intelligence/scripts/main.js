@@ -172,28 +172,31 @@ function create_array(){
 	Helper function for game2. Intializes a multi-demensional array.
 	*/
 	var numbers = [];
-	var counter = 0;
 	var indexes = [], multi = [];
-	for(var i = 0; i < 5; i++){
-		if(i == 4 && counter < 2){
-			i = 0;
-			indexes = [];
-			numbers = [];
-			counter = 0;
-		}
-
+	for(var i = 0; i < 10; i++){
 		var number = Math.floor((Math.random() * 100) + 1);
-		if(number % 3 === 0 || number % 5 === 0){
-			numbers.push(number);
-			indexes.push(i); //push index.
-			counter++;
-		} else{
-		    numbers.push(number);
-		}
+		numbers.push(number);
+		// if(i == 4 && counter < 2){
+		// 	i = 0;
+		// 	indexes = [];
+		// 	numbers = [];
+		// 	counter = 0;
+		// }
 
-
+		// if(number % 3 === 0 || number % 5 === 0){
+		// 	numbers.push(number);
+		// 	indexes.push(i); //push index.
+		// 	counter++;
+		// } else{
+		//     numbers.push(number);
+		// }
 	}
-
+	numbers.sort(numericalSort);
+	for(i = 0; i < numbers.length; i++){
+		if(numbers[i] % 3 === 0 || numbers[i] % 5 === 0){
+			indexes.push(i); //push index.
+	}
+}
 	multi = [indexes, numbers];
 	return multi;
 }
@@ -208,28 +211,31 @@ function game2(){
 	var board = document.getElementById('gameboard'), fizz_string = "<p style='margin-left: 2%'><b>Sequence:</b></p><p style='margin-left: 10%; font-size: 1.2em;'>";
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
-	title.innerHTML = 'FizzBuzz';
+	title.innerHTML = 'Pattern Matching';
 	var multi = create_array();
 	var array = multi[1];
 	var indexes = multi[0];
+	var possibilities = shuffle(['Fizz', 'FizzBuzz', 'Buzz', (array[9] + 1), (array[9] - 2),
+								 Math.floor((Math.random() * 100) + 1)]);
+	array = fizzbuzzify(array, indexes);
+	correct_answer = Nfizzbuzzify((array[9] + 1));
+	possibilities.splice(possibilities.indexOf(correct_answer), 1);
 	var index_one = indexes[0], index_two = indexes[1];
-	var one = array[index_one], two = array[index_two];
 	var buttons = "<br>";
-	correct_answer = "This right answer is '" + (one + ", " + two) + "'";
 
 	rules.innerHTML = '<h3>Rules:</h3>' +
-					  'This test is designed to test your basic maths skill. <br>' +
-					  'During this test you will be faced with a sequence of 4 numbers and 2 words. <br>' +
-					  "It's up to you to figure out what numbers hide behind the words using below formula. <br><br>"  +
-					  "A number divisable by 3 will show as 'Fizz' and if it's divisable by 5 it will show as 'Buzz'." +
-					  " If the number is divisable by both 3 and 5 it will show up as 'FizzBuzz'!" +
+					  'This test is designed to meassure your pattern-matching abilities. <br>' +
+					  'During this test you will be faced with a sequence of numbers and words. <br>' +
+					  "It's up to you to figure out what the next item in the sequence is using the rules outlined below: <br><br>"  +
+					  "If a number is divisable by 3 it should be 'Fizz', if it's divisable by 5 then it is 'Buzz'." +
+					  "If it's divisable by both it's 'FizzBuzz', else it must be a number." +
 					  '<br><br>A correct answer will grant you 3 points!';
 	board.innerHTML = "";
 	array = fizzbuzz(array, index_one, index_two);
 	for(var i = 0; i < array.length; i++){
 		fizz_string += array[i];
 		if(i == array.length - 1){
-			fizz_string += ".";
+			fizz_string += ", xxx.";
 		} else{
 			fizz_string += ", ";
 		}
@@ -240,12 +246,10 @@ function game2(){
 
 	for(var j = 0; j < 5; j++){
 		if(rand_number == j){
-			buttons += '<button id="true_answer" type="submit" style="width: 58px; margin-top: 5px;">' + one + ', ' + two + '</button><br>';
+			buttons += '<button id="true_answer" type="submit" style="width: 70px; margin-top: 5px;">' + correct_answer + '</button><br>';
 		} else{
-			var num1 = Math.floor((Math.random() * 100) + 1);
-			var num2 = Math.floor((Math.random() * 100) + 1);
-			buttons += '<button id="false_answer' + falses + '" type="submit" style="width: 58px; margin-top: 5px;"' +
-					   'value="' + num1 + ', ' + num2 + '">' + num1 + ", " + num2 + '</button><br>';
+			buttons += '<button id="false_answer' + falses + '" type="submit" style="width: 70px; margin-top: 5px;"' +
+					   'value="' + possibilities[j] + '">' + possibilities[j] + '</button><br>';
 			falses++;
 		}
 	}
@@ -254,15 +258,43 @@ function game2(){
 	board.innerHTML = fizz_string;
 	board.innerHTML += "<hr><p>Choose an answer that you believe shows the correct sequence of the 'hidden' numbers.<br>For help, see <b>'Rules'</b> to your left!</p>";
 	document.getElementById("true_answer").addEventListener('click', function(){
-																	add_pts(true, board, [one, two], this.value);}, false);
+																	add_pts(true, board, correct_answer, this.value);}, false);
 	document.getElementById("false_answer1").addEventListener('click', function(){
-																	add_pts(false, board, [one, two], this.value);}, false);
+																	add_pts(false, board, correct_answer, this.value);}, false);
 	document.getElementById("false_answer2").addEventListener('click', function(){
-																	add_pts(false, board, [one, two], this.value);}, false);
+																	add_pts(false, board, correct_answer, this.value);}, false);
 	document.getElementById("false_answer3").addEventListener('click', function(){
-																	add_pts(false, board, [one, two], this.value);}, false);
+																	add_pts(false, board, correct_answer, this.value);}, false);
 	document.getElementById("false_answer4").addEventListener('click', function(){
-																	add_pts(false, board, [one, two], this.value);}, false);
+																	add_pts(false, board, correct_answer, this.value);}, false);
+}
+
+function Nfizzbuzzify(number){
+		if(number % 3 === 0 && number % 5 === 0){
+			return 'FizzBuzz';
+		} else if (number % 3 === 0){
+			return 'Fizz';
+		} else if (number % 5 === 0){
+			return 'Buzz';
+	} else{
+		return number;
+	}
+}
+
+function fizzbuzzify(numbers, indexes){
+	for(var i = 0; i < indexes.length; i++){
+		if(indexes[i] % 3 === 0 && indexes[i] % 5 === 0){
+			numbers[i] = 'FizzBuzz';
+		} else if (indexes[i] % 3 === 0){
+			numbers[i] = 'Fizz';
+		} else if (indexes[i] % 5 === 0){
+			numbers[i] = 'Buzz';
+		}
+	}
+	return numbers;
+}
+function numericalSort(a, b){
+	return a - b;
 }
 
 function fizzbuzz(arr, num_one, num_two){
@@ -298,11 +330,11 @@ function add_pts(bool, board, correct, guess){
 
 	console.log("I'm adding points now..." + bool);
 	if(bool){
-		board.innerHTML += "<hr>You were correct!<br>The correct guess was: <b>" + correct[0] + ", " + correct[1] + '</b>';
+		board.innerHTML += "<hr>You were correct!<br>The correct guess was: <b>" + correct_answer + '</b>';
 		current_points = 3;
 		game_points[1] = 3;
 	} else{
-		board.innerHTML += "<hr>You were incorrect.<br>Your guess was: <b>" + guess + "</b><br>However, the correct guess was: <b>" + correct[0] + ", " + correct[1] + '</b>';
+		board.innerHTML += "<hr>You were incorrect.<br>Your guess was: <b>" + guess + "</b><br>However, the correct guess was: <b>" + window.Test.get_answer() + '</b>';
 		current_points = 0;
 		game_points[1] = 0;
 	}
@@ -539,32 +571,6 @@ function game3(){
 
 		}
 	}
-
-	function shuffle(array) {
-		/*
-
-		Shuffles a list using the Fisher-Yates shuffle algorithm
-		This particular implementation was taken from StackOverflow.
-		No credits to me, all to Fisher-Yates for the algorithm.
-
-		*/
-		  var currentIndex = array.length, temporaryValue, randomIndex;
-
-		  // While there remain elements to shuffle...
-		  while (0 !== currentIndex) {
-
-		    // Pick a remaining element...
-		    randomIndex = Math.floor(Math.random() * currentIndex);
-		    currentIndex -= 1;
-
-		    // And swap it with the current element.
-		    temporaryValue = array[currentIndex];
-		    array[currentIndex] = array[randomIndex];
-		    array[randomIndex] = temporaryValue;
-		  }
-
-		  return array;
-		}
 
 	board.innerHTML = '<h3 class="text-center">Click the button to display the flags.</h3><button id="start" class="center-block">Start timer</button>';
 	var arr = setup_cards();
@@ -957,7 +963,10 @@ function game5(){
 		var title = document.getElementById('title');
 		var finish_button = document.createElement('Button');
 		var finish_button_text = document.createTextNode('Check score');
-
+		current_points++;
+		if(current_points < 10){
+			current_points = 10;
+		}
 		game_points[4] = current_points;
 		finish_button.appendChild(finish_button_text);
 		finish_button.classList.add('center-block');
@@ -1091,6 +1100,32 @@ function next_game(){
 	}
 
 }
+
+function shuffle(array) {
+	/*
+
+	Shuffles a list using the Fisher-Yates shuffle algorithm
+	This particular implementation was taken from StackOverflow.
+	No credits to me, all to Fisher-Yates for the algorithm.
+
+	*/
+	  var currentIndex = array.length, temporaryValue, randomIndex;
+
+	  // While there remain elements to shuffle...
+	  while (0 !== currentIndex) {
+
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	  }
+
+	  return array;
+	}
 
 start_game();
 }();
