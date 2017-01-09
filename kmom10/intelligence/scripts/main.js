@@ -769,7 +769,7 @@ function game4(){
 			*/
 
 			if(current == 9){
-				current_points++
+				current_points++;
 				end_test();
 				return;
 			}
@@ -795,7 +795,7 @@ function game4(){
 		var button_text = document.createTextNode("Reset positioning and timer.");
 		button.appendChild(button_text);
 		button.addEventListener('click', function(){
-			Test.reset();
+			window.Test.reset();
 		});
 		button.classList.add('button_setting');
 		btm.appendChild(button);
@@ -900,7 +900,6 @@ function game5(){
 			timer = window.setTimeout(function(){
 				if(clicked === false && bad_object === true){
 					current_points++;
-					console.log("I was an unclicked, bad object");
 				}
 				clicked = false;
 				board.innerHTML = "";
@@ -980,9 +979,8 @@ function game5(){
 			return (arr[0] + arr[1] + arr[2] + arr[3] + arr[4]);
 		}
 	}
-    /**
-     * Showing off how to display/hide parts of a SVG-image.
-     */
+
+
     window.Test = (function() {
         'use strict';
 		function help(){

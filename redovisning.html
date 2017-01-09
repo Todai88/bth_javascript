@@ -363,7 +363,7 @@
                     <ul>
 
                         <li><b>Delmoment</b></li><br><br>
-                        Jag tänkte inleda med en liten inledning.<br>
+                        <h2> Inledning </h2>
                         <br>
                         Först och främst gissar jag på att ni kommer vilja se över källkoden, vilken ni kan se här: <br>
                         <a href="https://github.com/Todai88/bth_javascript"><strong>BTH_javascript på Github</strong></a>.
@@ -535,7 +535,83 @@
                         Detta var även ett litet bekymmer när man kör Test.go_to() och navigerar iväg från den funktionen när man har den startad. Då inträffade
                         samma sak som inträffade vid reset(), alltså att ditt förra spel fortsätter i bakgrunden. Det löstes på samma sätt, dock.<br><br>
 
+                        <li><b> Uppfattningsförmåga </b></li>
+                        <br><br>
+                            Efter att ha genomfört visuell intelligens så blev detta betydligt lättare. <br>
+                            Problemet i detta är självklart hur man ska hantera sina timed-events. De skelettet av delmomentet redan är klart, så slipper
+                            man ju skapa objekt osv (som sagt är skelettet klart).<br><br>
+                            Men som nämnt så var det lite bekymmer med timed-events. I början tänkte jag att jag skulle ha en loop runt en timeout för att iterera över en lista av spelobjekt,
+                            men självklart blev det bekymmer då loopen helt enkelt kör igenom alla objekt utan att gå in i dem (som nämnt ovan). Istället för att köra in i loopen,
+                            ta ut första objektet, vänta en sekund, loopa igen etc etc, så gick alltså UI-tråden igenom hela listan för att sedan pumpa ut alla objekt samtidigt.
+                            <br>
+                            Min lösning är lite mer... kaxig. Eftersom jag har rätt god erfarenhet av en hel del programmeringsspråk på en hel del olika nivåer, så tänkte jag att jag
+                            skulle köra med en funktions-variabel som skulle fungera som en iterator och sedan iterera över listan genom att använda mig av recursion.
+                            <br>
+                            Så jag skapade alltså en funktion kallad <span class="code">show_object(objects, iterator)</span> som hade två separata timers.
+                            Första timern kallas och tömmer spelbrädet (tar bort det förra objektet), sätter en booleansk variabel kalled 'clicked'
+                            till false (för att se om objektet blir klickat) och skapar den andra timern. Den andra timern visar det nya objektet under en sekund
+                            sedan kallas <span class="code">show_objects(objects, iterator + 1)</span> igen, men med en inkrementerad iterator. <br>
+                            Som nämnt ovan i förra delmomentets redovisning så skapade jag även timer2 som en ny timer-variabel. Detta för att säkerställa
+                            att en Test.reset() rensar timer2's timingEvents. Utöver det var jag även tvungen att implementera en stop_flag(boolean) för att
+                            säkerställa att alla redan startade function calls till show_object skulle sluta utifall man kör en Test.reset() <br><br>
+                            Varje objekt får sin egen eventListener som kollar utifall objektet är ett bra eller dåligt objekt, om det är dåligt ska det klickas på. Annars ska det inte klickas på.
+                            Kan du gissa vad som händer med 'clicked' (boolean flaggan som nämndes ovan) när objektet blir klickat? Exakt, det blir alltså markerat som 'true' och
+                            i slutet av iterationen (innan functionen rekursivt blir kallad igen), så kollar vi utifall objektet var bra eller dåligt. Var det dåligt och inte blev
+                            klickat så får du en poäng, annars blir det dålig stämning. :(<br>
+                        </ol>
+                        <br><br>
+                        <li><b> Tankar om projektet </b></li><br><br>
+                        Till att börja med vill jag påpeka att det var ett riktigt roligt och något lärorikt projekt att jobba med.<br>
+                        <h3>Svårighetsgrad:</h3>
+                        Överlag var det inte ett alltför svårt projekt att jobba med. Jag tror dock att det är viktigt att se på helheltsbilden;
+                        jag hade de flesta bitarna för att kunna skapa alla delar av projektet, men det svåra för att implementera samtliga saker på rätt sätt.
+                        Det jag menar är att delmomenten inte var alltför svåra om man ser på dem separat. Dock blev de lite bökigare när man började tänka på hur
+                        man ska kunna använda Test-funktionerna osv. Jag gick ju rätt långt med mina funktioner, då jag ville kunna arbeta med dem på diverse olika sätt;
+                        göra det lättare för mig att debugga, för att hoppa mellan spel, ge mig svar osv.
+                        <br>
+                        Jag tror dock de flesta hade något eller några problem med timing-eventen oc hur de skulle implementera allt med dem korrekt i delmomenten.
+                        Om man inte hade implmenterat en korrekt struktur, så blev det jobbigt att implementera bra events. För mig specifikt blev det
+                        riktigt svårt för mig att hantera eventListeners, timeout osv i de tidigare delmomenten då jag medvetet valt att jobba med den 'primitiva'
+                        JS-koden.<br>
+                        Men som sagt tror jag att de separata delmomenten kunde varit lite svårare, eftersom det som egentligen gjorde det svårt var att hantera
+                        saker som hade lite mindre med delmomenten att göra och mer att göra med kodstrukturen.
+                        <br>
+                        <h3>Problem:</h3>
+                        Jag tror inte jag hade alltför många problem utöver de som jag nämnt ovan i delmomenten. <br>
+                        Det var väl vissa väldigt specifika saker som ibland kunde vara lite problematiska. Dock ingenting som jag kommer på så här på rak arm.<br>
+                        Så jag får nog hänvisa till delmomenten för mer specifika tankar.
+                        <h3>Tid:</h3>
+                        Jag har varit rätt upptagen under större delen av december, dels med familj och vänner - men även med jobb. Jag är nu ansvarig för utvecklingen av
+                        vara appar, så det har varit rätt mycket att göra. <br>
+                        Dock var det rätt skönt att projektet var rätt snabbt och lätt att genomföra. Jag har kämpat mig igenom större del av det över helgen och
+                        är väldigt nöjd med slutprodukten. <br>
+                        Jag måste alltså erkänna att det var ett rätt snabbt genomförande av projektet.
+                        <h3>Övriga tankar:</h3>
+                        Överlag har det varit ett roligt projekt att jobba med. Det har varit intressant att se hur de tidigare delarna av kursen tagit del i projektet.
+                        Som jag nämnt ett par gånger kan jag tycka att de individuella delmomenten i projektet har varit lite lätta. Det jag menar det med är att de var
+                        lätta rent tekniskt sett. Dock tog vissa delar som är lätta relativt lång tid att genomföra då man fortfarande behöver skriva en hel del.
+                        <br>
+                        Ett litet tips är alltså att kanske göra något lite mer komplext till nästa gång.<br>
+                        Två specifika saker som jag saknade var dock:<br><br>
+                        <ol>
+                            <li>Baddie</li>
+                            Jag hade velat arbeta vidare på något likt baddie. Mest för att det nu kan kännas som att man lärde sig keycodes utan någon riktig anledning.
+                            <br><br>
+                            <b>OCH</b>
+                            <br><br>
+                            <li>Andra valbara delmomentet</li>
+                            Detta var väl det som egentligen var mest tekniskt komplext. Men jag hade velat se er göra något som kanske var lite annorlunda från
+                            det första valfria delmomentet. Här kanske det skulle kunnat vara något med baddie istället?<br>
+                            Eller något som helt enkelt är tekniskt annorlunda än att arbeta med klick-events och setTimeouts.
+                        </ol>
+                        <br>
 
+                        <li><b>Tankar om kursen</b></li><br><br>
+                        Jag har gillat kursen skarpt. Den var betydligt mycket roligare än Python-kursen. Dessutom så gav den mig nog mer rent personligen också.
+                        Javascript är ett sådant globalt språk att alla kommer att ha hört om det och de används till sådan stor grad här i England.<br>
+                        Handledningen har känts bra, det har inte varit några problem alls. Jag har redan rekommenderat kurspaketet för ett par vänner vid Chalmers
+                        då jag känner att paketet har gett mig rätt god praktisk erfarenhet inom saker jag annars kanske endast hade sett på rent teoretiskt.<br>
+                        Jag ger kursen en solklar 9/10. Det enda som jag kan tycka sänker kursen lite är de valfria delmomenten i projektet (se ovan).
                    </ul>
             </div>
         </div>
