@@ -1,23 +1,31 @@
 window.onload = function(){
-
+/*
+Declaring global variables.
+*/
 var game_names, game_points, game_number, current_points, game_object;
-var correct_answer, timer, timer_2;
+var correct_answer, timer, timer_2, stop_flag;
 var start_game = function(){
+	/*
+	Assigning variables to immidiate globals.
+	*/
 	game_names = ['questions'];
 	game_points = [0, 0, 0, 0, 0];
 	current_points = 0;
 	game_number = 1;
 	game1();
+
 };
 
 var calculate_points = function(number){
+	/*
+	Helper function to assist with calculating score
+	of game1.
+	*/
 	var curr_points = 0;
 	if (number == 1){
 		var chx = document.getElementsByTagName('input');
 		for (var i=0; i<chx.length; i++) {
-    // If you have more than one radio group, also check the name attribute
-    // for the one you want as in && chx[i].name == 'choose'
-    // Return true from the function on first match of a checked item
+
 	    if (chx[i].type == 'radio' && chx[i].checked && chx[i].name == 'question_1') {
 
 		     if(game_object.question_1.correct_answer == chx[i].value){
@@ -47,6 +55,11 @@ var calculate_points = function(number){
 
 
 var game1 = function(){
+
+	/*
+	Overall functionality of game1
+	*/
+	game_number = 1;
 	var rules = document.getElementById('rules');
 	rules.innerHTML = '<h3>Rules:</h3>' +
 					  'This test is supposed to test your general knowledge. <br><br>' +
@@ -92,24 +105,29 @@ var game1 = function(){
 	letters.id = 'questions';
     letters.innerHTML = "";
     myQuestions.innerHTML = "";
+
     for (var i = 1; i <= 3; i++) {
 	    var list = document.createElement('li');
 	    list.id = 'question_' + i;
 	    	for(var j = 0; j <= 2; j++){
 	    		if(j === 0){
-	    			question_string += '1 &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">'
-	    								+ game_object['question_'+i].answers[j] + '<br>';
+	    			question_string += '1 &nbsp; <input id="q'+i+'b'+j+'" type="radio" name="question_' + i + '" value="'+ game_object['question_'+i].answers[j] +'">' +
+	    								'<label for="q'+i+'b'+j+'">'+ game_object['question_'+i].answers[j] + '</label><br>';
  	    		} else if (j == 1){
- 	    			question_string += 'x &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">'
-	    								+ game_object['question_'+i].answers[j] + '<br>';
+ 	    			question_string += 'x &nbsp; <input id="q'+i+'b'+j+'" type="radio" name="question_' + i + '" value="'+ game_object['question_'+i].answers[j] +'">' +
+	    								'<label for="q'+i+'b'+j+'">'+ game_object['question_'+i].answers[j] + '</label><br>';
  	    		} else{
- 	    			question_string += '2 &nbsp; <input type="radio" name="question_' + i + '" value="' + game_object['question_'+i].answers[j] + '">'
-	    								+ game_object['question_'+i].answers[j] + '<br>';
+ 	    			question_string += '2 &nbsp; <input id="q'+i+'b'+j+'" type="radio" name="question_' + i + '" value="'+ game_object['question_'+i].answers[j] +'">' +
+	    								'<label for="q'+i+'b'+j+'">'+ game_object['question_'+i].answers[j] + '</label><br>';
  	    		}
-
+				//var btn = document.getElementById('q'+i+'b'+j);
+				//console.log(btn);
+				//btn.addEventListener('click', function(){
+				//	diable_group(i);
+				//});
 	    	}
 
-	    list.innerHTML = game_object['question_' + i].question + '<form action="">' + question_string + '</form><br><br>';
+	    list.innerHTML = game_object['question_' + i].question + '<form action="" id ="form' + i + '">' + question_string + '</form><br><br>';
 	    list.classList.add('questions');
 	    myQuestions.appendChild(letters);
     	letters.appendChild(list);
@@ -119,11 +137,40 @@ var game1 = function(){
   	document.getElementById('submit').addEventListener('click', function(){
   		next_game(1);
   	});
+	function game1_listeners(){
+		function disable_group(group){
+				var parent = document.getElementsByName(group.name);
+				for(var i = 0; i < parent.length; i++){
+					if(game_object[parent[i].name].correct_answer === parent[i].value){
+						parent[i].labels[0].style.color = 'green';
+						console.log("I'm the correct answer: " + game_object[parent[i].name].correct_answer);
+					} else {
+						parent[i].labels[0].style.color = 'red';
+					}
+					var btn = document.getElementById(parent[i].id);
+					btn.disabled = true;
+				}
+		}
+
+		for(var j = 1; j <= 3; j++){
+		for(var iter = 0; iter <= 2; iter++){
+				var btn = document.getElementById('q'+j+'b'+iter); 
+				btn.addEventListener('click', function(){
+					disable_group(this);
+				}, false);
+			}
+		}
+
+	}
+	game1_listeners();
   	correct_answer = [game_object.question_1.correct_answer, game_object.question_2.correct_answer, game_object.question_3.correct_answer];
 };
 
 function create_array(){
 
+	/*
+	Helper function for game2. Intializes a multi-demensional array.
+	*/
 	var numbers = [];
 	var counter = 0;
 	var indexes = [], multi = [];
@@ -153,7 +200,6 @@ function create_array(){
 
 function game2(){
 	game_number = 2;
-	console.log("Starting fizzbuzz!");
 
 	/*
 	Setting up the game board
@@ -169,7 +215,7 @@ function game2(){
 	var index_one = indexes[0], index_two = indexes[1];
 	var one = array[index_one], two = array[index_two];
 	var buttons = "<br>";
-	console.log(one + ", " + two);
+	correct_answer = "This right answer is '" + (one + ", " + two) + "'";
 
 	rules.innerHTML = '<h3>Rules:</h3>' +
 					  'This test is designed to test your basic maths skill. <br>' +
@@ -221,7 +267,11 @@ function game2(){
 
 function fizzbuzz(arr, num_one, num_two){
 
-
+	/*
+	Helper function for game2.
+	Assists with the creation of the fizzbuzz string
+	by using the modulus operand and returning the resulting array.
+	*/
 	if(arr[num_one] % 3 === 0 && arr[num_one] % 5 === 0){
 		arr[num_one] = 'FizzBuzz';
 	} else if (arr[num_one] % 3 === 0){
@@ -241,6 +291,11 @@ function fizzbuzz(arr, num_one, num_two){
 }
 
 function add_pts(bool, board, correct, guess){
+
+	/*
+	General helper function that sets the point of game2.
+	*/
+
 	console.log("I'm adding points now..." + bool);
 	if(bool){
 		board.innerHTML += "<hr>You were correct!<br>The correct guess was: <b>" + correct[0] + ", " + correct[1] + '</b>';
@@ -258,6 +313,22 @@ function add_pts(bool, board, correct, guess){
 }
 
 function game3(){
+	/*
+	General functionality of game3.
+	Re-using most of the previous flag-labs, but adding some functionality.
+	Such as different eventListeners, timing events etc.
+
+	As with the two others this uses primitive DOM to work;
+	ie. it uses innerHTML for most of it's work, which is considered
+	bad practice both for security reasons, but also for productivity.
+
+	The reason I used this was to ensure I had an understanding of how
+	to program in that particular manner, as it was part of the course.
+	*/
+
+	/*
+	Declaring, intiating and assigning values to variables used in the function.
+	*/
 	game_number = 3;
 	var cards_arr = [];
 	var current = 0;
@@ -305,15 +376,24 @@ function game3(){
 	}
 
 	function setup_cards(){
+		/*
+		Sets up the card array that is used in later functions.
+		*/
+		var correct_string = "These are the cards (1 = top-left, 9 = bottom-right):\n\n" +
+							 "Number:\t\t\tFlag:\n";
 		for(var i = 0; i < 9; i++){
 			var num = Math.ceil(Math.random() * 6);
-			console.log('This one is: ' + flags[num].name);
+			correct_string += (i + 1) + ":\t\t\t\t" + flags[num].name + '\n';
 			cards_arr.push(num);
 		}
+		correct_answer = correct_string;
 		return cards_arr;
 	}
 
 	function create_cards(){
+		/*
+		Creates the card's HTML objects using primitve DOM.
+		*/
 		for(var i = 0; i < cards_arr.length; i++){
 			if (i == 3 || i == 6){
 				flag_divs += "</div><div class='row flag-buffer'>";
@@ -354,18 +434,21 @@ function game3(){
         	var el = document.getElementById(myNodeList[iterator].id);
 	        el.id = iterator;
 	        el.style.transform = 'rotateY(0deg)';
-	        console.log("I'm done!");
 		}
 	}, 5000);
 	}
 
 	function set_list(){
-		console.log("I'm in");
+		/*
+		Sets up the list of cards, ie. not a list in programmatic terms,
+		but the HTML-list.
+
+		This is done by shuffling the cards_array in the
+		Fisher-Yates suffling algo (de-facto shuffling).
+		*/
 		var flag_list = "<br><div class='col-xs-4 col-xs-offset-4'><ol class='flagger'>";
 		var array = [];
-		console.log(cards_arr);
 		var cardss_arr = shuffle(cards_arr);
-		console.log(cards_arr);
 		for(var i = 0; i < cards_arr.length; i++){
 			if(i === 0){
 				flag_list += "<li class='lead set-bold' id='item_" + i + "'>" + flags[cards_arr[i]].name + "</li>";
@@ -381,7 +464,11 @@ function game3(){
 	}
 
 	function set_listeners(flags, arr, list_names){
-
+		/*
+		Gives each card on the gameboard
+		an individual eventlistener that listens
+		to 'click'-events.
+		*/
 		var myNodeList = document.getElementsByClassName('flip-container');
 		window.setTimeout(() => { // jshint ignore:line
         for(var iterator = 0; iterator < myNodeList.length; iterator++){
@@ -390,6 +477,7 @@ function game3(){
 	        //console.log(el);
 	        start_tests(flags[list_names[0]].name);
 	        el.addEventListener('click', function handler(e){
+				//remove eventListener to ensure no double-clicks.
 	        	e.currentTarget.removeEventListener(e.type, handler);
 	            animate(this, e);
 	        });
@@ -404,12 +492,14 @@ function game3(){
 	}, 2000);}
 
 	function start_tests(flag){
-		console.log(flag);
 		correct_answer = flag;
 	}
 
 	function test(arr, flag){
-
+		/*
+		Tests the clicked card to see if it corresponds
+		to the currently highlighted item in the list.
+		*/
 		var curr_item = document.getElementById('item_' + current);
 
 		if((current_points + 1) == arr.length){
@@ -440,7 +530,7 @@ function game3(){
 			}
 			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>'; // jshint ignore:line
 				document.getElementById('next_game').addEventListener('click', function(){
-					game4();
+					next_game(3);
 				});
 			}, 2000);
 
@@ -448,6 +538,13 @@ function game3(){
 	}
 
 	function shuffle(array) {
+		/*
+
+		Shuffles a list using the Fisher-Yates shuffle algorithm
+		This particular implementation was taken from StackOverflow.
+		No credits to me, all to Fisher-Yates for the algorithm.
+
+		*/
 		  var currentIndex = array.length, temporaryValue, randomIndex;
 
 		  // While there remain elements to shuffle...
@@ -467,9 +564,8 @@ function game3(){
 		}
 
 	board.innerHTML = '<h3 class="text-center">Click the button to display the flags.</h3><button id="start" class="center-block">Start timer</button>';
-
+	var arr = setup_cards();
 	document.getElementById('start').addEventListener('click', function(){
-		var arr = setup_cards();
 		create_cards();
 		window.setTimeout(() => { // jshint ignore:line
 			var list_names = set_list();
@@ -488,18 +584,45 @@ function game3(){
 }
 
 function game4(){
+	/*
+	General functionality for game4.
+
+	Important to note that I used more advanced functionality in this game.
+	In this function I used nodes rather than focusing on innerHTML-code.
+
+	Each immidiate child of the basic objects (gameboard, rules) are implemented
+	with innerHTML, but only once. Simply to create parents for their own children.
+
+	So in essence we use the gameboard as a parent to the plain innerHTML-objects
+	we are creating. Everthing to do with said objects are done using more
+	advance code and all it's children are specified as childNodes rather
+	than direct children (no innerHTML).
+
+	*/
+
+	/*
+	Declaring, initiating and assigning values to variables.
+	*/
 	var board = document.getElementById('gameboard');
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
 	var object_array = [];
-	var current = 0;
+	var current = 0; // current works as an iterator in this scope.
 	game_number = 4;
+	/*
+	Each object has an id, string, form and color.
+	*/
 	var object = function(id, string, form, color){
 		this.id = id;
-		this.string = string;
+		this.string = string; //The output string used in the list.
 		this.form = form;
 		this.color = color;
 	};
+
+	/*
+	Each form is it's own object with both classname and name, both
+	assigned to an id..
+	*/
 
 	var form_object = {
 					'1' : {'class' : 'square',
@@ -511,6 +634,10 @@ function game4(){
 					'4' : {'class' : 'rectangle',
 						   'name'  : 'rectangle'}
 				};
+	/*
+	Similar to above object.
+	*/
+
 	var color_object = {
 					'1' : { 'class' : 'white',
 							'name'  : 'white'},
@@ -523,6 +650,8 @@ function game4(){
 					'5' : { 'class' : 'green',
 							'name'  : 'green'}
 				};
+	var correct_string = 'This is the list of objects you should click, in numeric order:\n\n' +
+						 'Number:\t\tObject:\n';
 	for(var i = 0; i < 10; i++){
 		var color = Math.ceil(Math.random() * 5);
 		var form = Math.ceil(Math.random()  * 4);
@@ -531,7 +660,9 @@ function game4(){
 									   form   : {value: form_object[form].name},
 									   color  : {value: color_object[color].name}});
 		object_array.push(o);
+		correct_string += (i + 1) + ':\t\t\t' + o.string + "\n";
 	}
+	correct_answer = correct_string;
 	console.log(object_array);
 	board.innerHTML = "<h3 class='text-center'>Click the button to start the test!</h3>"  +
 					  "<p class='text-center'>The timer (15s) starts when you click the button.</p><br>";
@@ -554,6 +685,10 @@ function game4(){
 	title.innerHTML = "Visual intelligence";
 
 	function start_4(){
+		/*
+		Simply starts the game for real by
+		reseting the board.
+		*/
 
 		current_points = 0;
 
@@ -571,7 +706,7 @@ function game4(){
 				var button_end = document.createElement("Button");
 				var button_end_text = document.createTextNode("Next game");
 				button_end.addEventListener('click', function(){
-					game5();
+					next_game();
 				});
 				var game_board = document.getElementById('gameboard');
 				button_end.appendChild(button_end_text);
@@ -591,12 +726,14 @@ function game4(){
 			var text         = document.createTextNode(object_array[i].string);
 			list_item.appendChild(text);
 			ordered_list.appendChild(list_item);
-
 		}
 		ordered_list.childNodes[0].classList.add('set-bold', 'current');
 		btm.appendChild(ordered_list);
 
 		function create_top(object_array){
+			/*
+			Creates the top-half of the game.
+			*/
 			var top = document.getElementById('top-half');
 
 			for(var i = 0; i < object_array.length; i++){
@@ -624,6 +761,11 @@ function game4(){
 			}
 		}
 		function test_object(sender){
+			/*
+			Tests the sender (div)'s values to see if it matches
+			the item that SHOULD be pressed.
+			*/
+
 			console.log(sender);
 			console.log(sender.classList.value);
 			console.log(object_array[current]);
@@ -663,9 +805,17 @@ function game4(){
 }
 
 function game5(){
+	/*
+	Sets up the general functionality of game4.
+
+	As with game4 we are using more dynamic and advanced code to handle
+	DOM objects rather than using the primitve innerHTMl.
+	*/
+
 	var board = document.getElementById('gameboard');
 	var rules = document.getElementById('rules');
 	var title = document.getElementById('title');
+	stop_flag = false;
 	current_points = 0;
 	board.innerHTML = "<h3 class='text-center'>Click the button to start the test</h3><p class='text-center'><b>WARNING:</b>  Each object is shown for 1 second.</p>";
 	rules.innerHTML = "<h3>Rules:</h3>" +
@@ -676,7 +826,7 @@ function game5(){
 					  "Any correct decision gives you one point.<br><br>Each object is shown for 1 second!";
 	title.innerHTML = "Perception";
 	var object_array = [];
-	game_number = 4;
+	game_number = 5;
 	var object = function(id, string, form, color){
 		this.id = id;
 		this.string = string;
@@ -706,7 +856,8 @@ function game5(){
 					'5' : { 'class' : 'green',
 							'name'  : 'green'}
 				};
-
+	var correct_string = 'Here is a list of the items that will show up, in numeric order:\n' +
+						 'Number:\t\tForm:\t\tColor:\n';
 	for(var i = 0; i < 10; i++){
 		var color = Math.ceil(Math.random() * 5);
 		var form = Math.ceil(Math.random()  * 4);
@@ -715,8 +866,14 @@ function game5(){
 									   form   : {value: form_object[form].name},
 									   color  : {value: color_object[color].name}});
 		object_array.push(o);
+		if(o.color !== 'red'){
+			correct_string += (i + 1) + ":\t\t\t" + o.color + "\t\t" + o.form + "\n";
+		} else {
+			correct_string += (i + 1) + ":\t\t\t" + o.color + "\t\t\t" + o.form + "\n";
+		}
 	}
 
+	correct_answer = correct_string;
 	var start_button = document.createElement('Button');
 	var start_button_text = document.createTextNode('Start game');
 	start_button.appendChild(start_button_text);
@@ -734,6 +891,12 @@ function game5(){
 		show_object(object_array, 0);
 
 		function show_object(objects, iterator){
+
+
+			if(stop_flag){
+				stop_flag = false;
+				return;
+			}
 
 			timer = window.setTimeout(function(){
 				if(clicked === false && bad_object === true){
@@ -829,7 +992,18 @@ function game5(){
      */
     window.Test = (function() {
         'use strict';
+		function help(){
 
+			var help_string = "The Test-object comes with a bunch of functions that might be useful:\n\n" +
+							  "\tTest.get_score();  - returns your accumilated score in an array.\n" +
+							  "\tTest.go_to(int);   - sends you to the game (1-5). Helps you with debugging!\n" +
+							  "\tTest.get_answer(); - will return the answers of the current game. If possible.\n" +
+							  "\tTest.get_points(); - returns the score of your current game (in session).\n" +
+							  "\tTest.reset();      - resets the current game.\n" +
+							  "\tTest.help();       - shows this string.\n\n";
+			console.log(help_string);
+
+		}
         function get_score(){
         	return game_points;
         }
@@ -862,6 +1036,7 @@ function game5(){
         function reset(){
 			window.clearTimeout(timer);
 			window.clearTimeout(timer_2);
+			stop_flag = true;
         	if(game_number == 1){
 				game_points[0] = 0;
         		game1();
@@ -888,10 +1063,8 @@ function game5(){
        		go_to : go_to,
             get_answer:get_answer,
             get_score : get_score,
-            get_points : get_points
-            // wordlist:wordlist,
-            // peek:peek,
-            // guess:guess
+            get_points : get_points,
+			help : help
       }; // jshint ignore:line
     })();
 
@@ -913,11 +1086,13 @@ function next_game(){
 	console.log("Perception  : "     + game_points[4]);
 
 	if (game_number == 1){
-		game_number++;
 		game2();
 	}else if (game_number == 2){
-		game_number++;
 		game3();
+	} else if (game_number == 3){
+		game4();
+	} else if (game_number == 4){
+		game5();
 	}
 
 }
