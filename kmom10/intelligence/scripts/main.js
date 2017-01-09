@@ -154,7 +154,7 @@ var game1 = function(){
 
 		for(var j = 1; j <= 3; j++){
 		for(var iter = 0; iter <= 2; iter++){
-				var btn = document.getElementById('q'+j+'b'+iter); 
+				var btn = document.getElementById('q'+j+'b'+iter);
 				btn.addEventListener('click', function(){
 					disable_group(this);
 				}, false);
@@ -332,6 +332,7 @@ function game3(){
 	game_number = 3;
 	var cards_arr = [];
 	var current = 0;
+	var current_correct;
 	current_points = 0;
 	var board = document.getElementById('gameboard');
 	var rules = document.getElementById('rules');
@@ -492,7 +493,8 @@ function game3(){
 	}, 2000);}
 
 	function start_tests(flag){
-		correct_answer = flag;
+		current_correct = flag;
+		//correct_answer = flag;
 	}
 
 	function test(arr, flag){
@@ -503,22 +505,23 @@ function game3(){
 		var curr_item = document.getElementById('item_' + current);
 
 		if((current_points + 1) == arr.length){
-			window.alert("You got all the points! Well done! :)\nProceeding to next game!");
+			window.alert("Impressive, you got all the points! Well done! :)\nProceeding to next game!");
+			current_points++;
 			game_points[2] = current_points;
 			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>'; // jshint ignore:line
 				document.getElementById('next_game').addEventListener('click', function(){
-					game4();
+					next_game();
 				});
 			}, 2000);
 			return;
 		}
-		if(flag.toUpperCase() == correct_answer.toUpperCase()){
+		if(flag.toUpperCase() == current_correct.toUpperCase()){
 			curr_item.className = "";
 			current_points++;
 			current++;
 			curr_item = document.getElementById('item_' + current);
 			curr_item.classList.add('lead', 'set-bold');
-			correct_answer = flags[arr[current]].name;
+			current_correct = flags[arr[current]].name;
 		} else{
 			window.alert("Sorry, you got the wrong flag...\nRemoving game.");
 			var myNodeList = document.getElementsByClassName('flip-container');
@@ -530,7 +533,7 @@ function game3(){
 			}
 			window.setTimeout(() => {board.innerHTML += '<button id="next_game" class="center-block">Next game</button>'; // jshint ignore:line
 				document.getElementById('next_game').addEventListener('click', function(){
-					next_game(3);
+					next_game();
 				});
 			}, 2000);
 
@@ -663,7 +666,6 @@ function game4(){
 		correct_string += (i + 1) + ':\t\t\t' + o.string + "\n";
 	}
 	correct_answer = correct_string;
-	console.log(object_array);
 	board.innerHTML = "<h3 class='text-center'>Click the button to start the test!</h3>"  +
 					  "<p class='text-center'>The timer (15s) starts when you click the button.</p><br>";
 	var start_button = document.createElement('Button');
@@ -766,11 +768,8 @@ function game4(){
 			the item that SHOULD be pressed.
 			*/
 
-			console.log(sender);
-			console.log(sender.classList.value);
-			console.log(object_array[current]);
-
 			if(current == 9){
+				current_points++
 				end_test();
 				return;
 			}
@@ -793,10 +792,10 @@ function game4(){
 			}
 		}
 		var button = document.createElement("Button");
-		var button_text = document.createTextNode("Reset positioning");
+		var button_text = document.createTextNode("Reset positioning and timer.");
 		button.appendChild(button_text);
 		button.addEventListener('click', function(){
-			start_4();
+			Test.reset();
 		});
 		button.classList.add('button_setting');
 		btm.appendChild(button);
@@ -921,13 +920,10 @@ function game5(){
 					test_object(object_array[iterator - 1]);
 				});
 				if((objects[iterator].color == 'red' && objects[iterator].form == 'square')){
-				  	console.log("I'm a good object");
 				  	bad_object = false;
 				  } else if ((objects[iterator].form != 'square' && objects[iterator].color != 'red')){
-				  	console.log("I'm a good object");
 				  	bad_object = false;
 				  } else {
-				  	console.log("I'm not a good object");
 				  	bad_object = true;
 				  }
 				board.appendChild(div_object);
@@ -947,13 +943,10 @@ function game5(){
 			function test_object(sender){
 				clicked = true;
 				if(sender.form == 'square' && sender.color == 'red'){
-					console.log("Correct, it's both square and red.");
 					current_points++;
 				} else if (sender.form != 'square' && sender.color != 'red'){
-					console.log("Correct, it's neither red nor square.");
 					current_points++;
 				} else{
-					console.log("Incorrect, it's either red OR square.");
 				}
 			}
 		}
@@ -965,14 +958,14 @@ function game5(){
 		var title = document.getElementById('title');
 		var finish_button = document.createElement('Button');
 		var finish_button_text = document.createTextNode('Check score');
-		console.log(current_points);
+
 		game_points[4] = current_points;
 		finish_button.appendChild(finish_button_text);
 		finish_button.classList.add('center-block');
 		finish_button.addEventListener('click', function(){
 			this.classList.add('hidden');
 			var score = score_it();
-			var text = document.createTextNode("Your score is: " + score + "/38");
+			var text = document.createTextNode("Your score is: " + score + "/41");
 			var node = document.createElement("H1");
 			node.classList.add("text-center");
 			node.appendChild(text);
@@ -1023,6 +1016,7 @@ function game5(){
         	} else {
         		game5();
         	}
+			reset();
         }
 
         function get_answer(){
@@ -1037,6 +1031,7 @@ function game5(){
 			window.clearTimeout(timer);
 			window.clearTimeout(timer_2);
 			stop_flag = true;
+			current_points = 0;
         	if(game_number == 1){
 				game_points[0] = 0;
         		game1();
@@ -1076,8 +1071,10 @@ function get_score(){
 	return out;
 }
 function next_game(){
-
-	calculate_points(game_number);
+	if(game_number == 1 || game_number == 2){
+		calculate_points(game_number);
+	}
+	current_points = 0;
 	console.log("Your current total score is: " + get_score());
 	console.log("General     : "     + game_points[0]);
 	console.log("Maths       : "     + game_points[1]);

@@ -363,41 +363,179 @@
                     <ul>
 
                         <li><b>Delmoment</b></li><br><br>
+                        Jag tänkte inleda med en liten inledning.<br>
+                        <br>
+                        Först och främst gissar jag på att ni kommer vilja se över källkoden, vilken ni kan se här: <br>
+                        <a href="https://github.com/Todai88/bth_javascript"><strong>BTH_javascript på Github</strong></a>.
+                        <br>
+                        Jag har valt att följa samma struktur som vi gjort i kursen; de första 3 testen fungerar som <br>
+                        de tidigare labbarna, med lite mer primitiv javascript-kod. Något som många anser vara 'bad' practice nu.<br>
+                        Dvs. innerHTML sätts under exekvering osv. Dels är det ju en säkerhetsrisk, men det är även riktigt dåligt<br>
+                        för produktiviteten.<br>
+                        <br>
+                        Jag vill dock att ni förstår att jag gjort detta för att jag ville lära mig hur mer primitiv JS funkar, <br>
+                        inte för att jag vanligtvis skulle använda mig av sådan kod. <br><br>
+                        Därför har jag använt mig av mer modern (bättre) kod i de senare spelen (4,5). <br>
+                        Där har jag väldigt sparsamt använt mig av innerHTML, endast för att skapa parent-objects <br>
+                        för mina noder. <br>
+                        <br>
+                        Jag använder mig av två huvudsakliga divar, en för reglerna och information om spelet ('rules') <br>
+                        och en för spelet ('gameboard').<br>
+                        'Rules' används för att ge övergripande information om testet både innan det börjar och under dess exekvering. <br>
+                        Detta fungerar alltså som hjälpmeddelandet som nämns i specen och finns i alla fall det 'behövs' innan testet börjar.<br>
+                        'Gameboard' används som ett spelbräde som får objekt allokerat till sig och rensas innan varje nytt moment. <br>
+                        Dessa två divar används i princip som grandparent-objects, de används för att skapa divar (parents) <br>
+                        och dess associerade objekt (children).<br>
+                        De divarna är alltså min 'sida' och används som specifierat i speccen som parents för mitt dynamiska innehåll.
+                        <br>
+                        <br>
+                        Sen har vi även 'Test', som är specifierat att använda för att ge lite 'fusk'-tillgång i spelet.<br>
+                        Jag har valt att göra 'Test' betydligt mer avancerad än vad som specifierat;<br>
+                        Du kan exempelvis använda dig av Test för att få ut svaren på ditt nuvarande test, eller för att gå mellan<br>
+                        spel, resetta spel, få ut din nuvarande poäng globalt eller specifikt denna omgången.<br>
+                        <br>
+                        Test objektet är helt enkelt där för att hjälpa dig under din tid i spelet.<br>
+                        Test visar även en hjälpsträng när du börjar första testet. Den strängen kan anropas via Test.help() vid senare test. <br>
+                        <br>
+                        Uträkningen av intelligens är väldigt simpel; jag använder mig av den poängsättningen som specificerats i specen:<br> <br>
+                        1: 3 frågor, vardera värd 3 poäng  (9),<br>
+                        2: Rätt svar ger 3 poäng           (3),<br>
+                        3: 9 flaggor, vardera värd 1 poäng (9),<br>
+                        4: 10 objekt, vardera värd 1 poäng (10),<br>
+                        5: 10 objekt, vardera värd 1 poäng (10)<br><br>
+                        Sammanlagt blir det 41 (9 + 3 + 9 + 10 + 10) poäng. <br>
+                        <br>
+                        I slutet av testet så visas ens slutpoäng tillsammans med maxpoängen.
+                        <br><br>
+
                         <ol>
-                            <li> Tipsfrågor </li><br>
-                            
+                            <li> <b>Tipsfrågor</b> </li><br>
+
+                            Här visas tre frågor, efter vad specens krav; vardera värd tre poäng. <br><br>
+                            Frågorna är egentligen ett objekt (game_object) av objekt (question).
+                            Varje question-objekt har dess tre möjliga alternativ samt det korrekta alternativet.<br>
+                            Dessa tre frågor använder sig av radiobuttons, vilka har sin text inom 'labels',
+                            alltså fungerar varje radiobutton som en nod för sig, med ett barn som är en 'label'. <br>
+                            Anledningen till att jag valt att gå den rutten är för att jag visar vilket svar som var rätt
+                            genom att ändra färgen på den 'label':n som tillhör det rätta svaret till grönt, och de andra två
+                            blir röda. <br>
+                            Rätt simpelt lagt så testas alltså värdet labeln från den radiobutton som klickats mot det rätta svaret
+                            i radiobutton-gruppens associerade question-objekt.<br>
+                            Som nämnt i inledningen så är koden rätt primitiv, där jag sätter många av div-elementen osv rätt i innerHTML.<
+                            Något som överlag ses som 'bad' practice. Jag nämner även ovan varför jag valde att göra på så vis.
+                            <br><br>
+                            Utöver ovan beskrivning så är första testet rätt basic, användaren ska kunna klicka på en gissning och korrekt svar
+                            ska visas direkt (enligt specen). Så mitt sätt att göra detta är att skapa ett 'click'-event som fångar användarens klick
+                            och disablar den klickade gruppen och visar rätt svar (enligt ovan). <br><br>
+                            Vid valfrit tillfälle kan användaren välja att navigera bort från testet genom att klicka på knappen nere till höger.<br><br>
 
 
 
-                        <li><b>Var det svårt att greppa hur function scope och closure fungerar eller känns det naturligt?</b></li><br><br>
+                        <li><b>FizzBuzz</b></li><br><br>
 
-                        Det känns överlag rätt naturligt. Jag har ju jobbat med de här sakerna tidigare, så scopes känns väldigt naturligt.<br>
-                        Jag hade det lite svårt att förstå hur jag skulle anropa saker i den bifogade hangman-filen (hangman.js), men efter att ha klurat runt hur det skulle lösas en bra stund<br>
-                        så insåg jag att jag hade missat en bracket (")") i slutet av min onload. Känns ju lagom smart, men man lär sig så länge man lever...<br><br>
+                        Här börjar det bli lite mer avancerat, dock inte riktigt svårt än. <br>
+                        Jag börjar med att skapa en slumpmässig sekvens av nummer som jag sparar i en lista. Sedan iterarar jag över listan för att säkerställa att det
+                        finns åtminstone 2 objekt som kan fungera som fizz, fizzbuzz eller buzz. Utifall det finns fler än 2 så används ännu en Math.random för att hitta
+                        2 slumpmässiga av de möjliga talen. <br>
+                        Tanken med det var att jag ville ha det så dynamiskt som möjligt, mer för mig själv än för testet. Första testet var ju så satans statiskt, så
+                        det kändes viktigt för mig att göra något lite mer dynamiskt. <br>
+                        Efter att sekvensen är skapad skapas ännu en lista, denna gång av strängar, som innehåller de möjliga gissningarna. Här är det självklart viktigt
+                        att man har med sig de två korrekta numren från den ursprungliga sekvensen. <br>
+                        Efter att listan är skapad så skapas en unordered list med list-style-type 'none' för att ta bort någon slags 'decoration' och sedan
+                        tas strängarna från listan och så skapan listelement 'li' med varsitt DOM-element (button) med textNode(strängen). Rätt simpelt, eller hur? <br>
+                        Självklart får även varje DOM-element sin egen eventListener som tester utifall ditt svar var korrekt.<br>
+                        Därefter får du se vilket svar var korrekt och kan navigera till nästa spel.<br>
+                        <br>
 
-                        I slutändan började jag förstå hur man skulle arbeta med closure osv, dock. Det var lite småsvårt till att börja med, mest för att jag inte hade full koll på hur man jobbar med<br>
-                        consolen tillsammans med JS, alltså med input från consolen. Det var riktigt kul när man förstod det, dock! <br>
-                        Min kodstruktur är rätt intressant, dock. Hangman fungerar som en class skulle gjort i java, dvs att man arbetar med den genom att köra Hangman.hangman.show() för att nå <br>
-                        hangmans publika funktioner (show, hide). <br>
-                        Som svar på extrauppgiften (kunna spela spelet från konsolen) så har ni tillgång till <span class="code"> Hangman.guess(letter) </span>. Denna fungerar mycket som wordlist och<br>
-                        peek, med skillnad att den kräver två variabler (gissningen och en referens till att gissningen skickats från konsolen). <br><br>
+                        <li><b>Minne</b></li><br><br>
+                        Detta test var nog det jag hade mest problem med, antagligen för att jag var dum nog att fortätta att använda primitiv javascript-kod. <br>
+                        Här började alltså addEventListeners osv börja bli lite jobbigt att jobba med då jag inte allting var noder osv, utan vissa objekt var specifikt
+                        deklarerade (strong-typed) i innerHTML. Detta gjorde det svårt att veta just när JavaScripts UI-tråd når vad, vilket kunde leda till att en
+                        addEventListener antingen blev associerad med fel objekt, eller att det objektet jag ville att den skulle associeras med inte fanns övht.<br>
+                        Det blev även lite svårare när man väl börjar jobba med addEventListeners och setTimeout-event, då man inte riktigt vet var UI-tråden kommer dra iväg.
+                        Jag visste inte ursprungligen att ett setTimeout-event helt enkelt sätter en flagga på raden och sedan forstätter exekvera tills dess att tiden tagit
+                        slut och sedan går tillbaka till den flaggade raden.<br><br>
+                        Exempelvis detta:<br>
+                        <span class="code">
+                        var par = document.getElementById('parent');<br>
+                        var button = document.createElement('button');<br>
+                        var txt = document.createTextNode('Tester');<br>
+                        button.appendChild(txt);<br>
+                        window.setTimeout(function(){<br>
+                        	par.appendChild(button);<br>
+                        }, 3000);<br>
+                        button.addEventListener('click', function(){<br>
+                        alert('clicked');<br>
+                        });
+                        </span><br><br>
+                        Urprungligen hade jag trott att i koden ovan hade UI-tråden 'stannat' kvar i setTimeout-eventet, medans egentligen så forsätter den alltså iterara
+                        över all kod och väntar med att gå in i setTimeout-eventet. Dvs att i mitt fall, då jag använde mig av 'skitkod' avsiktligen, för att lära mig,
+                        (igen, alltså innerHTML osv), så hände det alltså att jag hade null-pointers, alltså referarade till objekt som inte fanns, då de inte funnits
+                        i ren och skär HTML-kod. <br>
+                        Som sagt så var det ett medvetet misstag att använda mig av den ovan nämnda 'skitkoden'. För att helt enkelt lära mig av dess kortkommanden;
+                        när och hur problem uppstår när man använder sig av så kallad primitiv kod.<br>
+                        <br>
+                        Rent tekniskt sätt så använde jag mig alltså av först ett tomt gameboard där användaren har möjlighet att spana igenom reglerna och sedan starta timern(5s).<br>
+                        Därefter så visas flaggorna faceup så att användaren har möjlighet att lära sig var vardera flagga är. <br>
+                        Efter att timern löpt ut så skapas en shufflad lista (enligt Fisher-Yates algoritmen) med vardera associerad flagga i, men i en annan ordning. <br>
+                        Denna listan visas efter en sekund efter att flaggorna lagts backup, så att säga. <br>
+                        <br>
+                        I denna uppgift återanvände jag mig av en liten del av koden från flag4, men nästan ALL css-kod för att hantera transitions osv. <br>
+                        Utöver det så la jag till lite kod i min eventListener, så att varje flagga som klickats förlorar sin eventListener, för att motverka 'fusk'. <br>
+                        Den slumpmässigt genererade listan är också rätt cool. Där använder jag mig av riktiga DOM-objekt och itererar igenom listan för varje rätt svar.
+                        Om det är rätt svar ändras alltså klasslistan och lite snygg text-dekoration animeras, som en liten scroll typ.
+                        <br>
+                        Det kan vara värt att nämna att Test.get_answer() visar listan på vilka flaggor ligger på vilken plats, för att göra det lite lättare för er att testa.
+                        <br>
+                        Man får även ett lite fint meddelande om man lyckas få alla korrekta flaggor. Försök, utan att fuska! ;)
+                        <br><br>
+                        <li><b>Visuell intelligens</b></li>
+                        Här börjar det verkligen bli lite jobbigt (alltså på riktigt). <br>
+                        Det var på god tid att börja använda sig av lite mer modern JS-kod här, så allting bygger egentligen på noder.
+                        Som jag nämnde lite kort ovan så har jag alltså valt att i test 4 och 5 använda mig av noder som klaffar fast vid barn till huvudelementet gameboard. <br>
+                        Så i detta fall så används innerHTML ytterst sparsamt, endast för att skapa elementen som jag använder mig av för att sätta fast mina noder vid. <br><br>
+                        Innan jag går in på något rent tekniskt vill jag påpeka att det finns en risk att testet inte fungerar väl på vissa skärmar, detta då jag använder mig av
+                        mixade storlekar och offsets (px och %). Så om ni stöter på något problem så kan ni enkelt använda er av knappen som säger 'reset' test.
+                        <br>Det bör verkligen inte vara någon större fara. Men vid VÄLDIGT få tillfällen så kan det hända att ett objekt ligger helt över ett annat, eller att ett
+                        objekt gömmer lite av texten. Men överlag funkar det görbra. :)
+                        <br>Gissningsvis så inträffar detta pga att Math.random() fungerar mycket som liknande funktioner i c / c++ då de slumpas fram genom att använda sig av tid (ms)<br>
+                        Så det finns alltså en mindre chans att elementen skapas på precis samma plats då de 'spawnas' samtidigt och därmed får samma offsets. <br>
+                        Jag upplever inte det som ett större problem, utan något smärre som kanske kan fixas vid ett senare tillfälle. Dock upplever jag det som lite roligare med
+                        random offsets osv än att ha objekten i en lista eller liknande då det i mitt fall blir lite mer interaktivt.
+                        <br><br>
+                        I denna uppgift skapar jag tre olika objekt:
+                        <ol>
+                            <li>Ett form-objekt</li>
+                            Detta objekt används för att skapan en form. Objektet är ett objekt av objekt, där parent-objektet är ett nummer (ett id) och barn-objektet har
+                            två nycklar; class (dess associerade css klass(er) - ex 'square') och name (dess namn, används för att skapa list-strängen, se senare).
+                            <li>Ett color-objekt</li>
+                            Detta objekt precis som form-objektet, med skillnad från att dess klasser är färger, inte former.
+                            <li>Spelobjekt</li>
+                            Detta objekt är byggt på de andra objekten, alltså fungerar de två andra som interfaces (spelobjektet ärver properties).
+                            Objektet skapas med hjälp av en simpel Object.create() där ett slumpmässigt nummer som refererar till barn-objektets ID skickas in.
+                            När man skapar spelobjektet så skapas även en sträng som refererar till dess referade objekts namn. <br>
+                            Ett exempel kan vara detta: <br>
+                            var go = Object.create(game_object, x, y, z); <br>
+                            Där x = id, y = form, z = color. y och z > 0 < 5, då det endast finns 4 möjliga former och färger. <br><br>
+                        </ol>
 
-                        En annan sak som gjorde det lite svårt var att jag var tvungen att hantera consol-gissningarna lite annorlunda då jag var tvungen att hitta DOM-objekten manuellt för att <br>
-                        markera att de har blivit gissade och för att säkerställa att tidigare gissningar ses över inanan den nya används. Dvs. om du skriver 'a' och 'a' redan har gissats, så <br>
-                        behöver det registreras på något sätt. I de none-console gissningarna så har jag en event-listener som ser över "click" och på så vis sätter 'focus' på den knappen <br>
-                        som klickats på. <br><br>
+                        Efter att en array med spelobjekt skapats dynamiskt så delas gameboard upp i två delar, en övre som fungerar
+                        som den egentliga gameboarden samt en undre som fungerar som en lista med namn på de objekt som ska klickas på. <br>
+                        Bägge delarna har ENDAST DOM-element i sig som hanteras dynamiskt. Exempelvis har du i top-delen element som tas bort när de klickas på,
+                        i den nedre delen har du en lista som ändras allteftersom du klickar på objekt i den övre delen. <br>
+                        Du har alltså spelobjekten i den övre delen som alltså får en eventListener på sig. När de klickas så testas dess värden
+                        mot det markerade värdet i listan i den nedre delen. Stämmer de, så går försvinner text-decoration av det nuvarande elementet i listan
+                        och nästa element i listan får dess decoration samtidgt som det klickade elementet tas bort från spelbrädet. <br> <br>
+                        Då jag använde mig av korrekt, modern JS-kod så var det inga större problem som jag stötte på under denna utvecklingsfas. Dock blev det
+                        lite jobbigt då jag började testa funktionen eftersom den använder sig av en setTimeout så blev det ursprungligen lite bökigt att få
+                        den att fungera väl med Test.reset(). Dock så löste jag det genom att skapa en global timer variabel som fick hålla i timern.<br>
+                        Så när timern var igång och Test.reset() invokeras, så kör jag helt enkelt en window.clearTimeout(timer) och en normal reset, vilket då
+                        nollställer allting i det testet. Annars var risken överhängande att du alltså påbörjade en ny omgång medans din 'resetade' omgång
+                        fortsätter i bakgrunden.<br>
+                        Detta var även ett litet bekymmer när man kör Test.go_to() och navigerar iväg från den funktionen när man har den startad. Då inträffade
+                        samma sak som inträffade vid reset(), alltså att ditt förra spel fortsätter i bakgrunden. Det löstes på samma sätt, dock.<br><br>
 
-                        <li><b>Kan du jämföra “module pattern” med någon annat liknande datastruktur?</b></li><br><br>
-                        Det är inget specifikt just för JS, om jag ska vara helt ärlig. Det handlar ju egentligen om att man kan ha ett gäng moduler och det som finns i modulens scope inte<br>
-                        kan tillgås utanför modulen (module scope).<br>
-                        Om vi ska jämföra module pattern med något annat så är det väl rätt enkelt att likna det vid objekt eller klasser i andra språk, där en klass kan ha x specifika moduler<br>
-                        och n variabler som endast kan nås via antingen get-methods eller som är instansierade just i dess scope, om inte annat specifierat.<br><br>
 
-                        <li><b>Känns “module pattern som en bra kodstruktur”?</b></li><br><br>
-                        Jo, men det är det ju självklart. Det är som sagt en rätt basic struktur där man bryter ner en massa kod i moduler för att säkerställa att kod som INTE ska kunnas nås<br>
-                        inte kan nås (private variabler) eller för att ge kod en mer strukturerad (mer lättläst) struktur. Det gör det lättare för personer att läsa, att förstå men ökar<br>
-                        även produktionen, då man har tillgång till att göra 'mer' när ens kod är korrekt strukturerad. Ett lätt exempel är ju när man använder funktioner<br>
-                        som tillåter en utvecklare att skriva 'mindre' kod. <br>
                    </ul>
             </div>
         </div>
